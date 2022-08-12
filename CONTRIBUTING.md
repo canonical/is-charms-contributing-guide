@@ -8,4 +8,4 @@ difficult to set across the team.
 Any charm code will be written in Python. Contributions to juju will be in Go.
 
 This means we only have a dependency on contributors knowing two programming
-language.
+languages.
