@@ -10,7 +10,8 @@ complete. The test code is separated into blocks for each section. For example:
 
 ```Python
 def test_something():
-    """arrange: given 2 numbers
+    """
+    arrange: given 2 numbers
     act: when they are added
     assert: the result must be the sum of the 2 numbers.
     """
@@ -21,6 +22,12 @@ def test_something():
 
     assert result == 3
 ```
+
+Whilst this standard is usually valuable, there are cases where it imposes
+unreasonable constraints. An example is complex functional tests that check
+multiple interactions that require individual arrange, act, assert blocks
+because they, for example, build on each other. In those cases, apply judgement
+keeping in mind the option of breaking up the test into multiple tests.
 
 This structure makes it easy to understand what is required before test
 execution, how the test works and what it checks for in the end.
