@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ## Programming Languages and Frameworks
 
 If we develop in many different programming languages and frameworks, the
