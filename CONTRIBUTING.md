@@ -85,7 +85,29 @@ keeping in mind the option of breaking up the test into multiple tests.
 This structure makes it easy to understand what is required before test
 execution, how the test works and what it checks for in the end.
 
-# Non Compliant Code
+## Test Coverage
+
+Unit tests check whether the intended fucntionality has been implemented. This
+is valuable to reduce bugs and checking whether any changes to the code break
+any features. The benefits of testing are roughly proportional to the test
+coverage percentage, the lower the coverage the higher the chances of bugs and
+the higher the risk of code changes.
+
+The team has a coverage percentage which is the maximum of 85% and the current
+percentage on the default branch, usually `main`. Any code that is already
+covered on the default branch should not cease to be covered by new commits to
+main, such as through a pull request. Any coverage exclusiong should have an
+explanatory comment, such as:
+
+```Python
+# Exclude from coverage since unit tests should not run as __main__
+if __name__ == "__main__":  # pragma: no cover
+   ...
+```
+
+This ensures a high coverage minimum and no coverage regression.
+
+## Non Compliant Code
 
 Standards and best practices evolve over time which means that code already
 written may not comply with a new standard. If this is wide spread, it can lead
