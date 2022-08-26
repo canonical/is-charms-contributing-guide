@@ -87,7 +87,7 @@ execution, how the test works and what it checks for in the end.
 
 ## Test Coverage
 
-Unit tests check whether the intended fucntionality has been implemented. This
+Unit tests check whether the intended functionality has been implemented. This
 is valuable to reduce bugs and checking whether any changes to the code break
 any features. The benefits of testing are roughly proportional to the test
 coverage percentage, the lower the coverage the higher the chances of bugs and
@@ -96,7 +96,7 @@ the higher the risk of code changes.
 The team has a coverage percentage which is the maximum of 85% and the current
 percentage on the default branch, usually `main`. Any code that is already
 covered on the default branch should not cease to be covered by new commits to
-main, such as through a pull request. Any coverage exclusiong should have an
+main, such as through a pull request. Any coverage exclusion should have an
 explanatory comment, such as:
 
 ```Python
