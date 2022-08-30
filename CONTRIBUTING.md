@@ -105,6 +105,17 @@ if __name__ == "__main__":  # pragma: no cover
    ...
 ```
 
+To enforce this, the `pyproject.toml` file should include the following
+configuration:
+
+```toml
+[tool.coverage.report]
+fail_under = <maximum of coverage % on main and 85%>
+```
+
+This value should be updated in each PR to reflect any increase in coverage
+compared to the main branch as a result of the PR.
+
 This ensures a high coverage minimum and no coverage regression.
 
 ## Non Compliant Code
