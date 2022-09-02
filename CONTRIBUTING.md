@@ -51,6 +51,28 @@ This ensures that the tests are run on the same Python version as the charm
 will be running in production, catching any issues related to mismatched Python
 versions.
 
+## Repository Setup
+
+The repositories that store the source code for the charms are critical to the
+ongoing development of our charms. They also enforce team policies around code
+review and ensure business continuity. If the repository is setup poorly. it
+exposes our team and Canonical to operational risks.
+
+- GitHub should be used for charm source code and issue tracking.
+- The repository should be publicly accessible.
+- The `is-charms` team is added as maintainers.
+- Management and director of the team that owns the charm is added as admins on
+  the repository.
+- Branches are auto-deleted after merging.
+- The only option for merging PRs is using a squash commit.
+- The default branch is called `main`.
+- The default branch is protected and can only be changed using PRs.
+- The number of approvers for PRs is 2.
+- Approvals reset on any new commits.
+
+The above configuration ensures our team processes around changes are enforced
+and provdes access to the repository even if some team members are unavailable.
+
 ## Test Structure
 
 Tests that are difficult to understand are of lower value because if they fail
