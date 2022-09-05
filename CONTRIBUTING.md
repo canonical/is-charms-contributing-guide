@@ -69,6 +69,8 @@ exposes our team and Canonical to operational risks.
 - The default branch is protected and can only be changed using PRs.
 - The number of approvers for PRs is 2.
 - Approvals reset on any new commits.
+- PRs can only be merged if all checks pass.
+- Bypassing of the rules is disabled.
 
 The above configuration ensures our team processes around changes are enforced
 and provdes access to the repository even if some team members are unavailable.
