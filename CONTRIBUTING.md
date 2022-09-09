@@ -170,8 +170,9 @@ location it appears in the final string.
 Log messages often need to include the value of variables, such as exceptions
 or configuration. Usually f-strings are the preferred way of formatting
 strings. However, due to logging features, using f-strings or `str.format` is a
-security risk (see https://bugs.python.org/issue46200) and also causes the
-string formatting to be done even if the log level for the message is disabled.
+security risk (see [issue46200](https://bugs.python.org/issue46200)) and also
+causes the string formatting to be done even if the log level for the message
+is disabled.
 
 Use the string formatting provided by logging:
 
@@ -186,7 +187,7 @@ logging.debug("string %s", foo)
 Whilst this is less readable, it prevents security issues and avoids
 unnecessary evaluation of the string formatting. Even if the formatting input
 is trusted, the logging provided formatting should be used because the input
-may become untrusted due to a feature change.
+may become untrusted due to a code change in the future.
 
 ## Non Compliant Code
 
