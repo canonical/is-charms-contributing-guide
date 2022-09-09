@@ -75,6 +75,12 @@ exposes our team and Canonical to operational risks.
 The above configuration ensures our team processes around changes are enforced
 and provdes access to the repository even if some team members are unavailable.
 
+The repository will contain a `CODEOWNERS` file in its root to automatically add 
+the `is-charms` team as reviewer
+```
+*       @canonical/is-charms
+```
+
 ## Test Structure
 
 Tests that are difficult to understand are of lower value because if they fail
