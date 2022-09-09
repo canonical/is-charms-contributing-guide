@@ -142,6 +142,52 @@ compared to the main branch as a result of the PR.
 
 This ensures a high coverage minimum and no coverage regression.
 
+## f-strings
+
+The `str.format` based syntax is difficult to read because, to figure out what
+the final string looks like, the format parameters have to be checked against
+their position in the string which adds additional mental overhead to reading
+the code. String concatenation with + is also difficult read read.
+
+f-strings are the preferred way of including variables in a string. For
+example:
+
+```Python
+foo = "substring"
+# .format is not preferred
+bar = "string {}".format(foo)
+# string concatenation is not preferred
+bar = "string " + foo
+# f-strings are preferred
+bar = f"string {foo}"
+```
+
+f-strings are much easier to read because the variable is placed at the
+location it appears in the final string.
+
+## Formatting Log Messages
+
+Log messages often need to include the value of variables, such as exceptions
+or configuration. Usually f-strings are the preferred way of formatting
+strings. However, due to logging features, using f-strings or `str.format` is a
+security risk (see https://bugs.python.org/issue46200) and also causes the
+string formatting to be done even if the log level for the message is disabled.
+
+Use the string formatting provided by logging:
+
+```Python
+foo = "substring"
+# Security risk
+logging.debug(f"string {foo}")
+# Safe
+logging.debug("string %s", foo)
+```
+
+Whilst this is less readable, it prevents security issues and avoids
+unnecessary evaluation of the string formatting. Even if the formatting input
+is trusted, the logging provided formatting should be used because the input
+may become untrusted due to a feature change.
+
 ## Non Compliant Code
 
 Standards and best practices evolve over time which means that code already
