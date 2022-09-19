@@ -197,8 +197,9 @@ may become untrusted due to a code change in the future.
 
 ## Docstrings
 
-Functions without a well formatted description can be difficult to understand
-and maintain, especially if the function is longer than just a few lines.
+Modules, functions and classes without a well formatted description can be
+difficult to understand and maintain, especially if the function is longer than
+just a few lines.
 
 Each module, function and class should have a docstring. The Google standard on
 docstring applies:
