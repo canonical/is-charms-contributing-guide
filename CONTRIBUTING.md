@@ -89,7 +89,7 @@ it is difficult to understand why they fail.
 The docstring of a test has 3 sections, *arrange*, *act* and *assert*. Arrange
 explains the pre-conditions required for the test, act explains what steps the
 test performs and assert explains what the state must be after all actions are
-complete. If the description for each stage is longer than one line, any
+complete. If the description for a section is longer than one line, any
 additional lines are indented by the default indentation of the file. The test
 code is separated into blocks for each section. For example:
 
