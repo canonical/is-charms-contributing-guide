@@ -204,7 +204,7 @@ just a few lines.
 Each module, function and class should have a docstring. Both
 [PEP257](https://peps.python.org/pep-0257/) and the
 [Google standard](https://github.com/google/styleguide/blob/gh-pages/pyguide.md#38-comments-and-docstrings)
-on docstring apply.
+on docstrings apply.
 
 Exemptions:
 
