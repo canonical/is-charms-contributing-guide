@@ -201,9 +201,10 @@ Modules, functions and classes without a well formatted description can be
 difficult to understand and maintain, especially if the function is longer than
 just a few lines.
 
-Each module, function and class should have a docstring. The Google standard on
-docstring applies:
-[docstring guide](https://github.com/google/styleguide/blob/gh-pages/pyguide.md#38-comments-and-docstrings).
+Each module, function and class should have a docstring. Both
+[PEP257](https://peps.python.org/pep-0257/) and the
+[Google standard](https://github.com/google/styleguide/blob/gh-pages/pyguide.md#38-comments-and-docstrings)
+on docstring apply.
 
 Exemptions:
 
