@@ -89,14 +89,18 @@ it is difficult to understand why they fail.
 The docstring of a test has 3 sections, *arrange*, *act* and *assert*. Arrange
 explains the pre-conditions required for the test, act explains what steps the
 test performs and assert explains what the state must be after all actions are
-complete. The test code is separated into blocks for each section. For example:
+complete. If the description for a section is longer than one line, any
+additional lines are indented by the default indentation of the file. The test
+code is separated into blocks for each section. For example:
 
 ```Python
 def test_something():
     """
     arrange: given 2 numbers
     act: when they are added
-    assert: the result must be the sum of the 2 numbers.
+    assert: the result must be the sum of the 2 numbers. If a description spans
+        multiple lines, lines after the first should be indented by the default
+        spacing of the file to indicate that the description continues.
     """
     num_a = 1
     num_b = 2
