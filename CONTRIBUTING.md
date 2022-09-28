@@ -199,6 +199,24 @@ unnecessary evaluation of the string formatting. Even if the formatting input
 is trusted, the logging provided formatting should be used because the input
 may become untrusted due to a code change in the future.
 
+## Docstrings
+
+Modules, functions and classes without a well formatted description can be
+difficult to understand and maintain, especially if the function is longer than
+just a few lines.
+
+Each module, function and class should have a docstring. Both
+[PEP257](https://peps.python.org/pep-0257/) and the
+[Google standard](https://github.com/google/styleguide/blob/gh-pages/pyguide.md#38-comments-and-docstrings)
+on docstrings apply.
+
+Exemptions:
+
+1. Test functions
+2. Test fixtures
+
+This makes the code easier to understand and maintain.
+
 ## Non Compliant Code
 
 Standards and best practices evolve over time which means that code already
