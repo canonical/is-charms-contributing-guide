@@ -217,6 +217,22 @@ Exemptions:
 
 This makes the code easier to understand and maintain.
 
+## Type Hints
+
+Python is a dynamic programming language that does not require type
+declarations. Without type information, arguments might be passed to functions
+that are not of the expected type (e.g., passing `None` where it is not
+expected), which leads to more bugs. It also makes it more difficult to know
+what functions accept as input and return as output.
+
+Except when impractical, declare type hints on function parameters, return
+values and class and instance variables. An examples of when type hints might
+be impractical is for dictionaries with many nested dictionaries or decorator
+functions. The type hints should be checked with `mypy`.
+
+This will help users know what functions expect as parameters and return and
+catches more bugs earlier.
+
 ## Non Compliant Code
 
 Standards and best practices evolve over time which means that code already
