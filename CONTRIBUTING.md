@@ -228,7 +228,8 @@ what functions accept as input and return as output.
 Except when impractical, declare type hints on function parameters, return
 values and class and instance variables. An examples of when type hints might
 be impractical is for dictionaries with many nested dictionaries or decorator
-functions. The type hints should be checked with `mypy`.
+functions. The type hints should be checked with `mypy`. More information on
+type hints can be found here: [PEP 484](https://peps.python.org/pep-0484/).
 
 This will help users know what functions expect as parameters and return and
 catches more bugs earlier.
