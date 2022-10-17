@@ -75,7 +75,7 @@ exposes our team and Canonical to operational risks.
 The above configuration ensures our team processes around changes are enforced
 and provdes access to the repository even if some team members are unavailable.
 
-The repository will contain a `CODEOWNERS` file in its root to automatically add 
+The repository will contain a `CODEOWNERS` file in its root to automatically add
 the `is-charms` team as reviewer
 ```
 *       @canonical/is-charms
@@ -239,6 +239,44 @@ type hints can be found here: [PEP 484](https://peps.python.org/pep-0484/).
 
 This will help users know what functions expect as parameters and return and
 catches more bugs earlier.
+
+## Static Code Analysis
+
+There are many potential problems with code that can be spotted based on
+analysing source code without executing it, such as mismatches in type
+expectations. Additionally, code formatting discussions during PRs can be
+cumbersome and take up a lot of time.
+
+The following automated static code analysis tools should be used locally and
+enforced through the CI system:
+
+- [`black`](https://pypi.org/project/black/) for code formatting
+   - line length of 99
+   - Python target version based on the same is in the
+     [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
+- [`isort`](https://pypi.org/project/isort/) for import sorting
+  - line length of 99
+  - `black` profile
+- [`flake8`](https://pypi.org/project/flake8/) for pythonic code style
+   - refer to
+     [indico `pyproject.toml`](https://github.com/canonical/indico-operator/blob/main/pyproject.toml)
+   - use the following additional plugins:
+     - `flake8-docstrings`
+     - `flake8-copyright`
+     - `flake8-builtins`
+     - `pyproject-flake8`
+     - `pep8-naming`
+     for additional configurations
+- [`bandit`](https://pypi.org/project/bandit/) for security checks
+- [`codespell`](https://pypi.org/project/codespell/) for spelling problems
+- [`woke`](https://snapcraft.io/woke) for inclusive language
+- [`prettier`](https://prettier.io) for JSON and YAML formatting
+- [`mypy`](https://pypi.org/project/mypy/) for type checks
+- [`pylint`](https://pypi.org/project/pylint/) for further python code style
+  checks
+
+This ensures consistency across our projects, catches many potential bugs
+before code is deployed and simplifies PRs.
 
 ## Non Compliant Code
 
