@@ -208,7 +208,32 @@ just a few lines.
 Each module, function and class should have a docstring. Both
 [PEP257](https://peps.python.org/pep-0257/) and the
 [Google standard](https://github.com/google/styleguide/blob/gh-pages/pyguide.md#38-comments-and-docstrings)
-on docstrings apply.
+on docstrings apply. Here is an example:
+
+ ```Python
+ def foo(arg1: str, arg2: int) -> bool:
+     """This is the short description.
+
+     This is the longer description that goes into more detail. May not always be required depending
+     on the complexity of the function.
+
+     This is where any excpetions that could be raised are described. Usually it is best to only
+     include exceptions that are raised directly in the function and not those raised in functions
+     being called by the function.
+
+     Args:
+         arg1: This is the description for the first argument.
+         arg2: This is the description for the second argument. If the description is a bit longer,
+             this is what it would look like to make it easier to spot that the description for the
+             argument continues. If type hints are included in the function signature, there is
+             usually no need to specify the type of the argument here.
+
+     Returns:
+         This is the return value. Longer descriptions can span multiple lines, as demonstrated
+         here.
+     """
+     ...
+ ```
 
 Exemptions:
 
