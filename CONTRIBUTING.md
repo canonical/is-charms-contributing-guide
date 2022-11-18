@@ -217,10 +217,6 @@ def foo(arg1: str, arg2: int) -> bool:
     This is the longer description that goes into more detail. May not always be required depending
     on the complexity of the function.
 
-    This is where any excpetions that could be raised are described. Usually it is best to only
-    include exceptions that are raised directly in the function and not those raised in functions
-    being called by the function.
-
     Args:
         arg1: This is the description for the first argument.
         arg2: This is the description for the second argument. If the description is a bit longer,
@@ -231,6 +227,12 @@ def foo(arg1: str, arg2: int) -> bool:
     Returns:
         This is the return value. Longer descriptions can span multiple lines, as demonstrated
         here.
+
+    Raises:
+        AnError: This is where any exceptions that could be raised are described. Usually it is
+            best to only include exceptions that are raised directly in the function and not those
+            raised in functions being called by the function.
+        AnotherError: This is what a second error description might look like.
     """
     ...
 ```
