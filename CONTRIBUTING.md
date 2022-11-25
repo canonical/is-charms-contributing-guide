@@ -1,3 +1,18 @@
+## Standards
+
+- [Charm Configuration Option Description](#charm-configuration-option-description)
+- [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
+- [Docstrings](#docstrings)
+- [f-strings](#f-strings)
+- [Formatting Log Messages](#formatting-log-messages)
+- [Non Compliant Code](#non-compliant-code)
+- [Programming Languages and Frameworks](#the-header)
+- [Repository Setup](#repository-setup)
+- [Static Code Analysis](#static-code-analysis)
+- [Test Coverage](#test-coverage)
+- [Test Structure](#test-structure)
+- [Type Hints](#type-hints)
+
 ## Programming Languages and Frameworks
 
 If we develop in many different programming languages and frameworks, the
@@ -137,6 +152,64 @@ the `is-charms` team as reviewer
 ```
 *       @canonical/is-charms
 ```
+
+## Charm Configuration Option Description
+
+The charm configuration is defined in a single file named config.yaml. Each configuration option can define a `description` that contains an explanation of the configuration item. When a charm is published to the official repository of charms, [Charmhub](https://charmhub.io/), this configuration file will be used as content for the `Configure` page.
+
+The `description` is a string type (scalar). YAML supports two types of formats for that: block scalar and flow scalar.
+
+The Block Scalar format has three parts: Block Style Indicator, Block Chomping Indicator and Indentation Indicator. More information in [YAML Multiline](https://yaml-multiline.info/).
+
+The Block Style Indicator indicates how newlines inside the block should behave.
+
+- ">"  new lines will be replaced by spaces.
+- "|"  new lines will be kept as newlines.
+
+The choice affects how the Charmhub documentation is presented to the user so it's important to format the description and choose the indicator accordingly.
+
+Real example: [Alertmanager k8s Charm](https://charmhub.io/alertmanager-k8s).
+
+This is how `templates_file`and `web_external_url` configuration options are defined in [config.yaml](https://github.com/canonical/alertmanager-k8s-operator/blob/main/config.yaml):
+
+```Yaml
+  templates_file:
+    type: string
+    default: ""
+    description: >
+      Alertmanager templates definition file. This is a slight deviation from the official
+      alertmanager config spec. All templates need to go into this single config option, instead of
+      the 'templates' section of the main configuration file. The templates will be pushed to the
+      workload container, and the configuration file will be updated accordingly. Templates can't
+      be used without `config_file`.
+      Refer to https://prometheus.io/docs/alerting/latest/notification_examples/ for more details
+      on templates.
+  web_external_url:
+    type: string
+    default: ""
+    description: |
+      The URL under which Alertmanager is externally reachable (for example, if
+      Alertmanager is served via a manually configured ingress).
+
+      This config option is used for the `--web.external-url` alertmanager cli
+      argument. If this charm config option is provided, it takes precedence over the
+      URL provided over the "ingress" relation.
+
+      Note: this config option shouldn't be included when you're using the "ingress"
+      relation (e.g. traefik) - the charm will automatically assign an external url
+      to `--web.external-url` when related to an ingress provider.
+
+      This should be a complete URI, including scheme, or a  fully qualified subpath
+      starting with `/`.
+      If Alertmanager is being served directly from the root of a fully-qualified
+      host or a bare A record, this may be omitted.
+      If the URL has a path portion, Alertmanager will use it to prefix all HTTP
+      endpoints.
+```
+
+And this is how is shown in its Charmhub (page)[https://charmhub.io/alertmanager-k8s/configure]:
+
+![Alertmanager Charmhub Configure Page](./imgs/alertmanager-charmhub-configure-page.png)
 
 ## Test Structure
 
