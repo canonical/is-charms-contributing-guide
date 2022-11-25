@@ -163,8 +163,8 @@ The Block Scalar format has three parts: Block Style Indicator, Block Chomping I
 
 The Block Style Indicator indicates how newlines inside the block should behave.
 
-- ">"  new lines will be replaced by spaces.
-- "|"  new lines will be kept as newlines.
+- `>`  new lines will be replaced by spaces.
+- `|`  new lines will be kept as newlines.
 
 The choice affects how the Charmhub documentation is presented to the user so it's important to format the description and choose the indicator accordingly.
 
@@ -207,7 +207,7 @@ This is how `templates_file`and `web_external_url` configuration options are def
       endpoints.
 ```
 
-And this is how is shown in its Charmhub (page)[https://charmhub.io/alertmanager-k8s/configure]:
+And this is how is shown in its Charmhub [page](https://charmhub.io/alertmanager-k8s/configure):
 
 ![Alertmanager Charmhub Configure Page](./imgs/alertmanager-charmhub-configure-page.png)
 
