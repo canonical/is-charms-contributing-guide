@@ -6,7 +6,7 @@
 - [f-strings](#f-strings)
 - [Formatting Log Messages](#formatting-log-messages)
 - [Non Compliant Code](#non-compliant-code)
-- [Programming Languages and Frameworks](#the-header)
+- [Programming Languages and Frameworks](#programming-languages-and-frameworks)
 - [Repository Setup](#repository-setup)
 - [Static Code Analysis](#static-code-analysis)
 - [Test Coverage](#test-coverage)
