@@ -96,7 +96,7 @@ The following are helpful indicators in assessing the quality of a dependency:
   the project being abandoned or malicous code making it into a release.
   Indications of adoption can include download counts (https://pypistats.org)
   and interactions on GitHub such as forks and stars.
-* How well maintained the depenency is. This indicates whether the dependency
+* How well maintained the dependency is. This indicates whether the dependency
   is under active development or potentiallly has been abandoned. Indicators of
   maintenance can include recent commits, recent releases and the number of
   recent open and closed pull requests and issues.
