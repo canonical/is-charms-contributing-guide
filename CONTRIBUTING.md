@@ -51,6 +51,63 @@ This ensures that the tests are run on the same Python version as the charm
 will be running in production, catching any issues related to mismatched Python
 versions.
 
+## Dependencies
+
+Including an external dependency in one of our projects is a significant
+choice. It can help with reducing the complexity and development cost. However,
+a poor dependency pick can lead to critical issues, such as security incidents
+around our software supply chain. Other impacts include:
+
+* We may need to take over maintenance of a project if the current maintainer
+  becomes inactive.
+* We need to keep monitoring the dependencies for any potential issues, such as
+  deprecations of features we use or retirement of the dependency in favour of
+  others.
+* Updating our code in case of breaking changes.
+
+Dependencies include anything we use that is not directly developed by our
+team, such as:
+
+* a python dependency in a `requirements.txt` file,
+* a Docker image and
+* a GitHub action.
+
+Different levels of scrutiny apply depending on how the dependency is used:
+
+* Development dependency (such as a linter): lowest level of scrutiny as it is
+  potentially easier to stop using a linter if any problems arise. Linters also
+  generally cannot make changes to our code without the team seeing the change
+  in a PR. Increased scrutiny should be applied if a tool becomes important in
+  our workflow, such as the testing library we use (e.g., `pytest`).
+* Build dependency (such as a GitHub action): medium to high level of scrutiny
+  as the output of our build processes are used in highly sensitive
+  environments. For example, the Jenkins charm our team develops is used to
+  build the Ubuntu images Canonical distributes which run many sensitive and
+  critical workloads. Compromising the Jenkins charm build process gives an
+  attacker potential access to the build process of the Ubuntu images.
+* Production dependency: high level of scrutiny, especially for charms
+  operating sensitive workloads. An example is the mattermost charm which runs
+  the Canonical internal chat server which holds sensitive data.
+
+The following are helpful indicators in assessing the quality of a dependency:
+
+* How widely adopted the dependency is. For example, `pytest` is widely used
+  across the industry and well maintained reducing the chance of, for example,
+  the project being abandoned or malicous code making it into a release.
+  Indications of adoption can include download counts (https://pypistats.org)
+  and interactions on GitHub such as forks and stars.
+* How well maintained the dependency is. This indicates whether the dependency
+  is under active development or potentiallly has been abandoned. Indicators of
+  maintenance can include recent commits, recent releases and the number of
+  recent open and closed pull requests and issues.
+* Whether the dependency is maintained by an individual or organisation. If the
+  dependency is maintained by an organisation, it is less likely that it will
+  stop being maintained as there are likely multiple people looking after the
+  dependency.
+
+By carefully selecting dependencies, we can limit security and maintenance
+problems arising from our use of dependencies.
+
 ## Repository Setup
 
 The repositories that store the source code for our charms are critical to the
