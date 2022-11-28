@@ -1,4 +1,4 @@
-## Standards
+# Standards
 
 - [Charm Configuration Option Description](#charm-configuration-option-description)
 - [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
@@ -155,22 +155,33 @@ the `is-charms` team as reviewer
 
 ## Charm Configuration Option Description
 
-The charm configuration is defined in a single file named config.yaml. Each configuration option can define a `description` that contains an explanation of the configuration item. When a charm is published to the official repository of charms, [Charmhub](https://charmhub.io/), this configuration file will be used as content for the `Configure` page.
+The charm configuration is defined in a single file named config.yaml. Each
+configuration option can define a `description` that contains an explanation of
+the configuration item. When a charm is published to the official repository of
+charms, [Charmhub](https://charmhub.io/), this configuration file will be used
+as content for the `Configure` page.
 
-The `description` is a string type (scalar). YAML supports two types of formats for that: block scalar and flow scalar.
+The `description` is a string type (scalar). YAML supports two types of formats
+for that: block scalar and flow scalar.
 
-The Block Scalar format has three parts: Block Style Indicator, Block Chomping Indicator and Indentation Indicator. More information in [YAML Multiline](https://yaml-multiline.info/).
+The Block Scalar format has three parts: Block Style Indicator, Block Chomping
+Indicator and Indentation Indicator.
+More information in [YAML Multiline](https://yaml-multiline.info/).
 
-The Block Style Indicator indicates how newlines inside the block should behave.
+The Block Style Indicator indicates how newlines inside the block should
+behave.
 
 - `>`  new lines will be replaced by spaces.
 - `|`  new lines will be kept as newlines.
 
-The choice affects how the Charmhub documentation is presented to the user so it's important to format the description and choose the indicator accordingly.
+The choice affects how the Charmhub documentation is presented to the user
+so it's important to format the description and choose the indicator
+accordingly.
 
 Real example: [Alertmanager k8s Charm](https://charmhub.io/alertmanager-k8s).
 
-This is how `templates_file`and `web_external_url` configuration options are defined in [config.yaml](https://github.com/canonical/alertmanager-k8s-operator/blob/main/config.yaml):
+This is how `templates_file`and `web_external_url` configuration options are
+defined in [config.yaml](https://github.com/canonical/alertmanager-k8s-operator/blob/main/config.yaml):
 
 ```Yaml
   templates_file:
