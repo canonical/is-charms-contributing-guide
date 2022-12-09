@@ -124,6 +124,33 @@ The following are helpful indicators in assessing the quality of a dependency:
 By carefully selecting dependencies, we can limit security and maintenance
 problems arising from our use of dependencies.
 
+## When to use Python or Shell
+
+Shell scripts are powerful and easy to write. However, they can be challenging
+to maintain as they can be difficult to read, have limited tools for testing
+and are not easy to re-use through simple import statements. Charms run
+production workloads, some of which are business critical, and it is important
+to ensure that the code is bug free which requires extensive testing.
+
+Limit the use of shell scripts and commands as much as possible in favour of
+writing Python for charm code. This means that there needs to be a good reason
+to use a shell command rather than Python. Examples inlcude:
+
+* Extracting data from a machine or container which can't be obtained through
+  Python
+* Issuing commands to applications that do not have Python bindings (e.g.,
+  starting a process on a machine)
+
+Note that, outside of charm source and test code, it is reasonable to use shell
+scripts to, for example:
+
+* Configure CI/CD
+* Build docker images
+* Utilities to support development
+
+This will improve the maintanability of our charms, enable re-use and enable
+the team to take advantage of the powerful tooling available through Python.
+
 ## Repository Setup
 
 The repositories that store the source code for our charms are critical to the
