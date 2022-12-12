@@ -3,6 +3,7 @@
 - [Charm Configuration Option Description](#charm-configuration-option-description)
 - [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
 - [Dependencies](#dependencies)
+- [When to use Python or Shell](#when-to-use-python-or-shell)
 - [Docstrings](#docstrings)
 - [f-strings](#f-strings)
 - [Formatting Log Messages](#formatting-log-messages)
