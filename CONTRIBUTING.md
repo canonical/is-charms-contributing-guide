@@ -13,6 +13,7 @@
 - [Test Coverage](#test-coverage)
 - [Test Structure](#test-structure)
 - [Type Hints](#type-hints)
+- [When to use Python or Shell](#when-to-use-python-or-shell)
 
 ## Programming Languages and Frameworks
 
