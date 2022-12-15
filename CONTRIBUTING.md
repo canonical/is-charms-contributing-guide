@@ -5,6 +5,7 @@
 - [Dependencies](#dependencies)
 - [Docstrings](#docstrings)
 - [f-strings](#f-strings)
+- [Failing Status Checks](#failing-status-checks)
 - [Formatting Log Messages](#formatting-log-messages)
 - [Non Compliant Code](#non-compliant-code)
 - [Programming Languages and Frameworks](#programming-languages-and-frameworks)
@@ -181,6 +182,30 @@ the `is-charms` team as reviewer
 ```
 *       @canonical/is-charms
 ```
+
+## Failing Status Checks
+
+The team uses GitHub actions to run CI which includes automated status checks
+to verify the code works as expected. If PRs are merged with failing status
+checks, there are potential bugs in the code which may lead to downtime or
+other operational issues or a shared tool not working as expected.
+
+PRs can only be merged if all status checks pass. Some exceptions could
+include:
+
+* If the team has recently taken over a new charm and changes are urgently
+  needed and the test suit of the existing charm is failing for spurious
+  reasons.
+* A tool we depend on is not working, no previous working version is available
+  and a change is urgently needed to fix a critical issue in production.
+
+Even in the above cases it is not clear whether it is reasonable to merge a PR
+with failing checks due to the high risks of ignoring failing checks that have
+been adopted by the team. Judgement is required in these cases weighing the
+risks of introducing bugs with the urgency and impact of the underlying need to
+land the change.
+
+This will ensure that we minimise the number of bugs in our code and tooling.
 
 ## Charm Configuration Option Description
 
