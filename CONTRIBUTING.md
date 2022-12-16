@@ -208,8 +208,10 @@ land the change.
 Alternatives to merging the PR with failing status checks include:
 
 * Change the code to fix the problem.
-* Remove the status check. This should not be done lightly as the value the
-  status check provides to the team is lost.
+* Disable the status check (e.g., mark the test as
+  [`xfail`](https://docs.pytest.org/en/7.1.x/how-to/skipping.html)). This
+  should not be done lightly as the value the status check provides to the team
+  is lost.
 * Wait for an upstream fix for the issue.
 
 This will ensure that we minimise the number of bugs in our code and tooling.
