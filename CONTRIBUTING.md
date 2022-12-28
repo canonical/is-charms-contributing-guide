@@ -79,49 +79,49 @@ choice. It can help with reducing the complexity and development cost. However,
 a poor dependency pick can lead to critical issues, such as security incidents
 around our software supply chain. Other impacts include:
 
-- We may need to take over maintenance of a project if the current maintainer
+* We may need to take over maintenance of a project if the current maintainer
   becomes inactive.
-- We need to keep monitoring the dependencies for any potential issues, such as
+* We need to keep monitoring the dependencies for any potential issues, such as
   deprecations of features we use or retirement of the dependency in favour of
   others.
-- Updating our code in case of breaking changes.
+* Updating our code in case of breaking changes.
 
 Dependencies include anything we use that is not directly developed by our
 team, such as:
 
-- a python dependency in a `requirements.txt` file,
-- a Docker image and
-- a GitHub action.
+* a python dependency in a `requirements.txt` file,
+* a Docker image and
+* a GitHub action.
 
 Different levels of scrutiny apply depending on how the dependency is used:
 
-- Development dependency (such as a linter): lowest level of scrutiny as it is
+* Development dependency (such as a linter): lowest level of scrutiny as it is
   potentially easier to stop using a linter if any problems arise. Linters also
   generally cannot make changes to our code without the team seeing the change
   in a PR. Increased scrutiny should be applied if a tool becomes important in
   our workflow, such as the testing library we use (e.g., `pytest`).
-- Build dependency (such as a GitHub action): medium to high level of scrutiny
+* Build dependency (such as a GitHub action): medium to high level of scrutiny
   as the output of our build processes are used in highly sensitive
   environments. For example, the Jenkins charm our team develops is used to
   build the Ubuntu images Canonical distributes which run many sensitive and
   critical workloads. Compromising the Jenkins charm build process gives an
   attacker potential access to the build process of the Ubuntu images.
-- Production dependency: high level of scrutiny, especially for charms
+* Production dependency: high level of scrutiny, especially for charms
   operating sensitive workloads. An example is the mattermost charm which runs
   the Canonical internal chat server which holds sensitive data.
 
 The following are helpful indicators in assessing the quality of a dependency:
 
-- How widely adopted the dependency is. For example, `pytest` is widely used
+* How widely adopted the dependency is. For example, `pytest` is widely used
   across the industry and well maintained reducing the chance of, for example,
   the project being abandoned or malicous code making it into a release.
   Indications of adoption can include download counts (https://pypistats.org)
   and interactions on GitHub such as forks and stars.
-- How well maintained the dependency is. This indicates whether the dependency
+* How well maintained the dependency is. This indicates whether the dependency
   is under active development or potentiallly has been abandoned. Indicators of
   maintenance can include recent commits, recent releases and the number of
   recent open and closed pull requests and issues.
-- Whether the dependency is maintained by an individual or organisation. If the
+* Whether the dependency is maintained by an individual or organisation. If the
   dependency is maintained by an organisation, it is less likely that it will
   stop being maintained as there are likely multiple people looking after the
   dependency.
@@ -141,17 +141,17 @@ Limit the use of shell scripts and commands as much as possible in favour of
 writing Python for charm code. This means that there needs to be a good reason
 to use a shell command rather than Python. Examples inlcude:
 
-- Extracting data from a machine or container which can't be obtained through
+* Extracting data from a machine or container which can't be obtained through
   Python
-- Issuing commands to applications that do not have Python bindings (e.g.,
+* Issuing commands to applications that do not have Python bindings (e.g.,
   starting a process on a machine)
 
 Note that, outside of charm source and test code, it is reasonable to use shell
 scripts to, for example:
 
-- Configure CI/CD
-- Build docker images
-- Utilities to support development
+* Configure CI/CD
+* Build docker images
+* Utilities to support development
 
 This will improve the maintanability of our charms, enable re-use and enable
 the team to take advantage of the powerful tooling available through Python.
@@ -205,8 +205,8 @@ More information in [YAML Multiline](https://yaml-multiline.info/).
 The Block Style Indicator indicates how newlines inside the block should
 behave.
 
-- `>` new lines will be replaced by spaces.
-- `|` new lines will be kept as newlines.
+- `>`  new lines will be replaced by spaces.
+- `|`  new lines will be kept as newlines.
 
 The choice affects how the Charmhub documentation is presented to the user
 so it's important to format the description and choose the indicator
@@ -261,7 +261,7 @@ And this is how is shown in its Charmhub [page](https://charmhub.io/alertmanager
 Tests that are difficult to understand are of lower value because if they fail
 it is difficult to understand why they fail.
 
-The docstring of a test has 3 sections, _arrange_, _act_ and _assert_. Arrange
+The docstring of a test has 3 sections, *arrange*, *act* and *assert*. Arrange
 explains the pre-conditions required for the test, act explains what steps the
 test performs and assert explains what the state must be after all actions are
 complete. If the description for a section is longer than one line, any
