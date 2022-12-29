@@ -1,4 +1,3 @@
-<!-- omit from toc -->
 # Standards
 
 ### Table of Contents
