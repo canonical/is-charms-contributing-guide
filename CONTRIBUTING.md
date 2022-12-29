@@ -1,23 +1,22 @@
+<!-- omit from toc -->
 # Standards
 
 ### Table of Contents
 
-- [Standards](#standards)
-    - [Table of Contents](#table-of-contents)
-  - [Programming Languages and Frameworks](#programming-languages-and-frameworks)
-  - [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
-  - [Dependencies](#dependencies)
-  - [When to use Python or Shell](#when-to-use-python-or-shell)
-  - [Repository Setup](#repository-setup)
-  - [Charm Configuration Option Description](#charm-configuration-option-description)
-  - [Test Structure](#test-structure)
-  - [Test Coverage](#test-coverage)
-  - [f-strings](#f-strings)
-  - [Formatting Log Messages](#formatting-log-messages)
-  - [Docstrings](#docstrings)
-  - [Type Hints](#type-hints)
-  - [Static Code Analysis](#static-code-analysis)
-  - [Non Compliant Code](#non-compliant-code)
+- [Programming Languages and Frameworks](#programming-languages-and-frameworks)
+- [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
+- [Dependencies](#dependencies)
+- [When to use Python or Shell](#when-to-use-python-or-shell)
+- [Repository Setup](#repository-setup)
+- [Charm Configuration Option Description](#charm-configuration-option-description)
+- [Test Structure](#test-structure)
+- [Test Coverage](#test-coverage)
+- [f-strings](#f-strings)
+- [Formatting Log Messages](#formatting-log-messages)
+- [Docstrings](#docstrings)
+- [Type Hints](#type-hints)
+- [Static Code Analysis](#static-code-analysis)
+- [Non Compliant Code](#non-compliant-code)
 
 ## Programming Languages and Frameworks
 
