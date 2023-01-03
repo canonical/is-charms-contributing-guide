@@ -1,7 +1,9 @@
 # Development Setup
 
-This guide serves as a guide to setting up the IDE to be compliant with the [*static code analysis*](CONTRIBUTING.md/#static-code-analysis) section
-of the contributing guide. It is a suggestion to follow the setup but does not cover all the static code analysis tools mentioned.
+This guide serves as a guide to setting up the IDE to be compliant with the
+  [*static code analysis*](CONTRIBUTING.md/#static-code-analysis) section
+  of the contributing guide. It is a suggestion to follow the setup but does
+  not cover all the static code analysis tools mentioned.
 
 ### Table of Contents
 
