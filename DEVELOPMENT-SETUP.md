@@ -41,7 +41,7 @@ The extensions do not use project configurations by default. The setup below hel
 - [isort](https://marketplace.visualstudio.com/items?itemName=ms-python.isort)
 
 1. Install VS Code isort extension
-2. Use black as the isort profile by pasting the code below into `settings.json`(Ctrl+Shift+p, Preferences: Open User Settings (JSON)) or by adding isort args `--profile`, `black`(separate item) in the settings UI (Ctrl+Shift+p, Preferences: Open User Settings (UI))
+2. Use black as the isort profile by pasting the code below into `settings.json`(Ctrl+Shift+p, Preferences: Open User Settings (JSON)) or by adding isort args `--profile`, `black`(separate item) in the settings UI (Ctrl+Shift+p, Preferences: Open Settings (UI))
 ```diff
 "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter",
