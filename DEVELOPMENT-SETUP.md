@@ -6,7 +6,6 @@ This guide serves as a guide to setting up the IDE to be compliant with the
   not cover all the static code analysis tools mentioned.
 
 ### Table of Contents
-
 - [Development Setup](#development-setup)
     - [Table of Contents](#table-of-contents)
     - [Python](#python)
@@ -31,21 +30,27 @@ The extensions do not use project configurations by default. The setup below hel
 - [Black](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter)
 
 1. Install VS Code Black formatter extension
-2. Set Black as the default formatter for Python
+2. Set black as the default formatter for Python (snippet in `settings.json` for reference)
+```json
+"[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+},
+```
 
 - [isort](https://marketplace.visualstudio.com/items?itemName=ms-python.isort)
 
 1. Install VS Code isort extension
 2. Use black as the isort profile by pasting the code below into `settings.json`(Ctrl+Shift+p, Preferences: Open User Settings (JSON)) or by adding isort args `--profile`, `black`(separate item) in the settings UI (Ctrl+Shift+p, Preferences: Open User Settings (UI))
-```json
- "[python]": {
+```diff
+"[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter",
     "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": true
-    },
-  },
-  "isort.args":["--profile", "black"],
++    "editor.codeActionsOnSave": {
++        "source.organizeImports": true
++    },
+},
++ "isort.args":["--profile", "black"],
 ```
 
 - [flake8](https://marketplace.visualstudio.com/items?itemName=ms-python.flake8)
