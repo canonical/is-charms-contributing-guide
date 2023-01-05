@@ -467,8 +467,9 @@ be impractical (not an exhaustive list):
 
 To leverage the power of type hints, the following configuration snippet should
 be added to `pyproject.toml`. This helps the user during the linting process by
-ensuring that all functions have type definitions, with the exception of test
-functions.
+ensuring that all functions, including tests, have type definitions and checks
+for any typing issues even if a function does not have explicit type hints on
+it.
 
 ```toml
 [tool.mypy]
