@@ -465,6 +465,21 @@ be impractical (not an exhaustive list):
 - when making small changes or
 - contributions to projects not owned by the team.
 
+To leverage the power of type hints, the following configuration snippet should
+be added to `pyproject.toml`. This helps the user during the linting process by
+ensuring that all functions have type definitions, with the exception of test
+functions.
+
+```toml
+[tool.mypy]
+check_untyped_defs = true
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+```
+
 The type hints should be checked with `mypy`. More information on
 type hints can be found here: [PEP 484](https://peps.python.org/pep-0484/).
 
