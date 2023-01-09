@@ -154,6 +154,8 @@ scripts to, for example:
 This will improve the maintainability of our charms, enable re-use and enable
 the team to take advantage of the powerful tooling available through Python.
 
+Note it is possible to run shell commands within python. [See this section.](#subprocess-calls-within-python)
+
 ## Subprocess calls within Python
 
 When running shell utilities or programs outside of Python, such as git, Python
