@@ -156,19 +156,39 @@ the team to take advantage of the powerful tooling available through Python.
 
 ## Subprocess calls within Python
 
-When running shell utility or programs outside fo Python, such as git, Python
-library binding are preferable over invocation with subprocess call. Python
-library may provides typed-interaction, better logging, and error handling.
+When running shell utilities or programs outside of Python, such as git, Python
+library bindings are preferable over invocation with subprocess call. Python
+libraries may provide typed-interaction, better logging, and error handling.
 
-In the case when no high-quality Python library exists, using `subprocess` in
-the standard library may be needed. In such cases it is generally good practice
+In case no high-quality Python library exists, using `subprocess` in the
+standard library may be needed. In such cases it is generally a good practice
 to:
 
-- Log down exit_code and stderr when errors occur.
+- Log exit_code and stderr when errors occur.
 - Convert to the correct exception if needed.
+- Use absolute path to prevent security issues.
+- Add `# nosec B603` to ignore bandit check, and add comment to explain the
+  usage.
 
-This applies spawning subprocess in other libraries as well, such as, `execute`
-method for LXD instance in pylxd library.
+This mostly applies to spawning subprocess in other libraries as well, such as
+`execute` method for LXD instance in pylxd library. Adding `# nosec B603` may
+not be needed.
+
+```Python
+import subprocess
+
+try:
+  # Comment to explain why subprocess is used.
+  result = subprocess.run(  # nosec B603
+    ["/usr/bin/echo", "hello world"],
+    capture_output=True,
+    check=True,
+  )
+  print(result.stdout)
+except subprocess.CalledProcessError as err:
+  logger.error("Command failed with %i: %s", err.returncode, err.stderr)
+  raise
+```
 
 ## Repository Setup
 
