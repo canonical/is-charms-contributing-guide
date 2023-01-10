@@ -171,15 +171,15 @@ In such cases it is generally a good practice to:
 - Log exit_code and stderr when errors occur.
 - Convert to the correct exception if needed.
 - Use absolute path to prevent security issues.
-- Add `# nosec B603` to ignore bandit check, and add comment to explain the
-  usage.
+- Add `# nosec B603` and `# nosec B404` to ignore bandit check, and add comment
+to explain the usage.
 
 This mostly applies to spawning subprocess in other libraries as well, such as
-`execute` method for LXD instance in pylxd library. Adding `# nosec B603` may
-not be needed.
+`execute` method for LXD instance in pylxd library. Adding `# nosec B603` and
+`# nosec B404` may not be needed.
 
 ```Python
-import subprocess
+import subprocess  # nosec B404
 
 try:
   # Comment to explain why subprocess is used.
