@@ -188,7 +188,7 @@ try:
     capture_output=True,
     check=True,
   )
-  print(result.stdout)
+  logger.debug("Command output: %s", result.stdout)
 except subprocess.CalledProcessError as err:
   logger.error("Command failed with %i: %s", err.returncode, err.stderr)
   raise
