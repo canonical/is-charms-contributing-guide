@@ -15,6 +15,7 @@
 - [Test Structure](#test-structure)
 - [Type Hints](#type-hints)
 - [When to use Python or Shell](#when-to-use-python-or-shell)
+- [Subprocess calls within Python](#subprocess-calls-within-python)
 
 ## Programming Languages and Frameworks
 
@@ -45,7 +46,7 @@ annual training budget.
 
 ## Charm Ubuntu and Python Version
 
-Using inconsitent minor Python version for development, CI and production means
+Using inconsistent minor Python version for development, CI and production means
 that, even if tests pass during development and CI, the charm may not work in
 production.
 
@@ -111,11 +112,11 @@ The following are helpful indicators in assessing the quality of a dependency:
 
 * How widely adopted the dependency is. For example, `pytest` is widely used
   across the industry and well maintained reducing the chance of, for example,
-  the project being abandoned or malicous code making it into a release.
+  the project being abandoned or malicious code making it into a release.
   Indications of adoption can include download counts (https://pypistats.org)
   and interactions on GitHub such as forks and stars.
 * How well maintained the dependency is. This indicates whether the dependency
-  is under active development or potentiallly has been abandoned. Indicators of
+  is under active development or potentially has been abandoned. Indicators of
   maintenance can include recent commits, recent releases and the number of
   recent open and closed pull requests and issues.
 * Whether the dependency is maintained by an individual or organisation. If the
@@ -136,7 +137,7 @@ to ensure that the code is bug free which requires extensive testing.
 
 Limit the use of shell scripts and commands as much as possible in favour of
 writing Python for charm code. This means that there needs to be a good reason
-to use a shell command rather than Python. Examples inlcude:
+to use a shell command rather than Python. Examples include:
 
 * Extracting data from a machine or container which can't be obtained through
   Python
@@ -150,8 +151,48 @@ scripts to, for example:
 * Build docker images
 * Utilities to support development
 
-This will improve the maintanability of our charms, enable re-use and enable
+This will improve the maintainability of our charms, enable re-use and enable
 the team to take advantage of the powerful tooling available through Python.
+
+Note it is possible to run shell commands within python. [See this section.](#subprocess-calls-within-python)
+
+## Subprocess calls within Python
+
+When running shell utilities or programs outside of Python, such as git, Python
+library bindings are preferable over invocation with subprocess call. Python
+libraries may provide typed-interaction, better logging, and error handling.
+
+In case no high-quality Python library exists, using `subprocess` in the
+standard library may be needed. Without enforcing good practice, usage of 
+subprocess call can be difficult to debug and leads security risks.
+
+In such cases it is generally a good practice to:
+
+- Log exit_code and stderr when errors occur.
+- Convert to the correct exception if needed.
+- Use absolute path to prevent security issues.
+- Add `# nosec B603` and `# nosec B404` to ignore bandit check, and add comment
+to explain the usage.
+
+This mostly applies to spawning subprocess in other libraries as well, such as
+`execute` method for LXD instance in pylxd library. Adding `# nosec B603` and
+`# nosec B404` may not be needed.
+
+```Python
+import subprocess  # nosec B404
+
+try:
+  # Comment to explain why subprocess is used.
+  result = subprocess.run(  # nosec B603
+    ["/usr/bin/echo", "hello world"],
+    capture_output=True,
+    check=True,
+  )
+  logger.debug("Command output: %s", result.stdout)
+except subprocess.CalledProcessError as err:
+  logger.error("Command failed with %i: %s", err.returncode, err.stderr)
+  raise
+```
 
 ## Repository Setup
 
@@ -175,7 +216,7 @@ exposes our team and Canonical to operational risks.
 - Bypassing of the rules is disabled.
 
 The above configuration ensures our team processes around changes are enforced
-and provdes access to the repository even if some team members are unavailable.
+and provides access to the repository even if some team members are unavailable.
 
 The repository will contain a `CODEOWNERS` file in its root to automatically add
 the `is-charms` team as reviewer
