@@ -154,7 +154,8 @@ scripts to, for example:
 This will improve the maintainability of our charms, enable re-use and enable
 the team to take advantage of the powerful tooling available through Python.
 
-Note it is possible to run shell commands within python. [See this section.](#subprocess-calls-within-python)
+Note it is possible to run shell commands within python.
+[See this section.](#subprocess-calls-within-python)
 
 ## Subprocess calls within Python
 
@@ -163,7 +164,7 @@ library bindings are preferable over invocation with subprocess call. Python
 libraries may provide typed-interaction, better logging, and error handling.
 
 In case no high-quality Python library exists, using `subprocess` in the
-standard library may be needed. Without enforcing good practice, usage of 
+standard library may be needed. Without enforcing good practice, usage of
 subprocess call can be difficult to debug and leads security risks.
 
 In such cases it is generally a good practice to:
@@ -285,7 +286,8 @@ accordingly.
 Real example: [Alertmanager k8s Charm](https://charmhub.io/alertmanager-k8s).
 
 This is how `templates_file`and `web_external_url` configuration options are
-defined in [config.yaml](https://github.com/canonical/alertmanager-k8s-operator/blob/main/config.yaml):
+defined in
+[config.yaml](https://github.com/canonical/alertmanager-k8s-operator/blob/main/config.yaml):
 
 ```Yaml
   templates_file:
@@ -322,7 +324,8 @@ defined in [config.yaml](https://github.com/canonical/alertmanager-k8s-operator/
       endpoints.
 ```
 
-And this is how is shown in its Charmhub [page](https://charmhub.io/alertmanager-k8s/configure):
+And this is how is shown in its Charmhub
+[page](https://charmhub.io/alertmanager-k8s/configure):
 
 ![Alertmanager Charmhub Configure Page](./imgs/alertmanager-charmhub-configure-page.png)
 
@@ -562,6 +565,18 @@ enforced through the CI system:
 - [`mypy`](https://pypi.org/project/mypy/) for type checks
 - [`pylint`](https://pypi.org/project/pylint/) for further python code style
   checks
+
+Disabling checks should be the last resort, alternatives such as refactoring
+the code should be considered first. For example, instead of disabling the
+`too-many-arguments` `pylint` rule, consider grouping the arguments, for
+example, using a `typing.NamedTuple`. When disabling a rule, if the tool allows
+for it, use the name of the rule rather than the code. For example, for
+`pylint`, always use the name of the rule (like `too-many-arguments`) rather
+than the code. This makes it easier for readers to know which rule is being
+disabled and potentially why. Furthermore, if a rule is disabled, a comment
+needs to be included above the line disabling the rule explaining why the rule
+is disabled. This will mean that future readers don't have to guess why it was
+disabled and can also consider whether the disable can be removed.
 
 This ensures consistency across our projects, catches many potential bugs
 before code is deployed and simplifies PRs.
