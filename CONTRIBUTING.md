@@ -578,6 +578,24 @@ needs to be included above the line disabling the rule explaining why the rule
 is disabled. This will mean that future readers don't have to guess why it was
 disabled and can also consider whether the disable can be removed.
 
+Disabling should be done as specifically as possible. That means, disabling the
+narrowest rule possible on the narrowest section of code. For example, instad
+of disabling a rule entirely, disable it on a file. Instead of disabling a rule
+for a file, disable it for just a line of code. For example, the preferred way
+is to disable on a line of code:
+
+```
+code  # disable rule
+```
+
+If a rule needs to be disable for a section, re-enable it as soon as possible:
+
+```
+# disable rule
+code
+# enable rule
+```
+
 This ensures consistency across our projects, catches many potential bugs
 before code is deployed and simplifies PRs.
 
