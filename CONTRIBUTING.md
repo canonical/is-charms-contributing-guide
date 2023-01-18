@@ -6,6 +6,7 @@
 - [Docstrings](#docstrings)
 - [f-strings](#f-strings)
 - [Failing Status Checks](#failing-status-checks)
+- [PR comments and requests for changes](#pr-comments-and-requests-for-changes)
 - [Formatting Log Messages](#formatting-log-messages)
 - [Non Compliant Code](#non-compliant-code)
 - [Programming Languages and Frameworks](#programming-languages-and-frameworks)
@@ -223,6 +224,16 @@ the `is-charms` team as reviewer
 ```
 *       @canonical/is-charms
 ```
+
+## PR comments and requests for changes
+
+Github allows you to `request changes` on a PR, meaning it cannot be merged
+until the changes are accepted. Our team favors commenting in the usual case and
+resorting to requesting changes only if there is something problematic. It is
+adviseable to comment and let the engineer take action rather than request
+changes and block the PR. As the team is distributed, requesting changes as a
+default slows down merges and requires the reviewer to approve again. The
+preferred way is to comment instead.
 
 ## Failing Status Checks
 
