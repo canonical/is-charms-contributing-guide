@@ -12,11 +12,11 @@
 - [Programming Languages and Frameworks](#programming-languages-and-frameworks)
 - [Repository Setup](#repository-setup)
 - [Static Code Analysis](#static-code-analysis)
+- [Subprocess calls within Python](#subprocess-calls-within-python)
 - [Test Coverage](#test-coverage)
 - [Test Structure](#test-structure)
 - [Type Hints](#type-hints)
 - [When to use Python or Shell](#when-to-use-python-or-shell)
-- [Subprocess calls within Python](#subprocess-calls-within-python)
 
 ## Programming Languages and Frameworks
 
