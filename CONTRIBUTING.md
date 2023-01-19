@@ -553,6 +553,8 @@ enforced through the CI system:
      [indico `pyproject.toml`](https://github.com/canonical/indico-operator/blob/main/pyproject.toml)
    - use the following additional plugins:
      - `flake8-docstrings`
+     - `flake8-docstrings-complete`
+     - `flake8-test-docs`
      - `flake8-copyright`
      - `flake8-builtins`
      - `pyproject-flake8`
