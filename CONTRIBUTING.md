@@ -497,20 +497,20 @@ This makes the code easier to understand and maintain.
 
 Uncaught exceptions in the charm code cause the charm to enter
 [ErrorStatus](https://juju.is/docs/sdk/constructs#heading--statuses). The charm
-will be in ErrorStatus until the same hook executed without raising an
-exception. The charm is unable to function properly if exceptions are not
+will remain in ErrorStatus until the same hook is executed without raising an
+exception. The charm won't be able to function properly if exceptions are not
 handled correctly.
 
 Uncaught exceptions should be avoided in charms. The juju framework does not
 know how to deal with arbitrary uncaught exceptions and the feedback to users
-on uncaught exceptions are poor.
+is poor.
 
-This means all exceptions should be caught at the charm-level and either deal
-with or convert to juju statuses or action results. For events, errors that can
-be recovered from later on should set the charm to `MaintenanceStatus`, and
-errors that can not be recovered should set the charm to `BlockedStatus`. For
-actions, the `event.fail` method is used to provide user feedback on the error
-encountered.
+All exceptions should be caught at the charm level and either dealt with,
+setting the appropriate juju statuses or action results. For events, errors
+that can be recovered from later on should set the charm to
+`MaintenanceStatus`, and errors that can not be recovered from should set it to
+`BlockedStatus`. For actions, the `event.fail` method should be used to provide
+feedback to the user on the error encountered.
 
 The key takeaway is all exceptions should be caught by the charm.
 
