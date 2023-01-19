@@ -566,6 +566,7 @@ enforced through the CI system:
 - [`pylint`](https://pypi.org/project/pylint/) for further python code style
   checks
 
+Note:
 * Disabling checks should be the last resort, alternatives such as refactoring
   the code should be considered first. For example, instead of disabling the
   `too-many-arguments` `pylint` rule, consider grouping the arguments, e.g.,
