@@ -532,10 +532,10 @@ class SampleCharm(CharmBase):
       self.unit.status = ActiveStatus()
     except SomeError as err:
       handle_some_error(err)
-      self.unit.status = MaintenanceStatus(f"Encounter recoverable error: {err}")
+      self.unit.status = MaintenanceStatus(f"Encountered recoverable error: {err}")
     except Exception as err:
       do_some_cleanup()
-      self.unit.status = BlockedStatus(f"Encounter error: {err}")
+      self.unit.status = BlockedStatus(f"Encountered error: {err}")
 
   def _on_sample_action(self, event: ActionEvent) -> None:
     """Sample docstring."""
