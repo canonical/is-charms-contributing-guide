@@ -244,7 +244,8 @@ approvals either way and approvals need to be collected again, which is the
 expected behavior and part of our workflow. Please note we expect the engineer
 that raised the PR to deal with the comments in good faith, i.e., not just mark
 them as resolved when they are not really resolved for the purpose of being able
-to merge the PR.
+to merge the PR. The engineer that raised the PR is responsible for closing the
+comments once they are tackled.
 
 With commenting rather than requesting changes, an engineer gives feedback and
 still allows the team (based on approvals) to decide the way forward - a change
