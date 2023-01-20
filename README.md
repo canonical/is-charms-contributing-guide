@@ -14,7 +14,7 @@ The structure of the contribution guide is:
   standard
 * Optionally, headings can be used to aggregate similar standards
 * Standards should be grouped together with similar standards for readability,
-  which means in the body standards do not have to be sorted alphabetically
+  which means in the body, standards do not have to be sorted alphabetically
 * Each standard has the structure:
   * a heading with a name of the standard,
   * a description of the problem it intends to address,
