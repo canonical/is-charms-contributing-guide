@@ -241,12 +241,16 @@ only if there is something problematic. It is adviseable to comment and let the
 engineer take action rather than request changes and block the PR. The preferred
 way is to comment instead.  Note that committing new changes will reset
 approvals either way and approvals need to be collected again, which is the
-expected behavior and part of our workflow.
+expected behavior and part of our workflow. Please note we expect the engineer
+that raised the PR to deal with the comments in good faith, i.e., not just mark
+them as resolved when they are not really resolved for the purpose of being able
+to merge the PR.
 
 With commenting rather than requesting changes, an engineer gives feedback and
-still allows the majority of the team (based on approvals) to decide the way
-forward - a change might make it in a different PR or the change might not be
-desireable in the end.
+still allows the team (based on approvals) to decide the way forward - a change
+might make it in a different PR or the change might not be desireable in the
+end. The best approach is having as much feedback from as many engineers as
+possible to be able to reach a sound decision.
 
 ## Failing Status Checks
 
