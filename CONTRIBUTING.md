@@ -8,14 +8,15 @@
 - [Failing Status Checks](#failing-status-checks)
 - [Formatting Log Messages](#formatting-log-messages)
 - [Non Compliant Code](#non-compliant-code)
+- [PR comments and requests for changes](#pr-comments-and-requests-for-changes)
 - [Programming Languages and Frameworks](#programming-languages-and-frameworks)
 - [Repository Setup](#repository-setup)
 - [Static Code Analysis](#static-code-analysis)
+- [Subprocess calls within Python](#subprocess-calls-within-python)
 - [Test Coverage](#test-coverage)
 - [Test Structure](#test-structure)
 - [Type Hints](#type-hints)
 - [When to use Python or Shell](#when-to-use-python-or-shell)
-- [Subprocess calls within Python](#subprocess-calls-within-python)
 
 ## Programming Languages and Frameworks
 
@@ -224,6 +225,34 @@ the `is-charms` team as reviewer
 ```
 *       @canonical/is-charms
 ```
+
+## PR comments and requests for changes
+
+The team uses Github for reviewing changes in the codebase and integrating them
+within our projects. A reviewer can comment and give feedback that potentially
+leads to new changes in the submitted code. Github allows you to `request
+changes` on a PR, meaning it cannot be merged until the changes are accepted. As
+the team is distributed, requesting changes as a default slows down merges and
+requires the reviewer to approve again. Even with sufficient approvals, a PR
+cannot be merged unless the requestor accepts the changes, which might be
+trivial.
+
+Our team favors commenting in the usual case and resorting to requesting changes
+only if there is something problematic. It is adviseable to comment and let the
+engineer take action rather than request changes and block the PR. The preferred
+way is to comment instead.  Note that committing new changes will reset
+approvals either way and approvals need to be collected again, which is the
+expected behavior and part of our workflow. Please note we expect the engineer
+that raised the PR to deal with the comments in good faith, i.e., not just mark
+them as resolved when they are not really resolved for the purpose of being able
+to merge the PR. The engineer that raised the PR is responsible for closing the
+comments once they are tackled.
+
+With commenting rather than requesting changes, an engineer gives feedback and
+still allows the team (based on approvals) to decide the way forward - a change
+might make it in a different PR or the change might not be desireable in the
+end. The best approach is having as much feedback from as many engineers as
+possible to be able to reach a sound decision.
 
 ## Failing Status Checks
 
