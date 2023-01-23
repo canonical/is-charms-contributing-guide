@@ -206,7 +206,7 @@ changes and have confidence in the CI-CD.
 
 Use [`operator-workflows`](https://github.com/canonical/operator-workflows) for
 the CI-CD of any repositories owned by the team. Even if the repository is not a
-charm, such as a GitHub action, use it to the extend possible. If a repository
+charm, such as a GitHub action, use it to the extent possible. If a repository
 has unique requirements for certain workflows, use the `operator-workflows` as
 much as possible. Consider proposing changes to `operator-workflows` instead of
 doing something custom in a repository. Also consider whether to make partial
