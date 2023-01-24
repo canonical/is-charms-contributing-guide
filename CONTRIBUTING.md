@@ -219,10 +219,10 @@ other repository.
 
 Using shared workflows will make it easy to evolve the workflows used by all our
 repositories and roll out new tooling and checks across them. It will also avoid
-duplicate workflows in many repositories.
+duplication in many repositories.
 
 Adding tests to `operator-workflows` will ensure stability of the workflows and
-provide examples for how to use the workflows.
+provide examples for how to use them.
 
 ## Repository Setup
 
