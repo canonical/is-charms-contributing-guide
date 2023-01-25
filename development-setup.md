@@ -125,11 +125,15 @@ sudo apt-get install gnupg
 gpg --gen-key
 ```
 
-* List generated keys and note the `<long_key>
+* List generated keys and note the `<long_key>`
 
 ```bash
 gpg --list-secret-keys --keyid-format LONG
+```
 
+Output:
+
+```bash
 /home/username/.gnupg/secring.gpg
 -------------------------------
 sec   4096R/<long_key> <date> [expires: <date>]
@@ -143,7 +147,7 @@ ssb   4096R/<value> <date>
 gpg --armor --export <long_key>
 ```
 
-* Go to your GitHub settings and add the gpg key:
+* Go to your GitHub settings and add the gpg public key:
   https://github.com/settings/keys
 
 * Configure git to sign commits:
