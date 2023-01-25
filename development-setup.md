@@ -10,6 +10,7 @@ not cover all the static code analysis tools mentioned.
     - [Table of Contents](#table-of-contents)
     - [Python](#python)
     - [VS Code](#vs-code)
+    - [Signed Commits](#signed-commits)
 
 ### Python
 
@@ -106,4 +107,52 @@ excludesFile = ~/.gitignore_global
 "editor.rulers": [
     80, 99
 ]
+```
+
+### Signed Commits
+
+* Make sure `gpg` is installed:
+
+```bash
+sudo apt-get install gnupg
+```
+
+* Generate a new key following the prompts and entering your Canonical email
+  address. Note that, if you add a passphrase, you will need to enter that
+  passphrase on every commit unless you setup further tooling.
+
+```bash
+gpg --gen-key
+```
+
+* List generated keys and note the `<long_key>`
+
+```bash
+gpg --list-secret-keys --keyid-format LONG
+```
+
+Output:
+
+```bash
+/home/username/.gnupg/secring.gpg
+-------------------------------
+sec   4096R/<long_key> <date> [expires: <date>]
+uid                          <name> <<email>>
+ssb   4096R/<value> <date>
+```
+
+* Get the public key
+
+```bash
+gpg --armor --export <long_key>
+```
+
+* Go to your GitHub settings and add the gpg public key:
+  https://github.com/settings/keys
+
+* Configure git to sign commits:
+
+```bash
+git config --global user.signingkey <long_key>
+git config --global commit.gpgsign true
 ```

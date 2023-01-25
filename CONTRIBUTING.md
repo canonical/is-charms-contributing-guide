@@ -245,6 +245,7 @@ exposes our team and Canonical to operational risks.
 - Approvals reset on any new commits.
 - PRs can only be merged if all checks pass.
 - Bypassing of the rules is disabled.
+- Commits must be signed.
 
 The above configuration ensures our team processes around changes are enforced
 and provides access to the repository even if some team members are unavailable.
