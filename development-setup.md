@@ -126,8 +126,7 @@ excludesFile = ~/.gitignore_global
      ```
 
 * Generate a new key following the prompts and entering your Canonical email
-  address. Note that, if you add a passphrase, you will need to enter that
-  passphrase on every commit unless you setup further tooling.
+  address. Please add a passphrase to the key when you generate it.
 
   ```bash
   gpg --gen-key
