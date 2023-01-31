@@ -118,11 +118,11 @@ excludesFile = ~/.gitignore_global
      ```bash
      sudo apt-get install gnupg
      ```
-     
+
    * On MacOS
 
      ```bash
-     brew install gnup pinentry-mac
+     brew install gnupg pinentry-mac
      ```
 
 * Generate a new key following the prompts and entering your Canonical email
