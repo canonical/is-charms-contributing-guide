@@ -178,3 +178,20 @@ excludesFile = ~/.gitignore_global
   ```
 
   A prompt should ask for your password and a PGP Signature should be printed in your shell.
+
+#### Alternative signing using an SSH key
+
+* We assume that you're using `git` (version >= 2.34) and already have an SSH key to push to our repositories.
+
+* Configure git to sign commits
+
+```shell
+# tell git to sign using SSH
+git config --global gpg.format ssh
+# tell git which SSH key to use
+git config --global user.signingkey path/to/your/ssh/key
+# tell git to sign all commits
+git config --global commit.gpgsign true
+```
+
+* Voilà
