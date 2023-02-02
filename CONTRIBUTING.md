@@ -18,6 +18,7 @@
 - [Test Structure](#test-structure)
 - [Type Hints](#type-hints)
 - [When to use Python or Shell](#when-to-use-python-or-shell)
+- [When to Write and What to Cover In Integration/ End-To-End Tests](when-to-write-and-what-to-cover-in-integration-end-to-end-tests)
 
 ## Programming Languages and Frameworks
 
@@ -316,6 +317,58 @@ Alternatives to merging the PR with failing status checks include:
 * Wait for an upstream fix for the issue.
 
 This will ensure that we minimise the number of bugs in our code and tooling.
+
+## When to Write and What to Cover In Integration/ End-To-End Tests
+
+The team creates charms and tooling used and intended to be used directly or as
+building blocks for mission critical purposes by both Canonical and external
+users. The charms and tools we provide need to meet a high quality bar to ensure
+that they work for our users as intended. If we ship charms and tools that don't
+meet this high standard, the impact could be widespread.
+
+This standards covers when to write integration/ end-to-end (e2e) tests and also
+provides guidance on what should be covered by them.
+
+The intent of e2e tests is to check that what we provide to our users works as
+advertised. There are two key concepts in that statement: `what we provide`
+and `works as advertised`. `what we provide` addresses the scope of our
+integration/ e2e tests which are the features specifically provided by the charm
+or tool. The following examples illustrate what this means by providing guidance
+on what should and should not be covered by integration/ e2e tests.
+
+The following should be covered by integration/ e2e tests:
+
+* An action the charm provides
+* An integration the charm provides
+* A configuration the charm provides
+* That the workload is up and running
+* The features of a tool
+
+The reason these examples should be covered is because we are accountable for
+these features of a charm or tool by being it's owner. The following does not
+usually need to be covered by integration/ e2e tests:
+
+* A feature provided by the workload which is not enhanced by the charm
+* That GitHub works
+* That the network works
+* That the operating system works
+* That Kubernetes works
+* That Juju works
+
+The reason these examples do not have to be tested is because we are not
+accountable for them and their owners need to ensure they keep working.
+
+To address the second concept of `works as advertised`, when writing an
+integration/ e2e test, it is not sufficient to just check that, for example,
+that Juju reports that running the action was succesfull. Additional checks need
+to be executed to ensure that whatever the action was intended to achieve
+worked. An example where an exception could apply is if it is unduly expensive
+or impractical to perform that check.
+
+By writing integration/ e2e tests that cover the features provided by the charm,
+we ensure that we are meeting the expectations our users have of us. This will
+make the charms and tools we provide reliable and enable our users to use them
+for their critical business use cases.
 
 ## Charm Configuration Option Description
 
