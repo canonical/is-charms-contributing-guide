@@ -326,7 +326,7 @@ users. The charms and tools we provide need to meet a high quality bar to ensure
 that they work for our users as intended. If we ship charms and tools that don't
 meet this high standard, the impact could be widespread.
 
-This standards covers when to write integration/ end-to-end (e2e) tests and also
+This standard covers when to write integration/ end-to-end (e2e) tests and also
 provides guidance on what should be covered by them. A tool is a project the
 team works on which isn't a charm, such as a GitHub action.
 
