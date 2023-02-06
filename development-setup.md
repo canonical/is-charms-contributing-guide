@@ -10,6 +10,7 @@ not cover all the static code analysis tools mentioned.
     - [Table of Contents](#table-of-contents)
     - [Python](#python)
     - [VS Code](#vs-code)
+    - [Signed Commits](#signed-commits)
 
 ### Python
 
@@ -107,3 +108,90 @@ excludesFile = ~/.gitignore_global
     80, 99
 ]
 ```
+
+### Signed Commits
+
+* Make sure `gpg` is installed:
+
+   * On Linux
+
+     ```bash
+     sudo apt-get install gnupg
+     ```
+
+   * On MacOS
+
+     ```bash
+     brew install gnupg pinentry-mac
+     ```
+
+* Generate a new key following the prompts and entering your Canonical email
+  address. Please add a passphrase to the key when you generate it.
+
+  ```bash
+  gpg --gen-key
+  ```
+
+* List generated keys and note the `<long_key>`
+
+  ```bash
+  gpg --list-secret-keys --keyid-format LONG
+  ```
+
+  Output:
+
+  ```bash
+  /home/username/.gnupg/secring.gpg
+  -------------------------------
+  sec   4096R/<long_key> <date> [expires: <date>]
+  uid                          <name> <<email>>
+  ssb   4096R/<value> <date>
+  ```
+
+* Get the public key
+
+  ```bash
+  gpg --armor --export <long_key>
+  ```
+
+* Go to your GitHub settings and add the gpg public key:
+  https://github.com/settings/keys
+
+* Configure git to sign commits:
+
+  ```bash
+  git config --global user.signingkey <long_key>
+  git config --global commit.gpgsign true
+  ```
+
+* On MacOS some extra steps are required:
+
+  ```bash
+  echo "pinentry-program /opt/homebrew/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
+  killall gpg-agent
+  ```
+
+  You can test if it works properly using:
+
+  ```bash
+  echo "test" | gpg --clearsign
+  ```
+
+  A prompt should ask for your password and a PGP Signature should be printed in your shell.
+
+#### Alternative signing using an SSH key
+
+* We assume that you're using `git` (version >= 2.34) and already have an SSH key to push to our repositories.
+
+* Configure git to sign commits
+
+```shell
+# tell git to sign using SSH
+git config --global gpg.format ssh
+# tell git which SSH key to use
+git config --global user.signingkey path/to/your/ssh/key
+# tell git to sign all commits
+git config --global commit.gpgsign true
+```
+
+* Voilà

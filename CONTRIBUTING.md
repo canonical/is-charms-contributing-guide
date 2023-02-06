@@ -2,21 +2,22 @@
 
 - [Charm Configuration Option Description](#charm-configuration-option-description)
 - [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
+- [CI-CD](#ci-cd)
 - [Dependencies](#dependencies)
 - [Docstrings](#docstrings)
 - [f-strings](#f-strings)
 - [Failing Status Checks](#failing-status-checks)
 - [Formatting Log Messages](#formatting-log-messages)
 - [Non Compliant Code](#non-compliant-code)
+- [PR comments and requests for changes](#pr-comments-and-requests-for-changes)
 - [Programming Languages and Frameworks](#programming-languages-and-frameworks)
 - [Repository Setup](#repository-setup)
 - [Static Code Analysis](#static-code-analysis)
+- [Subprocess calls within Python](#subprocess-calls-within-python)
 - [Test Coverage](#test-coverage)
 - [Test Structure](#test-structure)
 - [Type Hints](#type-hints)
 - [When to use Python or Shell](#when-to-use-python-or-shell)
-- [Subprocess calls within Python](#subprocess-calls-within-python)
-- [Handling Exceptions in Python Charm Code](#handling-exceptions-in-python-charm-code)
 
 ## Programming Languages and Frameworks
 
@@ -196,6 +197,34 @@ except subprocess.CalledProcessError as err:
   raise
 ```
 
+# CI-CD
+
+The team maintains a number of repositories which are generally quite similar.
+If each of the repositories maintains its own workflows, it is difficult to
+introduce new tools across the repositories owned by the team. Additionally, if
+shared workflows are unreliable, the team is unable to consistently merge
+changes and have confidence in the CI-CD.
+
+Use [`operator-workflows`](https://github.com/canonical/operator-workflows) for
+the CI-CD of any repositories owned by the team. Even if the repository is not a
+charm, such as a GitHub action, use it to the extent possible. If a repository
+has unique requirements for certain workflows, use the `operator-workflows` as
+much as possible. Consider proposing changes to `operator-workflows` instead of
+doing something custom in a repository. Also consider whether to make partial
+use of workflows in `operator-workflows` and add anything that can't be done
+with `operator-workflows` to the individual repository, if the CI-CD
+requirements are unique to a repository.
+
+For any changes to `operator-workflows`, add tests just like we expect for any
+other repository.
+
+Using shared workflows will make it easy to evolve the workflows used by all our
+repositories and roll out new tooling and checks across them. It will also avoid
+duplication in many repositories.
+
+Adding tests to `operator-workflows` will ensure stability of the workflows and
+provide examples for how to use them.
+
 ## Repository Setup
 
 The repositories that store the source code for our charms are critical to the
@@ -216,6 +245,7 @@ exposes our team and Canonical to operational risks.
 - Approvals reset on any new commits.
 - PRs can only be merged if all checks pass.
 - Bypassing of the rules is disabled.
+- Commits must be signed.
 
 The above configuration ensures our team processes around changes are enforced
 and provides access to the repository even if some team members are unavailable.
@@ -225,6 +255,34 @@ the `is-charms` team as reviewer
 ```
 *       @canonical/is-charms
 ```
+
+## PR comments and requests for changes
+
+The team uses Github for reviewing changes in the codebase and integrating them
+within our projects. A reviewer can comment and give feedback that potentially
+leads to new changes in the submitted code. Github allows you to `request
+changes` on a PR, meaning it cannot be merged until the changes are accepted. As
+the team is distributed, requesting changes as a default slows down merges and
+requires the reviewer to approve again. Even with sufficient approvals, a PR
+cannot be merged unless the requestor accepts the changes, which might be
+trivial.
+
+Our team favors commenting in the usual case and resorting to requesting changes
+only if there is something problematic. It is adviseable to comment and let the
+engineer take action rather than request changes and block the PR. The preferred
+way is to comment instead.  Note that committing new changes will reset
+approvals either way and approvals need to be collected again, which is the
+expected behavior and part of our workflow. Please note we expect the engineer
+that raised the PR to deal with the comments in good faith, i.e., not just mark
+them as resolved when they are not really resolved for the purpose of being able
+to merge the PR. The engineer that raised the PR is responsible for closing the
+comments once they are tackled.
+
+With commenting rather than requesting changes, an engineer gives feedback and
+still allows the team (based on approvals) to decide the way forward - a change
+might make it in a different PR or the change might not be desireable in the
+end. The best approach is having as much feedback from as many engineers as
+possible to be able to reach a sound decision.
 
 ## Failing Status Checks
 
@@ -607,6 +665,8 @@ enforced through the CI system:
      [indico `pyproject.toml`](https://github.com/canonical/indico-operator/blob/main/pyproject.toml)
    - use the following additional plugins:
      - `flake8-docstrings`
+     - `flake8-docstrings-complete`
+     - `flake8-test-docs`
      - `flake8-copyright`
      - `flake8-builtins`
      - `pyproject-flake8`
@@ -620,6 +680,7 @@ enforced through the CI system:
 - [`pylint`](https://pypi.org/project/pylint/) for further python code style
   checks
 
+Note:
 * Disabling checks should be the last resort, alternatives such as refactoring
   the code should be considered first. For example, instead of disabling the
   `too-many-arguments` `pylint` rule, consider grouping the arguments, e.g.,
