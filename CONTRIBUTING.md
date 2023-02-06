@@ -561,22 +561,17 @@ exception. The charm won't be able to function properly if exceptions are not
 handled correctly.
 
 Uncaught exceptions should be avoided in charms. The juju framework does not
-know how to deal with arbitrary uncaught exceptions and the feedback to users
-is poor.
-
-All exceptions should be caught at the charm level either dealt with, or
-setting the appropriate juju statuses or action results. For events, errors
-that can be recovered from should set the charm to `MaintenanceStatus`, and
-errors that cannot be recovered from should set it to `BlockedStatus`. For
-actions, the `event.fail` method should be used to provide feedback to the user
-on the error encountered.
+know how to deal with arbitrary uncaught exceptions and the feedback to users is
+poor.
 
 The charm code should handle all known exceptions, with catching the
 `Exception` class reserved as a safeguard against unexpected exceptions.
-Actions should use `event.fail` method to feedback the error. For events,
-recoverable errors the charm status should be set to `MaintenanceStatus`,
-unrecoverable errors should set status to `BlockedStatus`. In the case of
-unexpected errors in events, the status should be set to `BlockedStatus`.
+Actions should use `event.fail` method to feedback the error. If the action can
+result in inconsistent state for the charm and unexpected exception is caught,
+then set the status to `BlockedStatus`. For events, recoverable errors the charm
+status should be set to `MaintenanceStatus`, unrecoverable errors should set
+status to `BlockedStatus`. In the case of unexpected errors in events, the
+status should be set to `BlockedStatus`.
 
 Using `event.fail` to handle action failures allows for clearer feedback to
 user, and prevent uncaught exceptions set the status of normally functioning
@@ -584,10 +579,10 @@ charm to `ErrorStatus`. Setting the status to `BlockedStatus` in case of
 unexpected errors prevents the charm from continue operating from an unknown
 state.
 
-The key takeaway is the charm should catch all exceptions, and catching
-the `Exception` class is reserved as a safeguard. Unexpected exceptions in
-actions are handled with `event.fail`. For charm code, unexpected exceptions
-should set the status to `BlockedStatus`.
+The key takeaway is the charm should catch all exceptions, and catching the
+`Exception` class is reserved as a safeguard. Unexpected exceptions in actions
+are handled with `event.fail`. For charm code, unexpected exceptions should set
+the status to `BlockedStatus`.
 
 ```Python
 class SampleCharm(CharmBase):
