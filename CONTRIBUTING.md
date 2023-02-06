@@ -568,10 +568,10 @@ The charm code should handle all known errors, with catching the
 `Exception` class reserved as a safeguard against unexpected exceptions.
 Actions should use `event.fail` method to feedback the error. If the action can
 result in inconsistent state for the charm and unexpected exception is caught,
-then set the status to `BlockedStatus`. For events, recoverable errors the charm
-status should be set to `MaintenanceStatus`, unrecoverable errors should set
-status to `BlockedStatus`. In the case of unexpected errors in events, the
-status should be set to `BlockedStatus`.
+then set the status to `BlockedStatus`. For events, recoverable errors should
+cause the charm status should be set to `MaintenanceStatus`, unrecoverable
+errors should set status to `BlockedStatus`. In the case of unexpected errors in
+events, the status should be set to `BlockedStatus`.
 
 Using `event.fail` to handle action failures allows for clearer feedback to
 user, and prevent uncaught exceptions set the status of normally functioning
