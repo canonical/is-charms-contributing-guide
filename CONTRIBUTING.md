@@ -564,7 +564,7 @@ Uncaught exceptions should be avoided in charms. The juju framework does not
 know how to deal with arbitrary uncaught exceptions and the feedback to users is
 poor.
 
-The charm code should handle all known exceptions, with catching the
+The charm code should handle all known errors, with catching the
 `Exception` class reserved as a safeguard against unexpected exceptions.
 Actions should use `event.fail` method to feedback the error. If the action can
 result in inconsistent state for the charm and unexpected exception is caught,
