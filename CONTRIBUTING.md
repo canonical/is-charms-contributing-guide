@@ -579,11 +579,6 @@ charm to `ErrorStatus`. Setting the status to `BlockedStatus` in case of
 unexpected errors prevents the charm from continue operating from an unknown
 state.
 
-The key takeaway is the charm should catch all exceptions, and catching the
-`Exception` class is reserved as a safeguard. Unexpected exceptions in actions
-are handled with `event.fail`. For charm code, unexpected exceptions should set
-the status to `BlockedStatus`.
-
 ```Python
 class SampleCharm(CharmBase):
   """Sample docstring."""
