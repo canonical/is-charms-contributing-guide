@@ -8,6 +8,7 @@
 - [f-strings](#f-strings)
 - [Failing Status Checks](#failing-status-checks)
 - [Formatting Log Messages](#formatting-log-messages)
+- [Handling Exceptions in Python Charm Code](#handling-exceptions-in-python-charm-code)
 - [Non Compliant Code](#non-compliant-code)
 - [PR comments and requests for changes](#pr-comments-and-requests-for-changes)
 - [Programming Languages and Frameworks](#programming-languages-and-frameworks)
@@ -563,14 +564,30 @@ Uncaught exceptions should be avoided in charms. The juju framework does not
 know how to deal with arbitrary uncaught exceptions and the feedback to users
 is poor.
 
-All exceptions should be caught at the charm level and either dealt with,
+All exceptions should be caught at the charm level either dealt with, or
 setting the appropriate juju statuses or action results. For events, errors
-that can be recovered from later on should set the charm to
-`MaintenanceStatus`, and errors that can not be recovered from should set it to
-`BlockedStatus`. For actions, the `event.fail` method should be used to provide
-feedback to the user on the error encountered.
+that can be recovered from should set the charm to `MaintenanceStatus`, and
+errors that cannot be recovered from should set it to `BlockedStatus`. For
+actions, the `event.fail` method should be used to provide feedback to the user
+on the error encountered.
 
-The key takeaway is all exceptions should be caught by the charm.
+The charm code should handle all known exceptions, with catching the
+`Exception` class reserved as a safe guard against unexpected exceptions.
+Actions should use `event.fail` method to feedback the error. For events,
+recoverable errors the charm status should be set to `MaintenanceStatus`,
+unrecoverable errors should set status to `BlockedStatus`. In the case of
+unexpected errors in events, the status should be set to `BlockedStatus`.
+
+Using `event.fail` to handle action failures allows for clearer feedback to
+user, and prevent uncaught exceptions set the status of normally functioning
+charm to `ErrorStatus`. Setting the status to `BlockedStatus` in case of
+unexpected errors prevents the charm from continue operating from an unknown
+state.
+
+The key takeaway is the charm should catch all exceptions, and catching
+the `Exception` class is reserved as a safe guard. Unexpected exceptions in
+actions are handled with `event.fail`. For charm code, unexpected exceptions
+should set the status to `BlockedStatus`.
 
 ```Python
 class SampleCharm(CharmBase):
@@ -593,15 +610,18 @@ class SampleCharm(CharmBase):
       self.unit.status = MaintenanceStatus(f"Encountered recoverable error: {err}")
     except Exception as err:
       do_some_cleanup()
-      self.unit.status = BlockedStatus(f"Encountered error: {err}")
+      self.unit.status = BlockedStatus(f"Encountered unexpected error: {err}")
 
   def _on_sample_action(self, event: ActionEvent) -> None:
     """Sample docstring."""
     try:
       result = do_action()
       event.set_results(result)
+    except SomeOtherError as err:
+      handle_some_other_error(err)
+      event.fail(f"Failed action with error: {err}")
     except Exception as err:
-      event.fail(f"Failed action: {err}")
+      event.fail(f"Failed action with unexpected error: {err}")
 ```
 
 ## Type Hints
