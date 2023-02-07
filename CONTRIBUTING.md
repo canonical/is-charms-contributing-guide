@@ -8,6 +8,7 @@
 - [f-strings](#f-strings)
 - [Failing Status Checks](#failing-status-checks)
 - [Formatting Log Messages](#formatting-log-messages)
+- [Handling Exceptions in Python Charm Code](#handling-exceptions-in-python-charm-code)
 - [Non Compliant Code](#non-compliant-code)
 - [PR comments and requests for changes](#pr-comments-and-requests-for-changes)
 - [Programming Languages and Frameworks](#programming-languages-and-frameworks)
@@ -550,6 +551,63 @@ Exemptions:
 2. Test fixtures
 
 This makes the code easier to understand and maintain.
+
+## Handling Exceptions in Python Charm Code
+
+Uncaught exceptions in the charm code cause the charm to enter
+[ErrorStatus](https://juju.is/docs/sdk/constructs#heading--statuses). The charm
+will remain in ErrorStatus until the same hook is executed without raising an
+exception. The charm won't be able to function properly if exceptions are not
+handled correctly.
+
+Uncaught exceptions should be avoided in charms. The juju framework does not
+know how to deal with arbitrary uncaught exceptions and the feedback to users is
+poor.
+
+The charm code should handle all known errors, with catching the `Exception`
+class reserved as a safeguard against unexpected exceptions. Actions should use
+`event.fail` method to feedback the error. If the action can result in
+inconsistent state for the charm the unexpected exception is caught and the
+status set to `BlockedStatus`. This will also provide clearer feedback to the
+user. For events, recoverable errors should cause the charm status should be set
+to `MaintenanceStatus`, unrecoverable errors should set status to
+`BlockedStatus`, preventing the charm from continuing operating from an unknown
+state.
+
+```Python
+class SampleCharm(CharmBase):
+  """Sample docstring."""
+
+  def __init__(self, *args, **kwargs) -> None:
+    """Sample docstring."""
+    super().__init__(*args, **kwargs)
+
+    self.framework.observe(self.on.start, self._on_start)
+    self.framework.observe(self.on.sample_action, self._on_sample_action)
+
+  def _on_start(self, event: StartEvent) -> None:
+    """Sample docstring."""
+    try:
+      do_something(event)
+      self.unit.status = ActiveStatus()
+    except SomeError as err:
+      handle_some_error(err)
+      self.unit.status = MaintenanceStatus(f"Encountered recoverable error: {err}")
+    except Exception as err:
+      do_some_cleanup()
+      self.unit.status = BlockedStatus(f"Encountered unexpected error: {err}")
+
+  def _on_sample_action(self, event: ActionEvent) -> None:
+    """Sample docstring."""
+    try:
+      result = do_action()
+      event.set_results(result)
+    except SomeOtherError as err:
+      handle_some_other_error(err)
+      event.fail(f"Failed action with error: {err}")
+    except Exception as err:
+      event.fail(f"Failed action with unexpected error: {err}")
+```
 
 ## Type Hints
 
