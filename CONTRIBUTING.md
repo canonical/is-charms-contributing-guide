@@ -564,19 +564,14 @@ Uncaught exceptions should be avoided in charms. The juju framework does not
 know how to deal with arbitrary uncaught exceptions and the feedback to users is
 poor.
 
-The charm code should handle all known errors, with catching the
-`Exception` class reserved as a safeguard against unexpected exceptions.
-Actions should use `event.fail` method to feedback the error. If the action can
-result in inconsistent state for the charm and unexpected exception is caught,
-then set the status to `BlockedStatus`. For events, recoverable errors should
-cause the charm status should be set to `MaintenanceStatus`, unrecoverable
-errors should set status to `BlockedStatus`. In the case of unexpected errors in
-events, the status should be set to `BlockedStatus`.
-
-Using `event.fail` to handle action failures allows for clearer feedback to
-user, and prevent uncaught exceptions set the status of normally functioning
-charm to `ErrorStatus`. Setting the status to `BlockedStatus` in case of
-unexpected errors prevents the charm from continue operating from an unknown
+The charm code should handle all known errors, with catching the `Exception`
+class reserved as a safeguard against unexpected exceptions. Actions should use
+`event.fail` method to feedback the error. If the action can result in
+inconsistent state for the charm the unexpected exception is caught and the
+status set to `BlockedStatus`. This will also provide clearer feedback to the
+user. For events, recoverable errors should cause the charm status should be set
+to `MaintenanceStatus`, unrecoverable errors should set status to
+`BlockedStatus`, preventing the charm from continuing operating from an unknown
 state.
 
 ```Python
