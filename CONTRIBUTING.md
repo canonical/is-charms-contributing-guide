@@ -18,7 +18,52 @@
 - [Test Structure](#test-structure)
 - [Type Hints](#type-hints)
 - [When to use Python or Shell](#when-to-use-python-or-shell)
-- [When to Write and What to Cover In Integration/ End-To-End Tests](when-to-write-and-what-to-cover-in-integration-end-to-end-tests)
+- [When to Write and What to Cover In Integration Tests](when-to-write-and-what-to-cover-in-integration-tests)
+
+## Definitions
+
+### Tool
+
+A tool is a project the team works on which isn't a charm, such as a GitHub
+action.
+
+### Unit Tests
+
+These are tests that cover charm/ service functions to ensure that given a
+specific context and mocked interfaces, the function returns the expected
+output. Tests could cover more than one function if some of them don't include
+business logic. These tests shouldn't be functional, they just ensure that the
+code is doing what it's supposed to do. A test that requires too many mocks
+indicates the design needs to be improved to reduce coupling.
+
+### Integration Tests
+
+Integration tests ensure that the charm integrated with its dependencies will
+behave properly. It doesn't test the code in a production like environment,
+meaning that we don't connect to environments with equivalent resources and
+production like datasets. The integration tests will spawn specific dependencies
+that could differ from the production one (e.g using localstack instead of
+openstack, sqlite instead of a production grade database, ...). These tests can
+be functional (they ensure that the features provided by the charm are working
+as intended) or focus on checking an abstracted interface. They don't
+necessarily need to ensure that the API/Service/CLI they're interacting with are
+working as intended.
+
+### End To End Tests
+
+These are simulated user scenarios running on an environment as close as
+possible to production. They ususally run on a staging environment with
+preexisting data, and interact with the charm as a user would (ideally using the
+juju cli). These are functional tests and ensure that the charm is working as
+intended in the condition close to production in order to detect issues related
+to this environment (ressources, pre-existing condition, migrations, ...).
+
+### Smoke Tests
+
+These are functional tests for business critical use cases used to ensure that
+the most critical features are still working after a production deployment. The
+aim is to ensure that a deployment didn't impact business continuity and detect
+potential defects immediately after a production release.
 
 ## Programming Languages and Frameworks
 
@@ -318,7 +363,7 @@ Alternatives to merging the PR with failing status checks include:
 
 This will ensure that we minimise the number of bugs in our code and tooling.
 
-## When to Write and What to Cover In Integration/ End-To-End Tests
+## When to Write and What to Cover In Integration Tests
 
 The team creates charms and tooling used and intended to be used directly or as
 building blocks for mission critical purposes by both Canonical and external
@@ -326,9 +371,8 @@ users. The charms and tools we provide need to meet a high quality bar to ensure
 that they work for our users as intended. If we ship charms and tools that don't
 meet this high standard, the impact could be widespread.
 
-This standard covers when to write integration/ end-to-end (e2e) tests and also
-provides guidance on what should be covered by them. A tool is a project the
-team works on which isn't a charm, such as a GitHub action.
+This standard covers when to write integration tests and also provides guidance
+on what should be covered by them.
 
 The intent of e2e tests is to check that what we provide to our users works as
 advertised. There are two key concepts in that statement: `what we provide`
