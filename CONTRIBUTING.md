@@ -65,6 +65,12 @@ the most critical features are still working after a production deployment. The
 aim is to ensure that a deployment didn't impact business continuity and detect
 potential defects immediately after a production release.
 
+### Business Critical Charm
+
+This charm is critical to the operations of Canonical or our customers. Any
+bugs, security issues or other problems will have a wide impact to important
+business processes.
+
 ## Programming Languages and Frameworks
 
 If we develop in many different programming languages and frameworks, the
@@ -374,14 +380,16 @@ meet this high standard, the impact could be widespread.
 This standard covers when to write integration tests and also provides guidance
 on what should be covered by them.
 
-The intent of e2e tests is to check that what we provide to our users works as
-advertised. There are two key concepts in that statement: `what we provide`
-and `works as advertised`. `what we provide` addresses the scope of our
-integration/ e2e tests which are the features specifically provided by the charm
-or tool. The following examples illustrate what this means by providing guidance
-on what should and should not be covered by integration/ e2e tests.
+The intent of integration tests is to check that what we provide to our users
+works as advertised. There are two key concepts in that statement:
+`what we provide` and `works as advertised`. `what we provide` addresses the
+scope of our integration tests which are the features specifically provided by
+the charm or tool. The following examples illustrate what this means by
+providing guidance on what should and should not be covered by integration
+tests.
 
-The following should be covered by integration/ e2e tests:
+The following should be covered by integration tests for business critical
+charms:
 
 * An action the charm provides
 * An integration the charm provides
@@ -390,8 +398,12 @@ The following should be covered by integration/ e2e tests:
 * The features of a tool
 
 The reason these examples should be covered is because we are accountable for
-these features of a charm or tool by being it's owner. The following does not
-usually need to be covered by integration/ e2e tests:
+these features of a charm or tool by being it's owner. Charms that are not
+business critical may not include integration tests for these examples based on
+the value these tests would provide compared to the cost of writing them.
+
+The following does not usually need to be covered by integration tests because
+we do not own them:
 
 * A feature provided by the workload which is not enhanced by the charm
 * That GitHub works
@@ -400,20 +412,18 @@ usually need to be covered by integration/ e2e tests:
 * That Kubernetes works
 * That Juju works
 
-The reason these examples do not have to be tested is because we are not
-accountable for them and their owners need to ensure they keep working.
-
 To address the second concept of `works as advertised`, when writing an
-integration/ e2e test, it is not sufficient to just check that, for example,
-that Juju reports that running the action was succesfull. Additional checks need
-to be executed to ensure that whatever the action was intended to achieve
-worked. An example where an exception could apply is if it is unduly expensive
-or impractical to perform that check.
+integration test for business critical charms, it is not sufficient to just
+check that, for example, that Juju reports that running the action was
+succesfull. Additional checks need to be executed to ensure that whatever the
+action was intended to achieve worked. For charms that are not business
+critical, the checks can be more relaxed, such as just checking that juju
+reports success for the action that was triggered.
 
-By writing integration/ e2e tests that cover the features provided by the charm,
-we ensure that we are meeting the expectations our users have of us. This will
-make the charms and tools we provide reliable and enable our users to use them
-for their critical business use cases.
+By writing integration tests that cover the features provided by the charm, we
+ensure that we are meeting the expectations our users have of us. This will make
+the charms and tools we provide reliable and enable our users to use them for
+their use cases, including those that are business critical.
 
 ## Charm Configuration Option Description
 
