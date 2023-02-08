@@ -398,7 +398,7 @@ charms:
 * The features of a tool
 
 The reason these examples should be covered is because we are accountable for
-these features of a charm or tool by being it's owner. Charms that are not
+these features of a charm or tool by being its owner. Charms that are not
 business critical may not include integration tests for these examples based on
 the value these tests would provide compared to the cost of writing them.
 
@@ -415,7 +415,7 @@ we do not own them:
 To address the second concept of `works as advertised`, when writing an
 integration test for business critical charms, it is not sufficient to just
 check that, for example, that Juju reports that running the action was
-succesfull. Additional checks need to be executed to ensure that whatever the
+successful. Additional checks need to be executed to ensure that whatever the
 action was intended to achieve worked. For charms that are not business
 critical, the checks can be more relaxed, such as just checking that juju
 reports success for the action that was triggered.
