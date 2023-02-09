@@ -19,6 +19,58 @@
 - [Test Structure](#test-structure)
 - [Type Hints](#type-hints)
 - [When to use Python or Shell](#when-to-use-python-or-shell)
+- [When to Write and What to Cover In Integration Tests](when-to-write-and-what-to-cover-in-integration-tests)
+
+## Definitions
+
+### Tool
+
+A tool is a project the team works on which isn't a charm, such as a GitHub
+action.
+
+### Unit Tests
+
+These are tests that cover charm/ service functions to ensure that given a
+specific context and mocked interfaces, the function returns the expected
+output. Tests could cover more than one function if some of them don't include
+business logic. These tests shouldn't be functional, they just ensure that the
+code is doing what it's supposed to do. A test that requires too many mocks
+indicates the design needs to be improved to reduce coupling.
+
+### Integration Tests
+
+Integration tests ensure that the charm integrated with its dependencies will
+behave properly. It doesn't test the code in a production like environment,
+meaning that we don't connect to environments with equivalent resources and
+production like datasets. The integration tests will spawn specific dependencies
+that could differ from the production one (e.g using localstack instead of
+openstack, sqlite instead of a production grade database, ...). These tests can
+be functional (they ensure that the features provided by the charm are working
+as intended) or focus on checking an abstracted interface. They don't
+necessarily need to ensure that the API/Service/CLI they're interacting with are
+working as intended.
+
+### End To End Tests
+
+These are simulated user scenarios running on an environment as close as
+possible to production. They ususally run on a staging environment with
+preexisting data, and interact with the charm as a user would (ideally using the
+juju cli). These are functional tests and ensure that the charm is working as
+intended in the condition close to production in order to detect issues related
+to this environment (ressources, pre-existing condition, migrations, ...).
+
+### Smoke Tests
+
+These are functional tests for business critical use cases used to ensure that
+the most critical features are still working after a production deployment. The
+aim is to ensure that a deployment didn't impact business continuity and detect
+potential defects immediately after a production release.
+
+### Business Critical Charm
+
+This charm is critical to the operations of Canonical or our customers. Any
+bugs, security issues or other problems will have a wide impact to important
+business processes.
 
 ## Programming Languages and Frameworks
 
@@ -317,6 +369,62 @@ Alternatives to merging the PR with failing status checks include:
 * Wait for an upstream fix for the issue.
 
 This will ensure that we minimise the number of bugs in our code and tooling.
+
+## When to Write and What to Cover In Integration Tests
+
+The team creates charms and tooling used and intended to be used directly or as
+building blocks for mission critical purposes by both Canonical and external
+users. The charms and tools we provide need to meet a high quality bar to ensure
+that they work for our users as intended. If we ship charms and tools that don't
+meet this high standard, the impact could be widespread.
+
+This standard covers when to write integration tests and also provides guidance
+on what should be covered by them.
+
+The intent of integration tests is to check that what we provide to our users
+works as advertised. There are two key concepts in that statement:
+`what we provide` and `works as advertised`. `what we provide` addresses the
+scope of our integration tests which are the features specifically provided by
+the charm or tool. The following examples illustrate what this means by
+providing guidance on what should and should not be covered by integration
+tests.
+
+The following should be covered by integration tests for business critical
+charms:
+
+* An action the charm provides
+* An integration the charm provides
+* A configuration the charm provides
+* That the workload is up and running
+* The features of a tool
+
+The reason these examples should be covered is because we are accountable for
+these features of a charm or tool by being its owner. Charms that are not
+business critical may not include integration tests for these examples based on
+the value these tests would provide compared to the cost of writing them.
+
+The following does not usually need to be covered by integration tests because
+we do not own them:
+
+* A feature provided by the workload which is not enhanced by the charm
+* That GitHub works
+* That the network works
+* That the operating system works
+* That Kubernetes works
+* That Juju works
+
+To address the second concept of `works as advertised`, when writing an
+integration test for business critical charms, it is not sufficient to just
+check that, for example, that Juju reports that running the action was
+successful. Additional checks need to be executed to ensure that whatever the
+action was intended to achieve worked. For charms that are not business
+critical, the checks can be more relaxed, such as just checking that juju
+reports success for the action that was triggered.
+
+By writing integration tests that cover the features provided by the charm, we
+ensure that we are meeting the expectations our users have of us. This will make
+the charms and tools we provide reliable and enable our users to use them for
+their use cases, including those that are business critical.
 
 ## Charm Configuration Option Description
 
