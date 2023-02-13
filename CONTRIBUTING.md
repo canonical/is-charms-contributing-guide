@@ -299,6 +299,13 @@ exposes our team and Canonical to operational risks.
 - PRs can only be merged if all checks pass.
 - Bypassing of the rules is disabled.
 - Commits must be signed.
+- PRs from forks should not be merged directly into the default branch if any of
+  the CI/CD cannot be run (e.g., because it requires a secret). This is because
+  there might be issues with the PR that are missed because certain checks did
+  not run. These PRs should be redirected to a separate branch and then have a
+  PR raised from that branch to the default branch. The branch protection of a
+  repo should not allow branches from forks to be merged directly into the
+  default branch.
 
 The above configuration ensures our team processes around changes are enforced
 and provides access to the repository even if some team members are unavailable.
