@@ -368,7 +368,7 @@ Alternatives to merging the PR with failing status checks include:
   is lost.
 * Wait for an upstream fix for the issue.
 
-If it is deemed that a change should land despita a failing status check, the
+If it is deemed that a change should land despite a failing status check, the
 following artifacts should be added to the PR:
 
 * If the status check can be run in another way, e.g. locally, a screenshot with
