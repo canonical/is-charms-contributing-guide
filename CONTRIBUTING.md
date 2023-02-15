@@ -368,6 +368,22 @@ Alternatives to merging the PR with failing status checks include:
   is lost.
 * Wait for an upstream fix for the issue.
 
+If it is deemed that a change should land despita a failing status check, the
+following artifacts should be added to the PR:
+
+* If the status check can be run in another way, e.g. locally, a screenshot with
+  the git commit SHA which is being approved and the status check passing
+* The reason why the PR needs to be merged without the status check passing
+  (e.g., because the fix is needed in production and the status check is failing
+  due to problems with GitHub).
+
+One of the repository admins should then be asked to review the artifacts and
+merge the PR after completing the review. The PR should be otherwise ready to be
+merged (e.g., has been approved).
+
+Resolving the underlying reason the status check is failing should be high
+priority so that the team can rely on the automation again.
+
 This will ensure that we minimise the number of bugs in our code and tooling.
 
 ## When to Write and What to Cover In Integration Tests
