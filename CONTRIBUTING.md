@@ -371,8 +371,9 @@ Alternatives to merging the PR with failing status checks include:
 If it is deemed that a change should land despite a failing status check, the
 following artifacts should be added to the PR:
 
-* If the status check can be run in another way, e.g. locally, a screenshot with
-  the git commit SHA which is being approved and the status check passing
+* If the status check can be run in another way, e.g. locally, a copy of the run
+  (e.g., a copy of the terminal output) including the git commit SHA which is
+  being approved and the status check passing
 * The reason why the PR needs to be merged without the status check passing
   (e.g., because the fix is needed in production and the status check is failing
   due to problems with GitHub).
