@@ -9,6 +9,7 @@
 - [Failing Status Checks](#failing-status-checks)
 - [Formatting Log Messages](#formatting-log-messages)
 - [Handling Exceptions in Python Charm Code](#handling-exceptions-in-python-charm-code)
+- [Handling Typing Issues with python-libjuju](#handling-typing-issues-with-python-libjuju)
 - [Non Compliant Code](#non-compliant-code)
 - [PR comments and requests for changes](#pr-comments-and-requests-for-changes)
 - [Programming Languages and Frameworks](#programming-languages-and-frameworks)
@@ -19,7 +20,7 @@
 - [Test Structure](#test-structure)
 - [Type Hints](#type-hints)
 - [When to use Python or Shell](#when-to-use-python-or-shell)
-- [When to Write and What to Cover In Integration Tests](when-to-write-and-what-to-cover-in-integration-tests)
+- [When to Write and What to Cover In Integration Tests](#when-to-write-and-what-to-cover-in-integration-tests)
 
 ## Definitions
 
@@ -772,6 +773,39 @@ type hints can be found here: [PEP 484](https://peps.python.org/pep-0484/).
 
 This will help users know what functions expect as parameters and return and
 catches more bugs earlier.
+
+## Handling Typing Issues with python-libjuju
+
+In tests and elsewhere when interating with `python-libjuju`, it is a frequent
+requirement to check whether certain attributes are `None`. Doing this in many
+tests reduces the readability of the code.
+
+Instead of putting `assert ops_test.model` in individual tests, write a fixture:
+
+```Python
+@pytest_asyncio.fixture(scope="module", name="model")
+async def model_fixture(ops_test: pytest_operator.plugin.OpsTest) -> ops.model.Model:
+    """The current test model."""
+    assert ops_test.model
+    return ops_test.model
+```
+
+Instead of putting `assert hasattr(app, "units")` and `assert app.units[0]`,
+write a fixture:
+
+```Python
+@pytest_asyncio.fixture(scope="function", name="unit")
+async def unit_fixture(app: ops.model.Application) -> ops.model.Unit:
+    """The current test unit."""
+    assert hasattr(app, "units")
+    assert app.units[0]
+    return app.units[0]
+```
+
+This standard also applies in other cases where similar `assert ...` are
+required in many tests.
+
+This reduces code duplication which increases the readability of the tests.
 
 ## Static Code Analysis
 
