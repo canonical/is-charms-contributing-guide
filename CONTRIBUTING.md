@@ -790,8 +790,7 @@ async def model_fixture(ops_test: pytest_operator.plugin.OpsTest) -> ops.model.M
     return ops_test.model
 ```
 
-Instead of putting `assert hasattr(app, "units")` and `assert app.units[0]`,
-write a fixture:
+Instead of putting `assert hasattr(app, "units")`, write a fixture:
 
 ```Python
 @pytest_asyncio.fixture(scope="function", name="unit")
