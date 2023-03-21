@@ -776,7 +776,7 @@ catches more bugs earlier.
 
 ## Handling Typing Issues with python-libjuju
 
-In tests and elsewhere when interating with `python-libjuju`, it is a frequent
+In tests and elsewhere when interacting with `python-libjuju`, it is a frequent
 requirement to check whether certain attributes are `None`. Doing this in many
 tests reduces the readability of the code.
 
@@ -795,15 +795,11 @@ write a fixture:
 
 ```Python
 @pytest_asyncio.fixture(scope="function", name="unit")
-async def unit_fixture(app: ops.model.Application) -> ops.model.Unit:
+async def unit_fixture(app: ops.model.Application) -> list[ops.model.Unit]:
     """The current test unit."""
     assert hasattr(app, "units")
-    assert app.units[0]
-    return app.units[0]
+    return app.units
 ```
-
-This standard also applies in other cases where similar `assert ...` are
-required in many tests.
 
 This reduces code duplication which increases the readability of the tests.
 
