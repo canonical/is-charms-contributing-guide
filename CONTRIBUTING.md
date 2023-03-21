@@ -793,8 +793,8 @@ async def model_fixture(ops_test: pytest_operator.plugin.OpsTest) -> ops.model.M
 Instead of putting `assert hasattr(app, "units")`, write a fixture:
 
 ```Python
-@pytest_asyncio.fixture(scope="function", name="unit")
-async def unit_fixture(app: ops.model.Application) -> list[ops.model.Unit]:
+@pytest_asyncio.fixture(scope="function", name="units")
+async def units_fixture(app: ops.model.Application) -> list[ops.model.Unit]:
     """The current test unit."""
     assert hasattr(app, "units")
     return app.units
