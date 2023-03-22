@@ -552,6 +552,27 @@ keeping in mind the option of breaking up the test into multiple tests.
 This structure makes it easy to understand what is required before test
 execution, how the test works and what it checks for in the end.
 
+# Test Fixture
+
+When declaring fixture functions and requesting them in the same Python module,
+it is recommended to add a "fixture" prefix or suffix to the fixture function
+name and use the `name` argument in the `pytest.fixture` decorator to name the
+fixture. This can help protect you from accidentally using the fixture function
+instead of requesting the fixture in test case function parameters.
+
+An example of using the `name` argument in the `pytest.fixture` decorator:
+
+```python3
+import pytest
+
+@pytest.fixture(name="app")
+def app_fixture():
+    return "app"
+
+def test_my_fixture(app):
+    assert app == "app"
+```
+
 ## Test Coverage
 
 Unit tests check whether the intended functionality has been implemented. This
