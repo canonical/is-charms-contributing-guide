@@ -556,7 +556,7 @@ execution, how the test works and what it checks for in the end.
 # Test Fixture
 
 When declaring fixture functions and requesting them in the same Python module, 
-There is a risk of accidentally using the fixture function declared in the 
+there is a risk of accidentally using the fixture function declared in the 
 global scope instead of requesting it in the test case function parameters.
 
 To prevent this problme, it is recommended to add a "fixture" prefix or suffix 
