@@ -17,6 +17,7 @@
 - [Subprocess calls within Python](#subprocess-calls-within-python)
 - [Test Coverage](#test-coverage)
 - [Test Structure](#test-structure)
+- [Test Fixture](#test-fixture)
 - [Type Hints](#type-hints)
 - [When to use Python or Shell](#when-to-use-python-or-shell)
 - [When to Write and What to Cover In Integration Tests](when-to-write-and-what-to-cover-in-integration-tests)
@@ -554,15 +555,17 @@ execution, how the test works and what it checks for in the end.
 
 # Test Fixture
 
-When declaring fixture functions and requesting them in the same Python module,
-it is recommended to add a "fixture" prefix or suffix to the fixture function
-name and use the `name` argument in the `pytest.fixture` decorator to name the
-fixture. This can help protect you from accidentally using the fixture function
-instead of requesting the fixture in test case function parameters.
+When declaring fixture functions and requesting them in the same Python module, 
+There is a risk of accidentally using the fixture function declared in the 
+global scope instead of requesting it in the test case function parameters.
 
-An example of using the `name` argument in the `pytest.fixture` decorator:
+To prevent this problme, it is recommended to add a "fixture" prefix or suffix 
+to the fixture function name and use the `name` argument in the `pytest.fixture`
+decorator to name the fixture.
 
-```python3
+Here's An example of using the `name` argument in `pytest.fixture`:
+
+```python
 import pytest
 
 @pytest.fixture(name="app")
