@@ -1,0 +1,1 @@
+rule 'MD013', :ignore_code_blocks => true, :tables => false, :code_blocks => false
