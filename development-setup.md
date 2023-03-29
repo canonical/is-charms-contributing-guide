@@ -177,11 +177,13 @@ excludesFile = ~/.gitignore_global
   echo "test" | gpg --clearsign
   ```
 
-  A prompt should ask for your password and a PGP Signature should be printed in your shell.
+  A prompt should ask for your password and a PGP Signature should be printed in
+  your shell.
 
 #### Alternative signing using an SSH key
 
-* We assume that you're using `git` (version >= 2.34) and already have an SSH key to push to our repositories.
+* We assume that you're using `git` (version >= 2.34) and already have an SSH
+key to push to our repositories.
 
 * Configure git to sign commits
 
