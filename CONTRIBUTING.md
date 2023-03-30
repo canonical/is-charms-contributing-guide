@@ -327,6 +327,8 @@ exposes our team and Canonical to operational risks.
 - PRs can only be merged if all checks pass.
 - Bypassing of the rules is disabled.
 - Commits must be signed.
+- [Automated secret scanning](https://docs.github.com/en/code-security/secret-scanning/configuring-secret-scanning-for-your-repositories#enabling-secret-scanning-alerts-for-users)
+  must be enabled.
 
 The above configuration ensures our team processes around changes are enforced
 and provides access to the repository even if some team members are unavailable.
