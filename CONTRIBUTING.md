@@ -312,7 +312,7 @@ email = token_hex(16)
 If file encoding is not specified when interacting with a file, the default
 value for the operating sytem is used. The default varies across operating
 systems reducing the portability of code that does not specify a encoding
-explcitedly. See: https://peps.python.org/pep-0597/
+explicitly. See: https://peps.python.org/pep-0597/
 
 For any file operations, specify the `utf-8` encoding where possible. For
 example:
