@@ -1,0 +1,13 @@
+name: Markdownlint
+
+on:
+  pull_request:
+
+jobs:
+  mdl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Run Markdown Lint
+        uses: actionshub/markdownlint@main
