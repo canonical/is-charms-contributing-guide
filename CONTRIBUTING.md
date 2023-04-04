@@ -18,6 +18,7 @@
 - [Static Code Analysis](#static-code-analysis)
 - [Subprocess calls within Python](#subprocess-calls-within-python)
 - [Test Coverage](#test-coverage)
+- [Test Fixture](#test-fixture)
 - [Test Structure](#test-structure)
 - [Type Hints](#type-hints)
 - [When to use Python or Shell](#when-to-use-python-or-shell)
@@ -581,6 +582,29 @@ keeping in mind the option of breaking up the test into multiple tests.
 
 This structure makes it easy to understand what is required before test
 execution, how the test works and what it checks for in the end.
+
+# Test Fixture
+
+When declaring fixture functions and requesting them in the same Python module, 
+there is a risk of accidentally using the fixture function declared in the 
+global scope instead of requesting it in the test case function parameters.
+
+To prevent this problem, it is recommended to add a "fixture" prefix or suffix 
+to the fixture function name and use the `name` argument in the `pytest.fixture`
+decorator to name the fixture.
+
+Here's an example of using the `name` argument in `pytest.fixture`:
+
+```python
+import pytest
+
+@pytest.fixture(name="app")
+def app_fixture():
+    return "app"
+
+def test_my_fixture(app):
+    assert app == "app"
+```
 
 ## Test Coverage
 
