@@ -7,6 +7,7 @@
 - [Docstrings](#docstrings)
 - [f-strings](#f-strings)
 - [Failing Status Checks](#failing-status-checks)
+- [File Encoding](#file-encoding)
 - [Formatting Log Messages](#formatting-log-messages)
 - [Handling Exceptions in Python Charm Code](#handling-exceptions-in-python-charm-code)
 - [Handling Typing Issues with python-libjuju](#handling-typing-issues-with-python-libjuju)
@@ -306,6 +307,28 @@ from secrets import token_hex
 
 email = token_hex(16)
 ```
+
+## File Encoding
+
+If file encoding is not specified when interacting with a file, the default
+value for the operating sytem is used. The default varies across operating
+systems reducing the portability of code that does not specify a encoding
+explicitly. See: https://peps.python.org/pep-0597/
+
+For any file operations, specify the `utf-8` encoding where possible. For
+example:
+
+```python
+with open(..., encoding="utf-8") as file:
+    ...
+
+from pathlib import Path
+
+Path(...).read_text(encoding="utf-8")
+Path(...).write_text(..., encoding="utf-8")
+```
+
+This ensures that the code we write is portable across operating systems.
 
 ## Repository Setup
 
