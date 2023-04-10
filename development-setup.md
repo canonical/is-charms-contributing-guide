@@ -196,4 +196,8 @@ git config --global user.signingkey path/to/your/ssh/key
 git config --global commit.gpgsign true
 ```
 
+* Add the SSH key to [GitHub](https://github.com/settings/keys) as a new SSH
+  signing key. This is required even if you already have the same key configured
+  as an authentication key.
+
 * Voilà
