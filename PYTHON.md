@@ -1,0 +1,226 @@
+# Standards
+
+- [Docstrings](#docstrings)
+- [f-strings](#f-strings)
+- [File Encoding](#file-encoding)
+- [Formatting Log Messages](#formatting-log-messages)
+- [Random values](#random-values)
+- [Subprocess calls within Python](#subprocess-calls-within-python)
+- [Type Hints](#type-hints)
+
+## Docstrings
+
+Modules, functions and classes without a well formatted description can be
+difficult to understand and maintain, especially if the function is longer than
+just a few lines.
+
+Each module, function and class should have a docstring. Both
+[PEP257](https://peps.python.org/pep-0257/) and the
+[Google standard](https://github.com/google/styleguide/blob/gh-pages/pyguide.md#38-comments-and-docstrings)
+on docstrings apply. Here is an example:
+
+```Python
+def foo(arg1: str, arg2: int) -> bool:
+    """This is the short description.
+
+    This is the longer description that goes into more detail. May not always be required depending
+    on the complexity of the function.
+
+    Args:
+        arg1: This is the description for the first argument.
+        arg2: This is the description for the second argument. If the description is a bit longer,
+            this is what it would look like to make it easier to spot that the description for the
+            argument continues. If type hints are included in the function signature, there is
+            usually no need to specify the type of the argument here.
+
+    Returns:
+        This is the return value. Longer descriptions can span multiple lines, as demonstrated
+        here.
+
+    Raises:
+        AnError: This is where any exceptions that could be raised are described. Usually it is
+            best to only include exceptions that are raised directly in the function and not those
+            raised in functions being called by the function.
+        AnotherError: This is what a second error description might look like.
+    """
+    ...
+```
+
+Exemptions:
+
+1. Test functions
+2. Test fixtures
+
+This makes the code easier to understand and maintain.
+
+## f-strings
+
+The `str.format` based syntax is difficult to read because, to figure out what
+the final string looks like, the format parameters have to be checked against
+their position in the string which adds additional mental overhead to reading
+the code. String concatenation with + is also difficult read read.
+
+f-strings are the preferred way of including variables in a string. For
+example:
+
+```Python
+foo = "substring"
+# .format is not preferred
+bar = "string {}".format(foo)
+# string concatenation is not preferred
+bar = "string " + foo
+# f-strings are preferred
+bar = f"string {foo}"
+```
+
+f-strings are much easier to read because the variable is placed at the
+location it appears in the final string.
+
+## File Encoding
+
+If file encoding is not specified when interacting with a file, the default
+value for the operating sytem is used. The default varies across operating
+systems reducing the portability of code that does not specify a encoding
+explicitly. See: [PEP-0597](https://peps.python.org/pep-0597/)
+
+For any file operations, specify the `utf-8` encoding where possible. For
+example:
+
+```python
+with open(..., encoding="utf-8") as file:
+    ...
+
+from pathlib import Path
+
+Path(...).read_text(encoding="utf-8")
+Path(...).write_text(..., encoding="utf-8")
+```
+
+This ensures that the code we write is portable across operating systems.
+
+## Formatting Log Messages
+
+Log messages often need to include the value of variables, such as exceptions
+or configuration. Usually f-strings are the preferred way of formatting
+strings. However, due to logging features, using f-strings or `str.format` is a
+security risk (see [issue46200](https://bugs.python.org/issue46200)) and also
+causes the string formatting to be done even if the log level for the message
+is disabled.
+
+Use the string formatting provided by logging:
+
+```Python
+foo = "substring"
+# Security risk
+logging.debug(f"string {foo}")
+# Safe
+logging.debug("string %s", foo)
+```
+
+Whilst this is less readable, it prevents security issues and avoids
+unnecessary evaluation of the string formatting. Even if the formatting input
+is trusted, the logging provided formatting should be used because the input
+may become untrusted due to a code change in the future.
+
+## Random Values
+
+While creating tests, sometimes you need to assign values to variables
+or parameters in order to simulate a user behavior, for example. In this case,
+instead of using constants or fixed values, consider using random ones generated
+by [`secrets.token_hex()`](https://docs.python.org/3/library/secrets.html#secrets.token_hex).
+
+Reasons:
+
+- If you use the same fixed values in your tests every time, your tests may pass
+even if there are underlying issues with your code. This can lead to false
+positives and make it difficult to identify and fix real issues in your code.
+- Using random values generated by secrets.token_hex() can help to prevent
+collisions or conflicts between test data.
+- In the case of sensitive data, if you use fixed values in your tests, there is
+a risk that may be exposed or leaked, especially if your tests are run in a
+shared environment.
+
+Example:
+
+```python
+from secrets import token_hex
+
+email = token_hex(16)
+```
+
+## Subprocess calls within Python
+
+When running shell utilities or programs outside of Python, such as git, Python
+library bindings are preferable over invocation with subprocess call. Python
+libraries may provide typed-interaction, better logging, and error handling.
+
+In case no high-quality Python library exists, using `subprocess` in the
+standard library may be needed. Without enforcing good practice, usage of
+subprocess call can be difficult to debug and leads security risks.
+
+In such cases it is generally a good practice to:
+
+- Log exit_code and stderr when errors occur.
+- Convert to the correct exception if needed.
+- Use absolute path to prevent security issues.
+- Add `# nosec B603` and `# nosec B404` to ignore bandit check, and add comment
+to explain the usage.
+
+This mostly applies to spawning subprocess in other libraries as well, such as
+`execute` method for LXD instance in pylxd library. Adding `# nosec B603` and
+`# nosec B404` may not be needed.
+
+```Python
+import subprocess  # nosec B404
+
+try:
+  # Comment to explain why subprocess is used.
+  result = subprocess.run(  # nosec B603
+    ["/usr/bin/echo", "hello world"],
+    capture_output=True,
+    check=True,
+  )
+  logger.debug("Command output: %s", result.stdout)
+except subprocess.CalledProcessError as err:
+  logger.error("Command failed with %i: %s", err.returncode, err.stderr)
+  raise
+```
+
+## Type Hints
+
+Python is a dynamic programming language that does not require type
+declarations. Without type information, arguments might be passed to functions
+that are not of the expected type (e.g., passing `None` where it is not
+expected), which leads to more bugs. It also makes it more difficult to know
+what functions accept as input and return as output.
+
+Except when impractical, declare type hints on function parameters, return
+values and class and instance variables. Examples of when type hints might
+be impractical (not an exhaustive list):
+
+- dictionaries with many nested dictionaries,
+- decorator functions,
+- when making small changes or
+- contributions to projects not owned by the team.
+
+To leverage the power of type hints, the following configuration snippet should
+be added to `pyproject.toml`. This helps the user during the linting process by
+ensuring that all functions, including tests, have type definitions and checks
+for any typing issues even if a function does not have explicit type hints on
+it.
+
+```toml
+[tool.mypy]
+check_untyped_defs = true
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+```
+
+The type hints should be checked with `mypy`. More information on
+type hints can be found here: [PEP 484](https://peps.python.org/pep-0484/).
+
+This will help users know what functions expect as parameters and return and
+catches more bugs earlier.

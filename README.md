@@ -2,10 +2,20 @@
 
 *This contributing guide is under development.*
 
-The [CONTRIBUTING.md](CONTRIBUTING.md) file outlines expectations the IS Charms
+This project outlines expectations the IS Charms
 team has of each other when contributing code to any of the repositories owned
 by the team. Changes can be proposed by anyone through pull requests (including
 to anything in this file).
+
+Categories:
+
+* [Contributions](CONTRIBUTIONS.md): How to contribute to Juju charms,
+how to set repository, how to review a PR etc.
+* [Definitions](DEFINITIONS.md): Descriptions of some terms in this guide.
+* [Juju Charms](JUJUCHARMS.md): Juju Charms version control, configuration,
+libraries etc.
+* [Python](PYTHON.md): What to check before submitting a PR.
+* [Tests](TESTS.md): What to test in a Juju charm.
 
 The structure of the contribution guide is:
 
