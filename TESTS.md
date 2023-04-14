@@ -99,32 +99,59 @@ keeping in mind the option of breaking up the test into multiple tests.
 This structure makes it easy to understand what is required before test
 execution, how the test works and what it checks for in the end.
 
-## When to use Python or Shell
+## When to Write and What to Cover In Integration Tests
 
-Shell scripts are powerful and easy to write. However, they can be challenging
-to maintain as they can be difficult to read, have limited tools for testing
-and are not easy to re-use through simple import statements. Charms run
-production workloads, some of which are business critical, and it is important
-to ensure that the code is bug free which requires extensive testing.
+The team creates charms and tooling used and intended to be used directly or as
+building blocks for mission critical purposes by both Canonical and external
+users. The charms and tools we provide need to meet a high quality bar to ensure
+that they work for our users as intended. If we ship charms and tools that don't
+meet this high standard, the impact could be widespread.
 
-Limit the use of shell scripts and commands as much as possible in favour of
-writing Python for charm code. This means that there needs to be a good reason
-to use a shell command rather than Python. Examples include:
+This standard covers when to write integration tests and also provides guidance
+on what should be covered by them.
 
-* Extracting data from a machine or container which can't be obtained through
-  Python
-* Issuing commands to applications that do not have Python bindings (e.g.,
-  starting a process on a machine)
+The intent of integration tests is to check that what we provide to our users
+works as advertised. There are two key concepts in that statement:
+`what we provide` and `works as advertised`. `what we provide` addresses the
+scope of our integration tests which are the features specifically provided by
+the charm or tool. The following examples illustrate what this means by
+providing guidance on what should and should not be covered by integration
+tests.
 
-Note that, outside of charm source and test code, it is reasonable to use shell
-scripts to, for example:
+The following should be covered by integration tests for business critical
+charms:
 
-* Configure CI/CD
-* Build docker images
-* Utilities to support development
+* An action the charm provides
+* An integration the charm provides
+* A configuration the charm provides
+* That the workload is up and running
+* The features of a tool
 
-This will improve the maintainability of our charms, enable re-use and enable
-the team to take advantage of the powerful tooling available through Python.
+The reason these examples should be covered is because we are accountable for
+these features of a charm or tool by being its owner. Charms that are not
+business critical may not include integration tests for these examples based on
+the value these tests would provide compared to the cost of writing them.
 
-Note it is possible to run shell commands within python.
-[See this section.](PYTHON.md#subprocess-calls-within-python)
+The following does not usually need to be covered by integration tests because
+we do not own them:
+
+* A feature provided by the workload which is not enhanced by the charm
+* That GitHub works
+* That the network works
+* That the operating system works
+* That Kubernetes works
+* That Juju works
+
+To address the second concept of `works as advertised`, when writing an
+integration test for business critical charms, it is not sufficient to just
+check that, for example, that Juju reports that running the action was
+successful. Additional checks need to be executed to ensure that whatever the
+action was intended to achieve worked. For charms that are not business
+critical, the checks can be more relaxed, such as just checking that juju
+reports success for the action that was triggered.
+
+By writing integration tests that cover the features provided by the charm, we
+ensure that we are meeting the expectations our users have of us. This will make
+the charms and tools we provide reliable and enable our users to use them for
+their use cases, including those that are business critical.
+
