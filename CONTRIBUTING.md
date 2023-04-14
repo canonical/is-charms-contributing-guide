@@ -11,6 +11,7 @@
 - [Formatting Log Messages](#formatting-log-messages)
 - [Handling Exceptions in Python Charm Code](#handling-exceptions-in-python-charm-code)
 - [Handling Typing Issues with python-libjuju](#handling-typing-issues-with-python-libjuju)
+- [Juju Interactions](#juju-interactions)
 - [Non Compliant Code](#non-compliant-code)
 - [PR comments and requests for changes](#pr-comments-and-requests-for-changes)
 - [Programming Languages and Frameworks](#programming-languages-and-frameworks)
@@ -849,6 +850,30 @@ type hints can be found here: [PEP 484](https://peps.python.org/pep-0484/).
 
 This will help users know what functions expect as parameters and return and
 catches more bugs earlier.
+
+## Juju Interactions
+
+Interacting with Juju via subprocesses or running commands means from code
+requires parsing output on the command line which is intended for human rather
+than machine consumption. Interpreting command line output has a higher
+maintenance cost (as it is subject to change without, for example, versioning
+control) and increases the complexity of the code that needs to interact with
+Juju.
+
+Interacting with Juju via the command line should be limited to cases where
+[`python-libjuju`](https://pythonlibjuju.readthedocs.io/en/latest/) cannot be
+used. Specifically, the following should be avoided:
+
+```python
+subprocess.run(["juju", ...])
+ops_test.juju("run", ...)
+```
+
+Instead, use the native functions of `python-libjuju` if they are available.
+
+This means that Python native features, such as exception handling, and the data
+model of `python-libjuju` which is intended for programmatic interactions can be
+used which reduces the maintenance cost of the code and reduces complexity.
 
 ## Handling Typing Issues with python-libjuju
 
