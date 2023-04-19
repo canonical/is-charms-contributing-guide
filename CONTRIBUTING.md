@@ -608,11 +608,11 @@ execution, how the test works and what it checks for in the end.
 
 # Test Fixture
 
-When declaring fixture functions and requesting them in the same Python module, 
-there is a risk of accidentally using the fixture function declared in the 
+When declaring fixture functions and requesting them in the same Python module,
+there is a risk of accidentally using the fixture function declared in the
 global scope instead of requesting it in the test case function parameters.
 
-To prevent this problem, it is recommended to add a "fixture" prefix or suffix 
+To prevent this problem, it is recommended to add a "fixture" prefix or suffix
 to the fixture function name and use the `name` argument in the `pytest.fixture`
 decorator to name the fixture.
 
@@ -927,7 +927,19 @@ Note:
 * If a rule is disabled, a comment should to be included above the line
   disabling the rule explaining why the rule is disabled. This will mean that
   future readers don't have to guess why it was disabled and can also consider
-  whether the disable can be removed.
+  whether the disable can be removed. For rules tied to import, it may be better
+  to comment on each usage rather than on the import. Note that comments for
+  import must be added at the start of an import section to prevent the
+  formatter from messing up the import sections:
+
+  ```
+  # Comment explaining why subprocess is imported.
+  import logging
+  import os
+  import subprocess  # nosec B404
+  import time
+  ```
+
 * Disabling should be done as specifically as possible. That means, disabling
   the narrowest rule possible on the narrowest section of code. For example,
   instead of disabling a rule entirely, disable it on a file. Instead of
