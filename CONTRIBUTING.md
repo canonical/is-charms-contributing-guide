@@ -11,6 +11,7 @@
 - [Formatting Log Messages](#formatting-log-messages)
 - [Handling Exceptions in Python Charm Code](#handling-exceptions-in-python-charm-code)
 - [Handling Typing Issues with python-libjuju](#handling-typing-issues-with-python-libjuju)
+- [Harness Container Filesystem](#harness-container-filesystem)
 - [Non Compliant Code](#non-compliant-code)
 - [PR comments and requests for changes](#pr-comments-and-requests-for-changes)
 - [Programming Languages and Frameworks](#programming-languages-and-frameworks)
@@ -877,6 +878,29 @@ async def units_fixture(app: ops.model.Application) -> list[ops.model.Unit]:
 ```
 
 This reduces code duplication which increases the readability of the tests.
+
+## Harness Container Filesystem
+
+When writing unit tests for a charm, a container may need to be mocked for it's filesystem
+interactions. The use of following snippet to mock the container filesystem is suggested.
+
+```Python
+import typing
+
+import pytest
+from ops.model import Container
+from ops.testing import Harness
+
+@pytest.fixture(scope="function", name="container")
+def container_fixture(harness: Harness) -> Container:
+  harness.set_can_connect(CONTAINER_NAME, True)
+  container: Container = harness.model.unit.get_container(CONTAINER_NAME)
+  container.push(
+    CONTAINER_FILE_TO_MOCK_PATH, CONTAINER_FILE_TO_MOCK_CONTENTS, encoding="utf-8", make_dirs=True
+  )
+
+  return container
+```
 
 ## Static Code Analysis
 
