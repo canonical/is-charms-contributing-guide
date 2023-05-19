@@ -14,7 +14,7 @@ how to set repository, how to review a PR etc.
 * [Definitions](DEFINITIONS.md): Descriptions of some terms in this guide.
 * [Juju Charms](JUJUCHARMS.md): Juju Charms version control, configuration,
 libraries etc.
-* [Python](PYTHON.md): What to check before submitting a PR.
+* [Python](PYTHON.md): Python code standars and best practices.
 * [Tests](TESTS.md): What to test in a Juju charm.
 
 The structure of the contribution guide is:
