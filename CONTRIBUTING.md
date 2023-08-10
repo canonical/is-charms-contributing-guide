@@ -4,6 +4,7 @@
 - [CI-CD](#ci-cd)
 - [Failing Status Checks](#failing-status-checks)
 - [File Encoding](#file-encoding)
+- [Function and Method Ordering](#function-and-method-Ordering)
 - [Handling Typing Issues with python-libjuju](#handling-typing-issues-with-python-libjuju)
 - [Non Compliant Code](#non-compliant-code)
 - [PR comments and requests for changes](#pr-comments-and-requests-for-changes)
@@ -548,6 +549,25 @@ Note:
 
 This ensures consistency across our projects, catches many potential bugs
 before code is deployed and simplifies PRs.
+
+## Function and Method Ordering
+
+Without a logical order, it can be difficult to follow modules and classes as
+the number of functions or methods on them grow increasing the maintenance
+burden of the code.
+
+On modules, where a function depends on another function, the dependent function
+should be listed after the function it depends on. This means that the functions
+with the fewest dependencies on other functions in the module should be listed
+first. Functions should also be grouped logically. If functions have a similar
+purpose, they should be grouped together.
+
+On classes, the `__init__` method should come first followed by any other
+factory methods, such as `from_charm`. The rest of the methods on a class should
+be ordered similar to the guidance for function ordering on modules.
+
+This will make it easier for readers to understand the code reducing the
+maintenance cost.
 
 ## Non Compliant Code
 
