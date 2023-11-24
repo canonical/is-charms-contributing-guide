@@ -121,7 +121,7 @@ versions.
 ## Downloading Binaries
 
 It is a better experience to acquire binaries using an `apt` package or `snap`
-compared to downloading a bianry. Both have features, such as autoamted updates,
+compared to downloading a bianry. Both have features, such as automated updates,
 which enhance the security of the system that makes use of the binaries.
 
 Instead of downloading a binary and using it in our projects, create an
