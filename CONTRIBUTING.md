@@ -118,7 +118,21 @@ This ensures that the tests are run on the same Python version as the charm
 will be running in production, catching any issues related to mismatched Python
 versions.
 
-# CI-CD
+## Downloading Binaries
+
+It is a better experience to acquire binaries using an `apt` package or `snap`
+compared to downloading a bianry. Both have features, such as autoamted updates,
+which enhance the security of the system that makes use of the binaries.
+
+Instead of downloading a binary and using it in our projects, create an
+[`apt`](https://wiki.debian.org/HowToPackageForDebian) package or
+[`snap`](https://snapcraft.io/docs/getting-started). Instead of using a
+pre-existing docker image, create a
+[`rock`](https://canonical-rockcraft.readthedocs-hosted.com/en/latest/how-to/get-started/).
+
+This ensures that other developers that need the binary can easily get it.
+
+## CI-CD
 
 The team maintains a number of repositories which are generally quite similar.
 If each of the repositories maintains its own workflows, it is difficult to
@@ -343,7 +357,7 @@ keeping in mind the option of breaking up the test into multiple tests.
 This structure makes it easy to understand what is required before test
 execution, how the test works and what it checks for in the end.
 
-# Test Fixture
+## Test Fixture
 
 When declaring fixture functions and requesting them in the same Python module,
 there is a risk of accidentally using the fixture function declared in the
