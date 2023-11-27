@@ -125,9 +125,12 @@ It is a better experience to acquire binaries using an `apt` package or `snap`
 compared to downloading a binary. Both have features, such as automated updates,
 which enhance the security of the system that makes use of the binaries.
 
-Instead of downloading a binary and using it in our projects, create an
+This standard is scoped to untrusted sources. Trusted sources are those provided
+by Canonical (like the Ubuntu Archives). For untrusted sources, at least the
+binary should be built from source. Even better is to create an
 [`apt`](https://wiki.debian.org/HowToPackageForDebian) package or
-[`snap`](https://snapcraft.io/docs/getting-started).
+[`snap`](https://snapcraft.io/docs/getting-started). For now, PyPI is also out
+of scope, so packages can be installed freely from there.
 
 This ensures that other developers that need the binary can easily get it.
 
