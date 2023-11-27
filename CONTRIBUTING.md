@@ -2,6 +2,7 @@
 
 - [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
 - [CI-CD](#ci-cd)
+- [Downloading Binaries](#downloading-binaries)
 - [Failing Status Checks](#failing-status-checks)
 - [File Encoding](#file-encoding)
 - [Function and Method Ordering](#function-and-method-Ordering)
@@ -121,14 +122,12 @@ versions.
 ## Downloading Binaries
 
 It is a better experience to acquire binaries using an `apt` package or `snap`
-compared to downloading a bianry. Both have features, such as automated updates,
+compared to downloading a binary. Both have features, such as automated updates,
 which enhance the security of the system that makes use of the binaries.
 
 Instead of downloading a binary and using it in our projects, create an
 [`apt`](https://wiki.debian.org/HowToPackageForDebian) package or
-[`snap`](https://snapcraft.io/docs/getting-started). Instead of using a
-pre-existing docker image, create a
-[`rock`](https://canonical-rockcraft.readthedocs-hosted.com/en/latest/how-to/get-started/).
+[`snap`](https://snapcraft.io/docs/getting-started).
 
 This ensures that other developers that need the binary can easily get it.
 
