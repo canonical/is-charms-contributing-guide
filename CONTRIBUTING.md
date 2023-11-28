@@ -586,7 +586,15 @@ directory. The contents of `generate-src-docs.sh` are as follows:
 lazydocs --no-watermark --output-path src-docs src/*
 ```
 
-On a successful run, the markdown documentation is generated under `src-docs`
+The entire workflow can be triggered via git pre-commit hook. Run the following
+command at the root directory of the git repository to install the pre-commit
+hook.
+```bash
+echo -e "tox -e src-docs\ngit add src-docs\n" > .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+```
+
+On a successful commit, the markdown documentation is generated under `src-docs`
 directory.
 
 ## Function and Method Ordering
