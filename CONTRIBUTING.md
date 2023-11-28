@@ -12,6 +12,7 @@
 - [Random values](#random-values)
 - [Repository Setup](#repository-setup)
 - [Static Code Analysis](#static-code-analysis)
+- [Source Code Documentation](#source-code-documentation)
 - [Test Coverage](#test-coverage)
 - [Test Fixture](#test-fixture)
 - [Test Structure](#test-structure)
@@ -549,6 +550,44 @@ Note:
 
 This ensures consistency across our projects, catches many potential bugs
 before code is deployed and simplifies PRs.
+
+## Source Code Documentation
+
+* This section of the documentation applies to charm repositories.
+
+In order to make PRs easier to review,
+[lazydocs](https://github.com/ml-tooling/lazydocs) is used to generate source
+code documentation from Python docstrings. It is recommended to install
+pre-commit hooks to run tox `src-docs` testing environment.
+
+The contents of tox `src-docs` testing environment are as follows:
+```
+[testenv:src-docs]
+allowlist_externals=sh
+description = Generate documentation for src
+deps =
+    lazydocs
+    -r{toxinidir}/requirements.txt
+commands =
+    ; can't run lazydocs directly due to needing to run it on src/* which
+    ; produces an invocation error in tox
+    sh generate-src-docs.sh
+```
+
+The environment above requires `generate-src-docs.sh` to be present at the root
+directory. The contents of `generate-src-docs.sh` are as follows:
+
+```bash
+#!/usr/bin/env bash
+
+# Copyright 2023 Canonical Ltd.
+# See LICENSE file for licensing details.
+
+lazydocs --no-watermark --output-path src-docs src/*
+```
+
+On a successful run, the markdown documentation is generated under `src-docs`
+directory.
 
 ## Function and Method Ordering
 
