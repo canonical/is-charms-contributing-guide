@@ -121,18 +121,33 @@ versions.
 
 ## Downloading Binaries
 
-It is a better experience to acquire binaries using an `apt` package or `snap`
-compared to downloading a binary. Both have features, such as automated updates,
-which enhance the security of the system that makes use of the binaries.
+Downloading binaries is only permitted from what are classed as trusted sources.
+These are:
 
-This standard is scoped to untrusted sources. Trusted sources are those provided
-by Canonical (like the Ubuntu Archives). For untrusted sources, at least the
-binary should be built from source. Even better is to create an
-[`apt`](https://wiki.debian.org/HowToPackageForDebian) package or
-[`snap`](https://snapcraft.io/docs/getting-started). For now, PyPI is also out
-of scope, so packages can be installed freely from there.
+* The Ubuntu Archives (for debian packages)
+* Snaps
+  [owned by the "canonical" account](https://snapcraft.io/publisher/canonical)
+* [PyPi](https://pypi.org/)
 
-This ensures that other developers that need the binary can easily get it.
+These sources are considered trusted because we are confident that we understand
+the way in which they're built, and the security commitments for packages/snaps
+produced by them. At any point we can rerun our builds and know that we will
+pull in the latest versions of these artefacts, and that in the case of the
+first two they will include security updates that Canonical stands behind.
+
+Downloading binaries from any other sources and including them in our charms or
+ROCKs exposes our end users to potential security issues either now or in the
+future. We don't know the manner in which the binaries were built and don't have
+confidence that they will be updated in the future in case of security
+vulnerabilities that affect them.
+
+As such, we should ensure that we’re only downloading from either the trusted
+sources above, or we're downloading the source instead, verifying that download
+where possible, and then building that code from source on infrastructure we
+trust (e.g. Launchpad builders or GitHub self-hosted runners).
+
+Any exception to this should be specifically noted/documented and approved by IS
+Charms managers.
 
 ## CI-CD
 
