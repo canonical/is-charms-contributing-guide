@@ -15,6 +15,7 @@
 - [Static Code Analysis](#static-code-analysis)
 - [Source Code Documentation](#source-code-documentation)
 - [Test Coverage](#test-coverage)
+- [Test Exception Raised](#test-exception-raised)
 - [Test Fixture](#test-fixture)
 - [Test Structure](#test-structure)
 - [Type Hints](#type-hints)
@@ -374,6 +375,28 @@ keeping in mind the option of breaking up the test into multiple tests.
 
 This structure makes it easy to understand what is required before test
 execution, how the test works and what it checks for in the end.
+
+## Test Exception Raised
+
+Testing an exception being raised is not enough as a type of exception
+can be raised due to multiple reasons. E.g., a function could raise `ValueError`
+for different arguments.
+
+The property of the exception being raised should be asserted against as well.
+A common test would be the string representation of the exception. Using the
+following `pytest` example:
+
+```Python
+def test_something():
+  """Test docstring"""
+  with pytest.raises(ValueError) as err:
+      something(a=10, b=False)
+  assert str(err.value) == "Argument a must be less than 5"
+```
+
+In the above example, the `something` function could have thrown a different
+`ValueError` related to the argument `b`. Testing the string representation of
+the `ValueError` ensures the proper type of error is being tested against.
 
 ## Test Fixture
 
