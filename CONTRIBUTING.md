@@ -378,7 +378,7 @@ execution, how the test works and what it checks for in the end.
 
 ## Test Exception Raised
 
-Testing an exception being raised is not enough as a type of exception
+Testing an exception being raised might not be enough as a type of exception
 can be raised due to multiple reasons. E.g., a function could raise `ValueError`
 for different arguments.
 
