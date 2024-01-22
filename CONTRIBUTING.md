@@ -387,11 +387,21 @@ A common test would be the string representation of the exception. Using the
 following `pytest` example:
 
 ```Python
+def something(a: int, b: bool):
+  """Do something."""
+  if a >= 5:
+    raise ValueError("Argument a must be less than 5")
+  if b:
+    raise ValueError("Some other error message")
+  # Rest of the function...
+
+
 def test_something():
-  """Test docstring"""
+  """Test the something function."""
   with pytest.raises(ValueError) as err:
       something(a=10, b=False)
-  assert str(err.value) == "Argument a must be less than 5"
+  assert "argument a" in str(err.value)
+  assert "less than 5" in str(err.value)
 ```
 
 In the above example, the `something` function could have thrown a different
