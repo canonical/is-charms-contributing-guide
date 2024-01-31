@@ -400,7 +400,7 @@ def test_something():
   """Test the something function."""
   with pytest.raises(ValueError) as err:
       something(a=10, b=False)
-  assert "argument a" in str(err.value)
+  assert "Argument a" in str(err.value)
   assert "less than 5" in str(err.value)
 ```
 
