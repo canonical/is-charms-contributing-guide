@@ -1,24 +1,31 @@
 # Standards
 
-- [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
-- [CI-CD](#ci-cd)
-- [Downloading Binaries](#downloading-binaries)
-- [Failing Status Checks](#failing-status-checks)
-- [File Encoding](#file-encoding)
-- [Function and Method Ordering](#function-and-method-Ordering)
-- [Handling Typing Issues with python-libjuju](#handling-typing-issues-with-python-libjuju)
-- [Non Compliant Code](#non-compliant-code)
-- [PR comments and requests for changes](#pr-comments-and-requests-for-changes)
-- [Programming Languages and Frameworks](#programming-languages-and-frameworks)
-- [Random values](#random-values)
-- [Repository Setup](#repository-setup)
-- [Static Code Analysis](#static-code-analysis)
-- [Source Code Documentation](#source-code-documentation)
-- [Test Coverage](#test-coverage)
-- [Test Exception Raised](#test-exception-raised)
-- [Test Fixture](#test-fixture)
-- [Test Structure](#test-structure)
-- [Type Hints](#type-hints)
+- [Standards](#standards)
+  - [Definitions](#definitions)
+    - [Tool](#tool)
+    - [Unit Tests](#unit-tests)
+    - [Integration Tests](#integration-tests)
+    - [End To End Tests](#end-to-end-tests)
+    - [Smoke Tests](#smoke-tests)
+  - [Programming Languages and Frameworks](#programming-languages-and-frameworks)
+  - [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
+  - [Downloading Binaries](#downloading-binaries)
+  - [CI-CD](#ci-cd)
+  - [Random Values](#random-values)
+  - [File Encoding](#file-encoding)
+  - [Repository Setup](#repository-setup)
+  - [PR comments and requests for changes](#pr-comments-and-requests-for-changes)
+  - [Failing Status Checks](#failing-status-checks)
+  - [Test Structure](#test-structure)
+  - [Test Exception Raised](#test-exception-raised)
+  - [Test Fixture](#test-fixture)
+  - [Test Coverage](#test-coverage)
+  - [Type Hints](#type-hints)
+  - [Handling Typing Issues with python-libjuju](#handling-typing-issues-with-python-libjuju)
+  - [Static Code Analysis](#static-code-analysis)
+  - [Source Code Documentation](#source-code-documentation)
+  - [Function and Method Ordering](#function-and-method-ordering)
+  - [Non Compliant Code](#non-compliant-code)
 
 The [Charm development best practices](https://juju.is/docs/sdk/styleguide) are
 incorporated by reference.
@@ -129,6 +136,7 @@ These are:
 * The Ubuntu Archives (for debian packages)
 * Snaps
   [owned by the "canonical" account](https://snapcraft.io/publisher/canonical)
+* Snaps where the binary is built from source, and the source is trusted and approved for use
 * [PyPi](https://pypi.org/)
 
 These sources are considered trusted because we are confident that we understand
