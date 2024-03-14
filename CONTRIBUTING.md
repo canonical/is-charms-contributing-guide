@@ -129,7 +129,7 @@ These are:
 * The Ubuntu Archives (for debian packages)
 * Snaps
   [owned by the "canonical" account](https://snapcraft.io/publisher/canonical)
-* Snaps where the binary is built from source, and the source is trusted and approved for use.
+* Snaps where the binary is built from a trusted and approved source.
 * [PyPi](https://pypi.org/)
 
 These sources are considered trusted because we are confident that we understand
