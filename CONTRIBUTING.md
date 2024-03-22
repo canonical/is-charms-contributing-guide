@@ -18,6 +18,7 @@
 - [Test Exception Raised](#test-exception-raised)
 - [Test Fixture](#test-fixture)
 - [Test Structure](#test-structure)
+- [Test Mocks, Stubs and Fakes](#test-mocks-stubs-and-fakes)
 - [Type Hints](#type-hints)
 
 The [Charm development best practices](https://juju.is/docs/sdk/styleguide) are
@@ -464,6 +465,19 @@ This value should be updated in each PR to reflect any increase in coverage
 compared to the main branch as a result of the PR.
 
 This ensures a high coverage minimum and no coverage regression.
+
+## Test Mocks, Stubs and Fakes
+
+It is a good standard to differentiate between test mocks, stubs and fakes in
+unit tests in order to avoid having problems while refactoring or updating code.
+For example, when changing a behavior of a module/class, testing fakes must also
+be modified to reflect the changes in the behavior. A proper naming can help
+during the refactor.
+
+Mock: implements the interface of an object under test, used to verify interactions between
+  classes.
+Stub: implements predefined answers to calls, used to verify different code paths.
+Fake: a lightweight implementation of an object. e.g. in memory db.
 
 ## Type Hints
 
