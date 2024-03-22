@@ -474,9 +474,10 @@ For example, when changing a behavior of a module/class, testing fakes must also
 be modified to reflect the changes in the behavior. A proper naming can help
 during the refactor.
 
-Mock: implements the interface of an object under test, used to verify interactions between
-  classes.
-Stub: implements predefined answers to calls, used to verify different code paths.
+Mock: implements the interface of an object under test, used to verify 
+interactions between classes.
+Stub: implements predefined answers to calls, used to verify different code
+paths.
 Fake: a lightweight implementation of an object. e.g. in memory db.
 
 ## Type Hints
