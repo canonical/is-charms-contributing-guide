@@ -669,10 +669,7 @@ Without a logical order, it can be difficult to follow modules and classes as
 the number of functions or methods on them grow increasing the maintenance
 burden of the code.
 
-On modules, where a function depends on another function, the dependent function
-should be listed after the function it depends on. This means that the functions
-with the fewest dependencies on other functions in the module should be listed
-first. Functions should also be grouped logically. If functions have a similar
+Functions should be grouped logically. If functions have a similar
 purpose, they should be grouped together.
 
 On classes, the `__init__` method should come first followed by any other
