@@ -674,8 +674,8 @@ Functions should be ordered according to the
 This means that a module should be readable from top to bottom, 
 with functions ordered by level of abstraction, from general to specific. 
 A calling function should always be above the called function. 
-Functions should also be grouped together logically. If functions have a similar purpose,
-they should be grouped together.
+Functions should also be grouped together logically. If functions have a
+similar purpose, they should be grouped together.
 
 
 On classes, the `__init__` method should come first followed by any other
