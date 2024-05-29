@@ -23,14 +23,14 @@ pyenv install 3.10.7
 pyenv global 3.10.7
 ```
 Install pyenv by following the 
-[installation guide](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation). Python 
-[build dependencies](https://github.com/pyenv/pyenv?tab=readme-ov-file#install-python-build-dependencies)
+[installation guide](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation).
+Python  [build dependencies](https://github.com/pyenv/pyenv?tab=readme-ov-file#install-python-build-dependencies)
 may need to be pre-installed before installing additional Python versions.
 
 - [pipx](https://github.com/pypa/pipx)
 
-Pipx is recommended to install Python applications (i.e. pflake8) in an isolated environment
-without modifying your system dependencies.
+Pipx is recommended to install Python applications (i.e. pflake8) in an isolated
+environment without modifying your system dependencies.
 
 ### VS Code
 
