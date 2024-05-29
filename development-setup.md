@@ -21,9 +21,16 @@ depending on the version of Python charm uses. For example:
 ```bash
 pyenv install 3.10.7
 pyenv global 3.10.7
-cd PATH/TO/REPOSITORY
-python -m virtualenv venv
 ```
+Install pyenv by following the 
+[installation guide](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation).
+Python  [build dependencies](https://github.com/pyenv/pyenv?tab=readme-ov-file#install-python-build-dependencies)
+may need to be pre-installed before installing additional Python versions.
+
+- [pipx](https://github.com/pypa/pipx)
+
+Pipx is recommended to install Python applications (i.e. pflake8) in an isolated
+environment without modifying your system dependencies.
 
 ### VS Code
 
@@ -63,14 +70,13 @@ helps setup tools to follow project configurations setup in `pyproject.toml`.
 - [flake8](https://marketplace.visualstudio.com/items?itemName=ms-python.flake8)
 
 Default flake8 cannot be used to read the project settings.
-Using pyproject-flake8 is required.
+Using pyproject-flake8 is required to read from pyproject.toml.
 
 1. Install VS Code flake8 extension
-2. pip install flake 8 and it's plugins
+2. pipx install flake 8 and it's plugins
 ```bash
-pip install flake8 flake8-docstrings \
-    flake8-copyright flake8-builtins \
-    pyproject-flake8 pep8-naming
+pipx install pyproject-flake8
+pipx inject flake8-docstrings flake8-copyright flake8-builtins pep8-naming
 ```
 1. Change the flake 8 to point to pflake8 installed above by modifying the
     *Flake8: Path* entry in Settings(UI) or
@@ -107,6 +113,14 @@ excludesFile = ~/.gitignore_global
 "editor.rulers": [
     80, 99
 ]
+```
+
+### Tox
+
+Use pipx to install tox.
+
+```bash
+pipx install tox
 ```
 
 ### Signed Commits
