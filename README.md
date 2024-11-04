@@ -9,7 +9,7 @@ to anything in this file).
 
 The structure of the contribution guide is:
 
-* Each line is limited to 80 characters for readability
+* Each line is limited to 100 characters for readability
 * The content index is sorted alphabetically to facilitate quickly looking up a
   standard
 * Optionally, headings can be used to aggregate similar standards
