@@ -26,7 +26,6 @@ incorporated by reference.
 ## Definitions
 
 !INCLUDE definitions/*.md
-
 ## Programming Languages and Frameworks
 
 If we develop in many different programming languages and frameworks, the
@@ -85,11 +84,11 @@ versions.
 Downloading binaries is only permitted from what are classed as trusted sources.
 These are:
 
-- The Ubuntu Archives (for debian packages)
-- Snaps
+* The Ubuntu Archives (for debian packages)
+* Snaps
   [owned by the "canonical" account](https://snapcraft.io/publisher/canonical)
-- Snaps where the binary is built from a trusted and approved source.
-- [PyPi](https://pypi.org/)
+* Snaps where the binary is built from a trusted and approved source.
+* [PyPi](https://pypi.org/)
 
 These sources are considered trusted because we are confident that we understand
 the way in which they're built, and the security commitments for packages/snaps
@@ -170,7 +169,7 @@ email = token_hex(16)
 If file encoding is not specified when interacting with a file, the default
 value for the operating sytem is used. The default varies across operating
 systems reducing the portability of code that does not specify a encoding
-explicitly. See: <https://peps.python.org/pep-0597/>
+explicitly. See: https://peps.python.org/pep-0597/
 
 For any file operations, specify the `utf-8` encoding where possible. For
 example:
@@ -216,7 +215,6 @@ and provides access to the repository even if some team members are unavailable.
 
 The repository will contain a `CODEOWNERS` file in its root to automatically add
 the `is-charms` team as reviewer
-
 ```
 *       @canonical/is-charms
 ```
@@ -259,10 +257,10 @@ other operational issues or a shared tool not working as expected.
 PRs can only be merged if all status checks pass. Some exceptions could
 include:
 
-- If the team has recently taken over a new charm and changes are urgently
+* If the team has recently taken over a new charm and changes are urgently
   needed and the test suit of the existing charm is failing for spurious
   reasons.
-- A tool we depend on is not working, no previous working version is available
+* A tool we depend on is not working, no previous working version is available
   and a change is urgently needed to fix a critical issue in production.
 
 Even in the above cases it is not clear whether it is reasonable to merge a PR
@@ -273,20 +271,20 @@ land the change.
 
 Alternatives to merging the PR with failing status checks include:
 
-- Change the code to fix the problem.
-- Disable the status check (e.g., mark the test as
+* Change the code to fix the problem.
+* Disable the status check (e.g., mark the test as
   [`xfail`](https://docs.pytest.org/en/7.1.x/how-to/skipping.html)). This
   should not be done lightly as the value the status check provides to the team
   is lost.
-- Wait for an upstream fix for the issue.
+* Wait for an upstream fix for the issue.
 
 If it is deemed that a change should land despite a failing status check, the
 following artifacts should be added to the PR:
 
-- If the status check can be run in another way, e.g. locally, a copy of the run
+* If the status check can be run in another way, e.g. locally, a copy of the run
   (e.g., a copy of the terminal output) including the git commit SHA which is
   being approved and the status check passing
-- The reason why the PR needs to be merged without the status check passing
+* The reason why the PR needs to be merged without the status check passing
   (e.g., because the fix is needed in production and the status check is failing
   due to problems with GitHub).
 
@@ -496,19 +494,18 @@ This reduces code duplication which increases the readability of the tests.
 
 Engineers tend to add TODO comments in the source code for different purposes,
 e.g.:
-
 - To remind themselves to do something before merging a PR.
-- To acknowledge that the current state of the code needs improvement, but it
+- To acknowledge that the current state of the code needs improvement, but it 
 depends on  something external (e.g., a feature not being ready yet).
-- To indicate that refactoring is necessary, but the cost is too high
+- To indicate that refactoring is necessary, but the cost is too high 
 - (e.g., development efforts or the PR becoming too large).
 
-In general, comments tend to be inaccurate because code changes faster than
-comments are updated. The same applies to TODOs.
-They tend to stick around forever and confuse future engineers,
-who don't know what the TODO is about or if they should take action.
-Therefore, TODOs should preferably be added to the product backlog
-(e.g., Jira).
+In general, comments tend to be inaccurate because code changes faster than 
+comments are updated. The same applies to TODOs. 
+They tend to stick around forever and confuse future engineers, 
+who don't know what the TODO is about or if they should take action. 
+Therefore, TODOs should preferably be added to the product backlog 
+(e.g., Jira). 
 It is acceptable to add TODOs while developing a feature on a feature branch,
 but they should be removed before merging the PR.
 
@@ -523,23 +520,23 @@ The following automated static code analysis tools should be used locally and
 enforced through the CI system:
 
 - [`black`](https://pypi.org/project/black/) for code formatting
-  - line length of 99
-  - Python target version based on the same is in the
+   - line length of 99
+   - Python target version based on the same is in the
      [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
 - [`isort`](https://pypi.org/project/isort/) for import sorting
   - line length of 99
   - `black` profile
 - [`flake8`](https://pypi.org/project/flake8/) for pythonic code style
-  - refer to
+   - refer to
      [indico `pyproject.toml`](https://github.com/canonical/indico-operator/blob/main/pyproject.toml)
-  - use the following additional plugins:
-    - `flake8-docstrings`
-    - `flake8-docstrings-complete`
-    - `flake8-test-docs`
-    - `flake8-copyright`
-    - `flake8-builtins`
-    - `pyproject-flake8`
-    - `pep8-naming`
+   - use the following additional plugins:
+     - `flake8-docstrings`
+     - `flake8-docstrings-complete`
+     - `flake8-test-docs`
+     - `flake8-copyright`
+     - `flake8-builtins`
+     - `pyproject-flake8`
+     - `pep8-naming`
      for additional configurations
 - [`bandit`](https://pypi.org/project/bandit/) for security checks
 - [`codespell`](https://pypi.org/project/codespell/) for spelling problems
@@ -550,16 +547,15 @@ enforced through the CI system:
   checks
 
 Note:
-
-- Disabling checks should be the last resort, alternatives such as refactoring
+* Disabling checks should be the last resort, alternatives such as refactoring
   the code should be considered first. For example, instead of disabling the
   `too-many-arguments` `pylint` rule, consider grouping the arguments, e.g.,
   using a `typing.NamedTuple`.
-- When disabling a rule, if the tool allows for it, use the name of the rule
+* When disabling a rule, if the tool allows for it, use the name of the rule
   rather than the code. For example, for `pylint`, always use the name of the
   rule (like `too-many-arguments`) rather than the code. This makes it easier
   for readers to know which rule is being disabled and potentially why.
-- If a rule is disabled, a comment should to be included above the line
+* If a rule is disabled, a comment should to be included above the line
   disabling the rule explaining why the rule is disabled. This will mean that
   future readers don't have to guess why it was disabled and can also consider
   whether the disable can be removed. For rules tied to import, it may be better
@@ -575,7 +571,7 @@ Note:
   import time
   ```
 
-- Disabling should be done as specifically as possible. That means, disabling
+* Disabling should be done as specifically as possible. That means, disabling
   the narrowest rule possible on the narrowest section of code. For example,
   instead of disabling a rule entirely, disable it on a file. Instead of
   disabling a rule for a file, disable it for just a line of code. The preferred
@@ -603,13 +599,14 @@ Without a logical order, it can be difficult to follow modules and classes as
 the number of functions or methods on them grow increasing the maintenance
 burden of the code.
 
-Functions should be ordered according to the
+Functions should be ordered according to the 
 ["step-down"](https://dzone.com/articles/the-stepdown-rule) rule.
-This means that a module should be readable from top to bottom,
-with functions ordered by level of abstraction, from general to specific.
-A calling function should always be above the called function.
+This means that a module should be readable from top to bottom, 
+with functions ordered by level of abstraction, from general to specific. 
+A calling function should always be above the called function. 
 Functions should also be grouped together logically. If functions have a
 similar purpose, they should be grouped together.
+
 
 On classes, the `__init__` method should come first followed by any other
 factory methods, such as `from_charm`. The rest of the methods on a class should
@@ -642,6 +639,7 @@ This ensures that:
 
 ## Publishing to a channel
 
-Charms published to tracks different from `latest` should guarantee seemlessly
-upgrades between revisions, that is, revisions should not introduce breaking
+Charms published to tracks different from `latest` should guarantee seemlessly 
+upgrades between revisions, that is, revisions should not introduce breaking 
 changes.
+

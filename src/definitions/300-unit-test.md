@@ -1,4 +1,4 @@
-# Unit test
+# Unit Tests
 
 These are tests that cover charm/ service functions to ensure that given a
 specific context and mocked interfaces, the function returns the expected
