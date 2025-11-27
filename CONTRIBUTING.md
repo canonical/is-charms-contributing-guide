@@ -192,6 +192,9 @@ duplication in many repositories.
 Adding tests to `operator-workflows` will ensure stability of the workflows and
 provide examples for how to use them.
 
+To keep our build pipelines reliable, ensure that build dependencies are pinned
+and that automated dependency-update tooling is in place.
+
 ## Random Values
 
 While creating tests, sometimes you need to assign values to variables
