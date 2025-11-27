@@ -20,8 +20,9 @@
 - [Test Structure](#test-structure)
 - [Type Hints](#type-hints)
 
-The [Charm development best practices](https://juju.is/docs/sdk/styleguide) are
-incorporated by reference.
+The
+[How to write and structure charm code](https://documentation.ubuntu.com/ops/latest/howto/write-and-structure-charm-code)
+is incorporated by reference.
 
 ## Definitions
 

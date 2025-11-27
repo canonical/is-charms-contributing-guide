@@ -5,7 +5,7 @@ on:
 
 jobs:
   mdl:
-    runs-on: [self-hosted, edge]
+    runs-on: [self-hosted-linux-amd64-noble-edge]
     steps:
       - name: Check out code
         uses: actions/checkout@v6
