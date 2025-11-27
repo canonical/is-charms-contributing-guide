@@ -138,11 +138,12 @@ versions.
 Downloading binaries is only permitted from what are classed as trusted sources.
 These are:
 
-* The Ubuntu Archives (for debian packages)
-* Snaps
+* The Ubuntu Archives (for debian packages).
+* Snaps.
   [owned by the "canonical" account](https://snapcraft.io/publisher/canonical)
 * Snaps where the binary is built from a trusted and approved source.
-* [PyPi](https://pypi.org/) where the binary is built from a trusted and approved source.
+* [PyPi](https://pypi.org/) where the binary is built from a trusted and
+  approved source.
 
 These sources are considered trusted because we are confident that we understand
 the way in which they're built, and the security commitments for packages/snaps
