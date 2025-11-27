@@ -20,7 +20,7 @@
 - [Test Structure](#test-structure)
 - [Type Hints](#type-hints)
 
-The [How to write and structure charm code]([https://juju.is/docs/sdk/styleguide](https://documentation.ubuntu.com/ops/latest/howto/write-and-structure-charm-code) is
+The [How to write and structure charm code](https://documentation.ubuntu.com/ops/latest/howto/write-and-structure-charm-code) is
 incorporated by reference.
 
 ## Definitions
