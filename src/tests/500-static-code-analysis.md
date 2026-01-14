@@ -6,7 +6,8 @@ expectations. Additionally, code formatting discussions during PRs can be
 cumbersome and take up a lot of time.
 
 The automated static code analysis tools that should be used locally and
-enforced through the CI system are listed in the [`lint`](https://github.com/canonical/platform-engineering-charm-template/blob/main/tox.toml#L44) section and the [`static`](https://github.com/canonical/platform-engineering-charm-template/blob/main/tox.toml#L107) section of our charm template.
+enforced through the CI system are listed in the [`lint`](https://github.com/canonical/platform-engineering-charm-template/blob/main/tox.toml#L44)
+section and the [`static`](https://github.com/canonical/platform-engineering-charm-template/blob/main/tox.toml#L107) section of our charm template.
 
 Note:
 
@@ -26,7 +27,7 @@ Note:
   import must be added at the start of an import section to prevent the
   formatter from messing up the import sections:
 
-  ```
+  ```python
   # Comment explaining why subprocess is imported.
   import logging
   import os
@@ -40,14 +41,14 @@ Note:
   disabling a rule for a file, disable it for just a line of code. The preferred
   way is to disable on a line of code:
 
-  ```
+  ```python
   <code>  # disable rule
   ```
 
   If a rule needs to be disabled for a section, re-enable it as soon as
   possible:
 
-  ```
+  ```python
   # disable rule
   <code>
   # enable rule

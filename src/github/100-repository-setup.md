@@ -26,8 +26,8 @@ The above configuration ensures our team processes around changes are enforced
 and provides access to the repository even if some team members are unavailable.
 
 The repository will contain a `CODEOWNERS` file in its root to automatically add
-the `is-charms` team as reviewer
+the `platform-engineering` team as reviewer
 
-```
-*       @canonical/is-charms
+```text
+*       @canonical/platform-engineering
 ```
