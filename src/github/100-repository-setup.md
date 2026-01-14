@@ -1,14 +1,14 @@
 # Repository Setup
 
 The repositories that store the source code for our charms are critical to the
-ongoing development of our charms. They also enforce team policies around code
-review and ensure business continuity. If the repository is setup poorly, it
+ongoing development of our charms. They also enforce quality gates
+and ensure business continuity. If the repository is setup poorly, it
 exposes our team and Canonical to operational risks.
 
 - GitHub should be used for charm source code and issue tracking.
 - The repository should be publicly accessible.
-- The `is-charms` team is added as maintainers.
-- Management and director of the team that owns the charm are added as admins
+- The `platform-engineering` team is added as maintainers.
+- `is-devops-leadership` team is added as admins
   on the repository.
 - Branches are auto-deleted after merging.
 - The only option for merging PRs is using a squash commit.

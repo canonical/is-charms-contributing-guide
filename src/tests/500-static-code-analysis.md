@@ -5,35 +5,8 @@ analysing source code without executing it, such as mismatches in type
 expectations. Additionally, code formatting discussions during PRs can be
 cumbersome and take up a lot of time.
 
-The following automated static code analysis tools should be used locally and
-enforced through the CI system:
-
-- [`black`](https://pypi.org/project/black/) for code formatting
-  - line length of 99
-  - Python target version based on the same is in the
-     [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
-- [`isort`](https://pypi.org/project/isort/) for import sorting
-  - line length of 99
-  - `black` profile
-- [`flake8`](https://pypi.org/project/flake8/) for pythonic code style
-  - refer to
-     [indico `pyproject.toml`](https://github.com/canonical/indico-operator/blob/main/pyproject.toml)
-  - use the following additional plugins:
-    - `flake8-docstrings`
-    - `flake8-docstrings-complete`
-    - `flake8-test-docs`
-    - `flake8-copyright`
-    - `flake8-builtins`
-    - `pyproject-flake8`
-    - `pep8-naming`
-     for additional configurations
-- [`bandit`](https://pypi.org/project/bandit/) for security checks
-- [`codespell`](https://pypi.org/project/codespell/) for spelling problems
-- [`woke`](https://snapcraft.io/woke) for inclusive language
-- [`prettier`](https://prettier.io) for JSON and YAML formatting
-- [`mypy`](https://pypi.org/project/mypy/) for type checks
-- [`pylint`](https://pypi.org/project/pylint/) for further python code style
-  checks
+The automated static code analysis tools that should be used locally and
+enforced through the CI system are listed in the [`lint`](https://github.com/canonical/platform-engineering-charm-template/blob/main/tox.toml#L44) section and the [`static`](https://github.com/canonical/platform-engineering-charm-template/blob/main/tox.toml#L107) section of our charm template.
 
 Note:
 

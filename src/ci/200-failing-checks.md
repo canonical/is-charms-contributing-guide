@@ -3,7 +3,7 @@
 The team uses GitHub actions to run CI which includes automated status checks
 to verify the code works as expected. If PRs are merged with failing status
 checks, there are potential bugs in the code which may lead to downtime or
-other operational issues or a shared tool not working as expected.
+other operational issues.
 
 PRs can only be merged if all status checks pass. Some exceptions could
 include:
@@ -15,8 +15,8 @@ include:
   and a change is urgently needed to fix a critical issue in production.
 
 Even in the above cases it is not clear whether it is reasonable to merge a PR
-with failing checks due to the high risks of ignoring failing checks that have
-been adopted by the team. Judgement is required in these cases weighing the
+with failing checks due to the high risks this entails.
+Judgement is required in these cases weighing the
 risks of introducing bugs with the urgency and impact of the underlying need to
 land the change.
 
@@ -39,7 +39,7 @@ following artifacts should be added to the PR:
   (e.g., because the fix is needed in production and the status check is failing
   due to problems with GitHub).
 
-One of the repository admins should then be asked to review the artifacts and
+One of the repository admins should then be asked to review the changes and
 merge the PR after completing the review. The PR should be otherwise ready to be
 merged (e.g., has been approved).
 
