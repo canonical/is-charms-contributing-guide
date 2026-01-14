@@ -6,8 +6,11 @@ expectations. Additionally, code formatting discussions during PRs can be
 cumbersome and take up a lot of time.
 
 The automated static code analysis tools that should be used locally and
-enforced through the CI system are listed in the [`lint`](https://github.com/canonical/platform-engineering-charm-template/blob/main/tox.toml#L44)
-section and the [`static`](https://github.com/canonical/platform-engineering-charm-template/blob/main/tox.toml#L107) section of our charm template.
+enforced through the CI system are listed in the
+[`lint`](https://github.com/canonical/platform-engineering-charm-template/blob/main/tox.toml#L44)
+section and the
+[`static`](https://github.com/canonical/platform-engineering-charm-template/blob/main/tox.toml#L107)
+section of our charm template.
 
 Note:
 
