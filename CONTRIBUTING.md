@@ -20,9 +20,8 @@
 - [Test Structure](#test-structure)
 - [Type Hints](#type-hints)
 
-The
-[How to write and structure charm code](https://documentation.ubuntu.com/ops/latest/howto/write-and-structure-charm-code)
-is incorporated by reference.
+The [Charm development best practices](https://juju.is/docs/sdk/styleguide) are
+incorporated by reference.
 
 ## Definitions
 
@@ -50,8 +49,7 @@ These are tests that cover charm/ service functions to ensure that given a
 specific context and mocked interfaces, the function returns the expected
 output. Tests could cover more than one function if some of them don't include
 business logic. These tests shouldn't be functional, they just ensure that the
-code is doing what it's supposed to do. A test that requires too many mocks
-indicates the design needs to be improved to reduce coupling.
+code is doing what it's supposed to do.
 
 ### Integration Tests
 
@@ -72,16 +70,18 @@ These are simulated user scenarios running on an environment as close as
 possible to production. They ususally run on a staging environment with
 preexisting data, and interact with the charm as a user would (ideally using the
 juju cli). These are functional tests and ensure that the charm is working as
-intended in the condition close to production in order to detect issues related
-to this environment (ressources, pre-existing condition, migrations, ...).
+intended in the conditions close to production in order to detect issues related
+to this environment (ressources, pre-existing conditions, migrations, ...).
 
 ### Smoke Tests
 
 These are functional tests for business critical use cases used to ensure that
-the most critical features are still working after a production deployment. The
+the most critical features are still working after a deployment. The
 aim is to ensure that a deployment didn't impact business continuity and detect
-potential defects immediately after a production release.
+potential defects immediately after the deployment.
 
+
+## Principles
 
 ## Programming Languages and Frameworks
 
@@ -170,36 +170,70 @@ Any exception to this should be specifically noted/documented and approved by IS
 Charms managers.
 
 
-## CI-CD
+## Workflows
 
-The team maintains a number of repositories which are generally quite similar.
-If each of the repositories maintains its own workflows, it is difficult to
-introduce new tools across the repositories owned by the team. Additionally, if
-shared workflows are unreliable, the team is unable to consistently merge
-changes and have confidence in the CI-CD.
+### Repository Setup
 
-Use [`operator-workflows`](https://github.com/canonical/operator-workflows) for
-the CI-CD of any repositories owned by the team. Even if the repository is not a
-charm, such as a GitHub action, use it to the extent possible. If a repository
-has unique requirements for certain workflows, use the `operator-workflows` as
-much as possible. Consider proposing changes to `operator-workflows` instead of
-doing something custom in a repository. Also consider whether to make partial
-use of workflows in `operator-workflows` and add anything that can't be done
-with `operator-workflows` to the individual repository, if the CI-CD
-requirements are unique to a repository.
+The repositories that store the source code for our charms are critical to the
+ongoing development of our charms. They also enforce quality gates
+and ensure business continuity. If the repository is setup poorly, it
+exposes our team and Canonical to operational risks.
 
-For any changes to `operator-workflows`, add tests just like we expect for any
-other repository.
+- GitHub should be used for charm source code and issue tracking.
+- The repository should be publicly accessible.
+- The `platform-engineering` team is added as maintainers.
+- `is-devops-leadership` team is added as admins
+  on the repository.
+- Branches are auto-deleted after merging.
+- The only option for merging PRs is using a squash commit.
+- The default branch is called `main`.
+- The default branch is protected and can only be changed using PRs.
+- The number of approvers for PRs is 2.
+- Approvals are not dismissed on new commits.
+- PRs can only be merged if all checks pass.
+- Bypassing of the rules is disabled.
+- Commits must be signed.
+- [Automated secret scanning](https://docs.github.com/en/code-security/secret-scanning/configuring-secret-scanning-for-your-repositories#enabling-secret-scanning-alerts-for-users)
+  must be enabled.
 
-Using shared workflows will make it easy to evolve the workflows used by all our
-repositories and roll out new tooling and checks across them. It will also avoid
-duplication in many repositories.
+The above configuration ensures our team processes around changes are enforced
+and provides access to the repository even if some team members are unavailable.
 
-Adding tests to `operator-workflows` will ensure stability of the workflows and
-provide examples for how to use them.
+The repository will contain a `CODEOWNERS` file in its root to automatically add
+the `platform-engineering` team as reviewer
+
+```text
+*       @canonical/platform-engineering
+```
 
 
-## Random Values
+### PR comments and requests for changes
+
+The team uses Github for reviewing changes in the codebase and integrating them
+within our projects. A reviewer can comment and give feedback that potentially
+leads to new changes in the submitted code. Github allows you to `request
+changes` on a PR, meaning it cannot be merged until the changes are accepted. As
+the team is distributed, requesting changes as a default slows down merges and
+requires the reviewer to approve again. Even with sufficient approvals, a PR
+cannot be merged unless the requestor accepts the changes.
+
+It is adviseable to comment and let the
+engineer take action rather than request changes and block the PR. The preferred
+way is to comment instead. Please note we expect the engineer
+that raised the PR to deal with the comments in good faith, i.e., not just mark
+them as resolved when they are not really resolved for the purpose of being able
+to merge the PR. The engineer that raised the PR is responsible for closing the
+comments once they are tackled.
+
+With commenting rather than requesting changes, an engineer gives feedback and
+still allows the team (based on approvals) to decide the way forward - a change
+might make it in a different PR or the change might not be desireable in the
+end.
+
+
+## Implementation
+
+### Random Values
 
 While creating tests, sometimes you need to assign values to variables
 or parameters in order to simulate a user behavior, for example. In this case,
@@ -226,7 +260,7 @@ email = token_hex(16)
 ```
 
 
-## File Encoding
+### File Encoding
 
 If file encoding is not specified when interacting with a file, the default
 value for the operating sytem is used. The default varies across operating
@@ -249,252 +283,7 @@ Path(...).write_text(..., encoding="utf-8")
 This ensures that the code we write is portable across operating systems.
 
 
-## Repository Setup
-
-The repositories that store the source code for our charms are critical to the
-ongoing development of our charms. They also enforce team policies around code
-review and ensure business continuity. If the repository is setup poorly, it
-exposes our team and Canonical to operational risks.
-
-- GitHub should be used for charm source code and issue tracking.
-- The repository should be publicly accessible.
-- The `is-charms` team is added as maintainers.
-- Management and director of the team that owns the charm are added as admins
-  on the repository.
-- Branches are auto-deleted after merging.
-- The only option for merging PRs is using a squash commit.
-- The default branch is called `main`.
-- The default branch is protected and can only be changed using PRs.
-- The number of approvers for PRs is 2.
-- Approvals are not dismissed on new commits.
-- PRs can only be merged if all checks pass.
-- Bypassing of the rules is disabled.
-- Commits must be signed.
-- [Automated secret scanning](https://docs.github.com/en/code-security/secret-scanning/configuring-secret-scanning-for-your-repositories#enabling-secret-scanning-alerts-for-users)
-  must be enabled.
-
-The above configuration ensures our team processes around changes are enforced
-and provides access to the repository even if some team members are unavailable.
-
-The repository will contain a `CODEOWNERS` file in its root to automatically add
-the `is-charms` team as reviewer
-
-```
-*       @canonical/is-charms
-```
-
-
-## PR comments and requests for changes
-
-The team uses Github for reviewing changes in the codebase and integrating them
-within our projects. A reviewer can comment and give feedback that potentially
-leads to new changes in the submitted code. Github allows you to `request
-changes` on a PR, meaning it cannot be merged until the changes are accepted. As
-the team is distributed, requesting changes as a default slows down merges and
-requires the reviewer to approve again. Even with sufficient approvals, a PR
-cannot be merged unless the requestor accepts the changes, which might be
-trivial.
-
-Our team favors commenting in the usual case and resorting to requesting changes
-only if there is something problematic. It is adviseable to comment and let the
-engineer take action rather than request changes and block the PR. The preferred
-way is to comment instead.  Note that committing new changes will reset
-approvals either way and approvals need to be collected again, which is the
-expected behavior and part of our workflow. Please note we expect the engineer
-that raised the PR to deal with the comments in good faith, i.e., not just mark
-them as resolved when they are not really resolved for the purpose of being able
-to merge the PR. The engineer that raised the PR is responsible for closing the
-comments once they are tackled.
-
-With commenting rather than requesting changes, an engineer gives feedback and
-still allows the team (based on approvals) to decide the way forward - a change
-might make it in a different PR or the change might not be desireable in the
-end. The best approach is having as much feedback from as many engineers as
-possible to be able to reach a sound decision.
-
-
-## Failing Status Checks
-
-The team uses GitHub actions to run CI which includes automated status checks
-to verify the code works as expected. If PRs are merged with failing status
-checks, there are potential bugs in the code which may lead to downtime or
-other operational issues or a shared tool not working as expected.
-
-PRs can only be merged if all status checks pass. Some exceptions could
-include:
-
-* If the team has recently taken over a new charm and changes are urgently
-  needed and the test suit of the existing charm is failing for spurious
-  reasons.
-* A tool we depend on is not working, no previous working version is available
-  and a change is urgently needed to fix a critical issue in production.
-
-Even in the above cases it is not clear whether it is reasonable to merge a PR
-with failing checks due to the high risks of ignoring failing checks that have
-been adopted by the team. Judgement is required in these cases weighing the
-risks of introducing bugs with the urgency and impact of the underlying need to
-land the change.
-
-Alternatives to merging the PR with failing status checks include:
-
-* Change the code to fix the problem.
-* Disable the status check (e.g., mark the test as
-  [`xfail`](https://docs.pytest.org/en/7.1.x/how-to/skipping.html)). This
-  should not be done lightly as the value the status check provides to the team
-  is lost.
-* Wait for an upstream fix for the issue.
-
-If it is deemed that a change should land despite a failing status check, the
-following artifacts should be added to the PR:
-
-* If the status check can be run in another way, e.g. locally, a copy of the run
-  (e.g., a copy of the terminal output) including the git commit SHA which is
-  being approved and the status check passing
-* The reason why the PR needs to be merged without the status check passing
-  (e.g., because the fix is needed in production and the status check is failing
-  due to problems with GitHub).
-
-One of the repository admins should then be asked to review the artifacts and
-merge the PR after completing the review. The PR should be otherwise ready to be
-merged (e.g., has been approved).
-
-Resolving the underlying reason the status check is failing should be high
-priority so that the team can rely on the automation again.
-
-This will ensure that we minimise the number of bugs in our code and tooling.
-
-
-## Test Structure
-
-Tests that are difficult to understand are of lower value because if they fail
-it is difficult to understand why they fail.
-
-The docstring of a test has 3 sections, *arrange*, *act* and *assert*. Arrange
-explains the pre-conditions required for the test, act explains what steps the
-test performs and assert explains what the state must be after all actions are
-complete. If the description for a section is longer than one line, any
-additional lines are indented by the default indentation of the file. The test
-code is separated into blocks for each section. For example:
-
-```Python
-def test_something():
-    """
-    arrange: given 2 numbers
-    act: when they are added
-    assert: the result must be the sum of the 2 numbers. If a description spans
-        multiple lines, lines after the first should be indented by the default
-        spacing of the file to indicate that the description continues.
-    """
-    num_a = 1
-    num_b = 2
-
-    result = num_a + num_b
-
-    assert result == 3
-```
-
-Whilst this standard is usually valuable, there are cases where it imposes
-unreasonable constraints. An example is complex functional tests that check
-multiple interactions that require individual arrange, act, assert blocks
-because they, for example, build on each other. In those cases, apply judgement
-keeping in mind the option of breaking up the test into multiple tests.
-
-This structure makes it easy to understand what is required before test
-execution, how the test works and what it checks for in the end.
-
-
-## Test Exception Raised
-
-Testing an exception being raised might not be enough as a type of exception
-can be raised due to multiple reasons. E.g., a function could raise `ValueError`
-for different arguments.
-
-The property of the exception being raised should be asserted against as well.
-A common test would be the string representation of the exception. Using the
-following `pytest` example:
-
-```Python
-def something(a: int, b: bool):
-  """Do something."""
-  if a >= 5:
-    raise ValueError("Argument a must be less than 5")
-  if b:
-    raise ValueError("Some other error message")
-  # Rest of the function...
-
-
-def test_something():
-  """Test the something function."""
-  with pytest.raises(ValueError) as err:
-      something(a=10, b=False)
-  assert "Argument a" in str(err.value)
-  assert "less than 5" in str(err.value)
-```
-
-In the above example, the `something` function could have thrown a different
-`ValueError` related to the argument `b`. Testing the string representation of
-the `ValueError` ensures the proper type of error is being tested against.
-
-
-## Test Fixture
-
-When declaring fixture functions and requesting them in the same Python module,
-there is a risk of accidentally using the fixture function declared in the
-global scope instead of requesting it in the test case function parameters.
-
-To prevent this problem, it is recommended to add a "fixture" prefix or suffix
-to the fixture function name and use the `name` argument in the `pytest.fixture`
-decorator to name the fixture.
-
-Here's an example of using the `name` argument in `pytest.fixture`:
-
-```python
-import pytest
-
-@pytest.fixture(name="app")
-def app_fixture():
-    return "app"
-
-def test_my_fixture(app):
-    assert app == "app"
-```
-
-
-## Test Coverage
-
-Unit tests check whether the intended functionality has been implemented. This
-is valuable to reduce bugs and checking whether any changes to the code break
-any features. The benefits of testing are roughly proportional to the test
-coverage percentage, the lower the coverage the higher the chances of bugs and
-the higher the risk of code changes.
-
-The team has a coverage percentage which is the maximum of 85% and the current
-percentage on the default branch, usually `main`. Any code that is already
-covered on the default branch should not cease to be covered by new commits to
-main, such as through a pull request. Any coverage exclusion should have an
-explanatory comment, such as:
-
-```Python
-# Exclude from coverage since unit tests should not run as __main__
-if __name__ == "__main__":  # pragma: no cover
-   ...
-```
-
-To enforce this, the `pyproject.toml` file should include the following
-configuration:
-
-```toml
-[tool.coverage.report]
-fail_under = <maximum of coverage % on main and 85%>
-```
-
-This value should be updated in each PR to reflect any increase in coverage
-compared to the main branch as a result of the PR.
-
-This ensures a high coverage minimum and no coverage regression.
-
-
-## Type Hints
+### Type Hints
 
 Python is a dynamic programming language that does not require type
 declarations. Without type information, arguments might be passed to functions
@@ -533,7 +322,7 @@ type hints can be found here: [PEP 484](https://peps.python.org/pep-0484/).
 This will help users know what functions expect as parameters and return and
 catches more bugs earlier.
 
-## Handling Typing Issues with python-libjuju
+### Handling Typing Issues with python-libjuju
 
 In tests and elsewhere when interacting with `python-libjuju`, it is a frequent
 requirement to check whether certain attributes are `None`. Doing this in many
@@ -562,7 +351,7 @@ async def units_fixture(app: ops.model.Application) -> list[ops.model.Unit]:
 This reduces code duplication which increases the readability of the tests.
 
 
-## TODO's in source code
+### TODO's in source code
 
 Engineers tend to add TODO comments in the source code for different purposes,
 e.g.:
@@ -583,93 +372,7 @@ It is acceptable to add TODOs while developing a feature on a feature branch,
 but they should be removed before merging the PR.
 
 
-## Static Code Analysis
-
-There are many potential problems with code that can be spotted based on
-analysing source code without executing it, such as mismatches in type
-expectations. Additionally, code formatting discussions during PRs can be
-cumbersome and take up a lot of time.
-
-The following automated static code analysis tools should be used locally and
-enforced through the CI system:
-
-- [`black`](https://pypi.org/project/black/) for code formatting
-  - line length of 99
-  - Python target version based on the same is in the
-     [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
-- [`isort`](https://pypi.org/project/isort/) for import sorting
-  - line length of 99
-  - `black` profile
-- [`flake8`](https://pypi.org/project/flake8/) for pythonic code style
-  - refer to
-     [indico `pyproject.toml`](https://github.com/canonical/indico-operator/blob/main/pyproject.toml)
-  - use the following additional plugins:
-    - `flake8-docstrings`
-    - `flake8-docstrings-complete`
-    - `flake8-test-docs`
-    - `flake8-copyright`
-    - `flake8-builtins`
-    - `pyproject-flake8`
-    - `pep8-naming`
-     for additional configurations
-- [`bandit`](https://pypi.org/project/bandit/) for security checks
-- [`codespell`](https://pypi.org/project/codespell/) for spelling problems
-- [`woke`](https://snapcraft.io/woke) for inclusive language
-- [`prettier`](https://prettier.io) for JSON and YAML formatting
-- [`mypy`](https://pypi.org/project/mypy/) for type checks
-- [`pylint`](https://pypi.org/project/pylint/) for further python code style
-  checks
-
-Note:
-
-- Disabling checks should be the last resort, alternatives such as refactoring
-  the code should be considered first. For example, instead of disabling the
-  `too-many-arguments` `pylint` rule, consider grouping the arguments, e.g.,
-  using a `typing.NamedTuple`.
-- When disabling a rule, if the tool allows for it, use the name of the rule
-  rather than the code. For example, for `pylint`, always use the name of the
-  rule (like `too-many-arguments`) rather than the code. This makes it easier
-  for readers to know which rule is being disabled and potentially why.
-- If a rule is disabled, a comment should to be included above the line
-  disabling the rule explaining why the rule is disabled. This will mean that
-  future readers don't have to guess why it was disabled and can also consider
-  whether the disable can be removed. For rules tied to import, it may be better
-  to comment on each usage rather than on the import. Note that comments for
-  import must be added at the start of an import section to prevent the
-  formatter from messing up the import sections:
-
-  ```
-  # Comment explaining why subprocess is imported.
-  import logging
-  import os
-  import subprocess  # nosec B404
-  import time
-  ```
-
-- Disabling should be done as specifically as possible. That means, disabling
-  the narrowest rule possible on the narrowest section of code. For example,
-  instead of disabling a rule entirely, disable it on a file. Instead of
-  disabling a rule for a file, disable it for just a line of code. The preferred
-  way is to disable on a line of code:
-
-  ```
-  <code>  # disable rule
-  ```
-
-  If a rule needs to be disabled for a section, re-enable it as soon as
-  possible:
-
-  ```
-  # disable rule
-  <code>
-  # enable rule
-  ```
-
-This ensures consistency across our projects, catches many potential bugs
-before code is deployed and simplifies PRs.
-
-
-## Function and Method Ordering
+### Function and Method Ordering
 
 Without a logical order, it can be difficult to follow modules and classes as
 the number of functions or methods on them grow increasing the maintenance
@@ -691,7 +394,7 @@ This will make it easier for readers to understand the code reducing the
 maintenance cost.
 
 
-## Non Compliant Code
+### Non Compliant Code
 
 Standards and best practices evolve over time which means that code already
 written may not comply with a new standard. If this is wide spread, it can lead
@@ -714,9 +417,289 @@ This ensures that:
 4. compliance is enforced using CI where possible.
 
 
-## Publishing to a channel
+## Tests
+
+### Test Structure
+
+Tests that are difficult to understand are of lower value because if they fail
+it is difficult to understand why they fail.
+
+The docstring of a test has 3 sections, *arrange*, *act* and *assert*. Arrange
+explains the pre-conditions required for the test, act explains what steps the
+test performs and assert explains what the state must be after all actions are
+complete. If the description for a section is longer than one line, any
+additional lines are indented by the default indentation of the file. The test
+code is separated into blocks for each section. For example:
+
+```Python
+def test_something():
+    """
+    arrange: given 2 numbers
+    act: when they are added
+    assert: the result must be the sum of the 2 numbers. If a description spans
+        multiple lines, lines after the first should be indented by the default
+        spacing of the file to indicate that the description continues.
+    """
+    num_a = 1
+    num_b = 2
+
+    result = num_a + num_b
+
+    assert result == 3
+```
+
+Whilst this standard is usually valuable, there are cases where it imposes
+unreasonable constraints. An example is complex functional tests that check
+multiple interactions that require individual arrange, act, assert blocks
+because they, for example, build on each other. In those cases, apply judgement
+keeping in mind the option of breaking up the test into multiple tests.
+
+This structure makes it easy to understand what is required before test
+execution, how the test works and what it checks for in the end.
+
+
+### Test Exception Raised
+
+Testing an exception being raised might not be enough as a type of exception
+can be raised due to multiple reasons. E.g., a function could raise `ValueError`
+for different arguments.
+
+The property of the exception being raised should be asserted against as well.
+A common test would be the string representation of the exception. Using the
+following `pytest` example:
+
+```Python
+def something(a: int, b: bool):
+  """Do something."""
+  if a >= 5:
+    raise ValueError("Argument a must be less than 5")
+  if b:
+    raise ValueError("Some other error message")
+  # Rest of the function...
+
+
+def test_something():
+  """Test the something function."""
+  with pytest.raises(ValueError) as err:
+      something(a=10, b=False)
+  assert "Argument a" in str(err.value)
+  assert "less than 5" in str(err.value)
+```
+
+In the above example, the `something` function could have thrown a different
+`ValueError` related to the argument `b`. Testing the string representation of
+the `ValueError` ensures the proper type of error is being tested against.
+
+
+### Test Fixture
+
+When declaring fixture functions and requesting them in the same Python module,
+there is a risk of accidentally using the fixture function declared in the
+global scope instead of requesting it in the test case function parameters.
+
+To prevent this problem, it is recommended to add a "fixture" prefix or suffix
+to the fixture function name and use the `name` argument in the `pytest.fixture`
+decorator to name the fixture.
+
+Here's an example of using the `name` argument in `pytest.fixture`:
+
+```python
+import pytest
+
+@pytest.fixture(name="app")
+def app_fixture():
+    return "app"
+
+def test_my_fixture(app):
+    assert app == "app"
+```
+
+
+### Test Coverage
+
+Unit tests check whether the intended functionality has been implemented. This
+is valuable to reduce bugs and checking whether any changes to the code break
+any features. The benefits of testing are roughly proportional to the test
+coverage percentage, the lower the coverage the higher the chances of bugs and
+the higher the risk of code changes.
+
+The team has a coverage percentage which is the maximum of 85% and the current
+percentage on the default branch, usually `main`. Any code that is already
+covered on the default branch should not cease to be covered by new commits to
+main, such as through a pull request. Any coverage exclusion should have an
+explanatory comment, such as:
+
+```Python
+# Exclude from coverage since unit tests should not run as __main__
+if __name__ == "__main__":  # pragma: no cover
+   ...
+```
+
+To enforce this, the `pyproject.toml` file should include the following
+configuration:
+
+```toml
+[tool.coverage.report]
+fail_under = <maximum of coverage % on main and 85%>
+```
+
+This value should be updated in each PR to reflect any increase in coverage
+compared to the main branch as a result of the PR.
+
+This ensures a high coverage minimum and no coverage regression.
+
+
+## Static Code Analysis
+
+There are many potential problems with code that can be spotted based on
+analysing source code without executing it, such as mismatches in type
+expectations. Additionally, code formatting discussions during PRs can be
+cumbersome and take up a lot of time.
+
+The automated static code analysis tools that should be used locally and
+enforced through the CI system are listed in the
+[`lint`](https://github.com/canonical/platform-engineering-charm-template/blob/main/tox.toml#L44)
+section and the
+[`static`](https://github.com/canonical/platform-engineering-charm-template/blob/main/tox.toml#L107)
+section of our charm template.
+
+Note:
+
+- Disabling checks should be the last resort, alternatives such as refactoring
+  the code should be considered first. For example, instead of disabling the
+  `too-many-arguments` `pylint` rule, consider grouping the arguments, e.g.,
+  using a `typing.NamedTuple`.
+- When disabling a rule, if the tool allows for it, use the name of the rule
+  rather than the code. For example, for `pylint`, always use the name of the
+  rule (like `too-many-arguments`) rather than the code. This makes it easier
+  for readers to know which rule is being disabled and potentially why.
+- If a rule is disabled, a comment should to be included above the line
+  disabling the rule explaining why the rule is disabled. This will mean that
+  future readers don't have to guess why it was disabled and can also consider
+  whether the disable can be removed. For rules tied to import, it may be better
+  to comment on each usage rather than on the import. Note that comments for
+  import must be added at the start of an import section to prevent the
+  formatter from messing up the import sections:
+
+  ```python
+  # Comment explaining why subprocess is imported.
+  import logging
+  import os
+  import subprocess  # nosec B404
+  import time
+  ```
+
+- Disabling should be done as specifically as possible. That means, disabling
+  the narrowest rule possible on the narrowest section of code. For example,
+  instead of disabling a rule entirely, disable it on a file. Instead of
+  disabling a rule for a file, disable it for just a line of code. The preferred
+  way is to disable on a line of code:
+
+  ```python
+  <code>  # disable rule
+  ```
+
+  If a rule needs to be disabled for a section, re-enable it as soon as
+  possible:
+
+  ```python
+  # disable rule
+  <code>
+  # enable rule
+  ```
+
+This ensures consistency across our projects, catches many potential bugs
+before code is deployed and simplifies PRs.
+
+
+## Continuous integration
+
+### CI-CD
+
+The team maintains a number of repositories which are generally quite similar.
+If each of the repositories maintains its own workflows, it is difficult to
+introduce new tools across the repositories owned by the team. Additionally, if
+shared workflows are unreliable, the team is unable to consistently merge
+changes and have confidence in the CI-CD.
+
+Use [`operator-workflows`](https://github.com/canonical/operator-workflows) for
+the CI-CD of any repositories owned by the team. Even if the repository is not a
+charm, such as a GitHub action, use it to the extent possible. If a repository
+has unique requirements for certain workflows, use the `operator-workflows` as
+much as possible. Consider proposing changes to `operator-workflows` instead of
+doing something custom in a repository. Also consider whether to make partial
+use of workflows in `operator-workflows` and add anything that can't be done
+with `operator-workflows` to the individual repository, if the CI-CD
+requirements are unique to a repository.
+
+For any changes to `operator-workflows`, add tests just like we expect for any
+other repository.
+
+Using shared workflows will make it easy to evolve the workflows used by all our
+repositories and roll out new tooling and checks across them. It will also avoid
+duplication in many repositories.
+
+Adding tests to `operator-workflows` will ensure stability of the workflows and
+provide examples for how to use them.
+
+
+### Failing Status Checks
+
+The team uses GitHub actions to run CI which includes automated status checks
+to verify the code works as expected. If PRs are merged with failing status
+checks, there are potential bugs in the code which may lead to downtime or
+other operational issues.
+
+PRs can only be merged if all status checks pass. Some exceptions could
+include:
+
+* If the team has recently taken over a new charm and changes are urgently
+  needed and the test suit of the existing charm is failing for spurious
+  reasons.
+* A tool we depend on is not working, no previous working version is available
+  and a change is urgently needed to fix a critical issue in production.
+
+Even in the above cases it is not clear whether it is reasonable to merge a PR
+with failing checks due to the high risks this entails.
+Judgement is required in these cases weighing the
+risks of introducing bugs with the urgency and impact of the underlying need to
+land the change.
+
+Alternatives to merging the PR with failing status checks include:
+
+* Change the code to fix the problem.
+* Disable the status check (e.g., mark the test as
+  [`xfail`](https://docs.pytest.org/en/7.1.x/how-to/skipping.html)). This
+  should not be done lightly as the value the status check provides to the team
+  is lost.
+* Wait for an upstream fix for the issue.
+
+If it is deemed that a change should land despite a failing status check, the
+following artifacts should be added to the PR:
+
+* If the status check can be run in another way, e.g. locally, a copy of the run
+  (e.g., a copy of the terminal output) including the git commit SHA which is
+  being approved and the status check passing
+* The reason why the PR needs to be merged without the status check passing
+  (e.g., because the fix is needed in production and the status check is failing
+  due to problems with GitHub).
+
+One of the repository admins should then be asked to review the changes and
+merge the PR after completing the review. The PR should be otherwise ready to be
+merged (e.g., has been approved).
+
+Resolving the underlying reason the status check is failing should be high
+priority so that the team can rely on the automation again.
+
+This will ensure that we minimise the number of bugs in our code and tooling.
+
+
+## Publication
+
+### Publishing to a channel
 
 Charms published to tracks different from `latest` should guarantee seemlessly
 upgrades between revisions, that is, revisions should not introduce breaking
 changes.
+
 
