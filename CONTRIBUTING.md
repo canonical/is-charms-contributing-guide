@@ -28,9 +28,10 @@ is incorporated by reference.
 
 ### Breaking change
 
-A breaking change is any change that results in a deliverable that can not be 
-swaped by its previous version seamlessly. In the context of charms, the 
+A breaking change is any change that results in a deliverable that can not be
+swaped by its previous version seamlessly. In the context of charms, the
 following are considered breaking changes:
+
 * Dropping or renaming  a configuration or integration
 * Adding a new required configuration or integration
 * Removing or changing an existing action (e.g., introducing a new required parameter)
@@ -81,6 +82,7 @@ the most critical features are still working after a production deployment. The
 aim is to ensure that a deployment didn't impact business continuity and detect
 potential defects immediately after a production release.
 
+
 ## Programming Languages and Frameworks
 
 If we develop in many different programming languages and frameworks, the
@@ -108,6 +110,7 @@ encourage exploration and experimentation in a range of programming languages
 depending on the interest of the individual as part of using Canonical's
 annual training budget.
 
+
 ## Charm Ubuntu and Python Version
 
 Using inconsistent minor Python version for development, CI and production means
@@ -133,6 +136,7 @@ basepython = python3.10
 This ensures that the tests are run on the same Python version as the charm
 will be running in production, catching any issues related to mismatched Python
 versions.
+
 
 ## Downloading Binaries
 
@@ -165,6 +169,7 @@ trust (e.g. Launchpad builders or GitHub self-hosted runners).
 Any exception to this should be specifically noted/documented and approved by IS
 Charms managers.
 
+
 ## CI-CD
 
 The team maintains a number of repositories which are generally quite similar.
@@ -193,6 +198,7 @@ duplication in many repositories.
 Adding tests to `operator-workflows` will ensure stability of the workflows and
 provide examples for how to use them.
 
+
 ## Random Values
 
 While creating tests, sometimes you need to assign values to variables
@@ -219,12 +225,13 @@ from secrets import token_hex
 email = token_hex(16)
 ```
 
+
 ## File Encoding
 
 If file encoding is not specified when interacting with a file, the default
 value for the operating sytem is used. The default varies across operating
 systems reducing the portability of code that does not specify a encoding
-explicitly. See: https://peps.python.org/pep-0597/
+explicitly. See: <https://peps.python.org/pep-0597/>
 
 For any file operations, specify the `utf-8` encoding where possible. For
 example:
@@ -240,6 +247,7 @@ Path(...).write_text(..., encoding="utf-8")
 ```
 
 This ensures that the code we write is portable across operating systems.
+
 
 ## Repository Setup
 
@@ -270,9 +278,11 @@ and provides access to the repository even if some team members are unavailable.
 
 The repository will contain a `CODEOWNERS` file in its root to automatically add
 the `is-charms` team as reviewer
+
 ```
 *       @canonical/is-charms
 ```
+
 
 ## PR comments and requests for changes
 
@@ -301,6 +311,7 @@ still allows the team (based on approvals) to decide the way forward - a change
 might make it in a different PR or the change might not be desireable in the
 end. The best approach is having as much feedback from as many engineers as
 possible to be able to reach a sound decision.
+
 
 ## Failing Status Checks
 
@@ -352,6 +363,7 @@ priority so that the team can rely on the automation again.
 
 This will ensure that we minimise the number of bugs in our code and tooling.
 
+
 ## Test Structure
 
 Tests that are difficult to understand are of lower value because if they fail
@@ -390,6 +402,7 @@ keeping in mind the option of breaking up the test into multiple tests.
 This structure makes it easy to understand what is required before test
 execution, how the test works and what it checks for in the end.
 
+
 ## Test Exception Raised
 
 Testing an exception being raised might not be enough as a type of exception
@@ -422,6 +435,7 @@ In the above example, the `something` function could have thrown a different
 `ValueError` related to the argument `b`. Testing the string representation of
 the `ValueError` ensures the proper type of error is being tested against.
 
+
 ## Test Fixture
 
 When declaring fixture functions and requesting them in the same Python module,
@@ -444,6 +458,7 @@ def app_fixture():
 def test_my_fixture(app):
     assert app == "app"
 ```
+
 
 ## Test Coverage
 
@@ -477,6 +492,7 @@ This value should be updated in each PR to reflect any increase in coverage
 compared to the main branch as a result of the PR.
 
 This ensures a high coverage minimum and no coverage regression.
+
 
 ## Type Hints
 
@@ -545,24 +561,27 @@ async def units_fixture(app: ops.model.Application) -> list[ops.model.Unit]:
 
 This reduces code duplication which increases the readability of the tests.
 
+
 ## TODO's in source code
 
 Engineers tend to add TODO comments in the source code for different purposes,
 e.g.:
+
 - To remind themselves to do something before merging a PR.
-- To acknowledge that the current state of the code needs improvement, but it 
+- To acknowledge that the current state of the code needs improvement, but it
 depends on  something external (e.g., a feature not being ready yet).
-- To indicate that refactoring is necessary, but the cost is too high 
+- To indicate that refactoring is necessary, but the cost is too high
 - (e.g., development efforts or the PR becoming too large).
 
-In general, comments tend to be inaccurate because code changes faster than 
-comments are updated. The same applies to TODOs. 
-They tend to stick around forever and confuse future engineers, 
-who don't know what the TODO is about or if they should take action. 
-Therefore, TODOs should preferably be added to the product backlog 
-(e.g., Jira). 
+In general, comments tend to be inaccurate because code changes faster than
+comments are updated. The same applies to TODOs.
+They tend to stick around forever and confuse future engineers,
+who don't know what the TODO is about or if they should take action.
+Therefore, TODOs should preferably be added to the product backlog
+(e.g., Jira).
 It is acceptable to add TODOs while developing a feature on a feature branch,
 but they should be removed before merging the PR.
+
 
 ## Static Code Analysis
 
@@ -575,23 +594,23 @@ The following automated static code analysis tools should be used locally and
 enforced through the CI system:
 
 - [`black`](https://pypi.org/project/black/) for code formatting
-   - line length of 99
-   - Python target version based on the same is in the
+  - line length of 99
+  - Python target version based on the same is in the
      [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
 - [`isort`](https://pypi.org/project/isort/) for import sorting
   - line length of 99
   - `black` profile
 - [`flake8`](https://pypi.org/project/flake8/) for pythonic code style
-   - refer to
+  - refer to
      [indico `pyproject.toml`](https://github.com/canonical/indico-operator/blob/main/pyproject.toml)
-   - use the following additional plugins:
-     - `flake8-docstrings`
-     - `flake8-docstrings-complete`
-     - `flake8-test-docs`
-     - `flake8-copyright`
-     - `flake8-builtins`
-     - `pyproject-flake8`
-     - `pep8-naming`
+  - use the following additional plugins:
+    - `flake8-docstrings`
+    - `flake8-docstrings-complete`
+    - `flake8-test-docs`
+    - `flake8-copyright`
+    - `flake8-builtins`
+    - `pyproject-flake8`
+    - `pep8-naming`
      for additional configurations
 - [`bandit`](https://pypi.org/project/bandit/) for security checks
 - [`codespell`](https://pypi.org/project/codespell/) for spelling problems
@@ -602,15 +621,16 @@ enforced through the CI system:
   checks
 
 Note:
-* Disabling checks should be the last resort, alternatives such as refactoring
+
+- Disabling checks should be the last resort, alternatives such as refactoring
   the code should be considered first. For example, instead of disabling the
   `too-many-arguments` `pylint` rule, consider grouping the arguments, e.g.,
   using a `typing.NamedTuple`.
-* When disabling a rule, if the tool allows for it, use the name of the rule
+- When disabling a rule, if the tool allows for it, use the name of the rule
   rather than the code. For example, for `pylint`, always use the name of the
   rule (like `too-many-arguments`) rather than the code. This makes it easier
   for readers to know which rule is being disabled and potentially why.
-* If a rule is disabled, a comment should to be included above the line
+- If a rule is disabled, a comment should to be included above the line
   disabling the rule explaining why the rule is disabled. This will mean that
   future readers don't have to guess why it was disabled and can also consider
   whether the disable can be removed. For rules tied to import, it may be better
@@ -626,7 +646,7 @@ Note:
   import time
   ```
 
-* Disabling should be done as specifically as possible. That means, disabling
+- Disabling should be done as specifically as possible. That means, disabling
   the narrowest rule possible on the narrowest section of code. For example,
   instead of disabling a rule entirely, disable it on a file. Instead of
   disabling a rule for a file, disable it for just a line of code. The preferred
@@ -648,20 +668,20 @@ Note:
 This ensures consistency across our projects, catches many potential bugs
 before code is deployed and simplifies PRs.
 
+
 ## Function and Method Ordering
 
 Without a logical order, it can be difficult to follow modules and classes as
 the number of functions or methods on them grow increasing the maintenance
 burden of the code.
 
-Functions should be ordered according to the 
+Functions should be ordered according to the
 ["step-down"](https://dzone.com/articles/the-stepdown-rule) rule.
-This means that a module should be readable from top to bottom, 
-with functions ordered by level of abstraction, from general to specific. 
-A calling function should always be above the called function. 
+This means that a module should be readable from top to bottom,
+with functions ordered by level of abstraction, from general to specific.
+A calling function should always be above the called function.
 Functions should also be grouped together logically. If functions have a
 similar purpose, they should be grouped together.
-
 
 On classes, the `__init__` method should come first followed by any other
 factory methods, such as `from_charm`. The rest of the methods on a class should
@@ -669,6 +689,7 @@ be ordered similar to the guidance for function ordering on modules.
 
 This will make it easier for readers to understand the code reducing the
 maintenance cost.
+
 
 ## Non Compliant Code
 
@@ -692,9 +713,10 @@ This ensures that:
    as individuals see value in doing so and
 4. compliance is enforced using CI where possible.
 
+
 ## Publishing to a channel
 
-Charms published to tracks different from `latest` should guarantee seemlessly 
-upgrades between revisions, that is, revisions should not introduce breaking 
+Charms published to tracks different from `latest` should guarantee seemlessly
+upgrades between revisions, that is, revisions should not introduce breaking
 changes.
 

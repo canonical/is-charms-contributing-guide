@@ -1,0 +1,66 @@
+# Standards
+
+- [Charm Ubuntu and Python Version](#charm-ubuntu-and-python-version)
+- [CI-CD](#ci-cd)
+- [Downloading Binaries](#downloading-binaries)
+- [Failing Status Checks](#failing-status-checks)
+- [File Encoding](#file-encoding)
+- [Function and Method Ordering](#function-and-method-Ordering)
+- [Handling Typing Issues with python-libjuju](#handling-typing-issues-with-python-libjuju)
+- [Non Compliant Code](#non-compliant-code)
+- [PR comments and requests for changes](#pr-comments-and-requests-for-changes)
+- [Programming Languages and Frameworks](#programming-languages-and-frameworks)
+- [Random values](#random-values)
+- [Repository Setup](#repository-setup)
+- [Static Code Analysis](#static-code-analysis)
+- [Source Code Documentation](#source-code-documentation)
+- [Test Coverage](#test-coverage)
+- [Test Exception Raised](#test-exception-raised)
+- [Test Fixture](#test-fixture)
+- [Test Structure](#test-structure)
+- [Type Hints](#type-hints)
+
+The [Charm development best practices](https://juju.is/docs/sdk/styleguide) are
+incorporated by reference.
+
+## Definitions
+
+!INCLUDE definitions/*.md
+
+!INCLUDE principles/100-programming-languages-and-frameworks.md level=2
+
+!INCLUDE principles/200-versions.md
+
+!INCLUDE principles/300-binaries.md
+
+!INCLUDE ci/100-CI-CD.md
+
+!INCLUDE implementation/100-random-values.md
+
+!INCLUDE implementation/200-encoding.md
+
+!INCLUDE github/100-repository-setup.md
+
+!INCLUDE github/200-prs.md
+
+!INCLUDE ci/200-failing-checks.md
+
+!INCLUDE tests/100-structure.md
+
+!INCLUDE tests/200-exceptions.md
+
+!INCLUDE tests/300-fixtures.md
+
+!INCLUDE tests/400-coverage.md
+
+!INCLUDE implementation/300-typing.md
+
+!INCLUDE implementation/400-todos.md
+
+!INCLUDE tests/500-static-code-analysis.md level=2
+
+!INCLUDE implementation/500-function-and-method-ordering.md
+
+!INCLUDE implementation/600-non-compliant-code.md
+
+!INCLUDE publication/100-publishing.md
