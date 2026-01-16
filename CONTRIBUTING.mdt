@@ -8,8 +8,9 @@
 - [Continuous integration](#continuous-integration)
 - [Publication](#publication)
 
-The [Charm development best practices](https://documentation.ubuntu.com/juju/3.6/reference/charm/index.html) are
-incorporated by reference.
+The
+[Charm development best practices](https://documentation.ubuntu.com/juju/3.6/reference/charm/index.html)
+are incorporated by reference.
 
 ## Definitions
 
