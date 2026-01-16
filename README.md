@@ -1,4 +1,4 @@
-# IS Charms Contributing Guide
+# Platform Engineering Contributing Guide
 
 *This contributing guide is under development.*
 
