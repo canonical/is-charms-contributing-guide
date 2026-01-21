@@ -649,7 +649,7 @@ Judgement is required in these cases weighing the
 risks of introducing bugs with the urgency and impact of the underlying need to
 land the change.
 
-Before merging the PR with failing status checks evaulate the following options:
+Before merging the PR with failing status checks evaluate the following options:
 
 * Change the code to fix the problem.
 * Re-run the test in case of suspected flakiness.
