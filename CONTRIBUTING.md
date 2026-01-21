@@ -640,7 +640,7 @@ checks, there are potential bugs in the code which may lead to downtime or
 other operational issues.
 
 PRs should only be merged if all status checks pass. Changes should only be landed
-if are urgently needed in production and the test suit of the existing charm is
+if are urgently needed in production and the test suite of the existing charm is
 failing for spurious reasons.
 
 Even in the above case it is not clear whether it is reasonable to merge a PR
