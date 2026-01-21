@@ -657,7 +657,7 @@ Before merging the PR with failing status checks evaluate the following options:
 * Disable the status check (e.g., mark the test as
   [`xfail`](https://docs.pytest.org/en/7.1.x/how-to/skipping.html)). This
   should not be done lightly as the value the status check provides to the team
-  is lost and tracking disabled test is challenging.
+  is lost and tracking a disabled test is challenging.
 
 If it is deemed that a change should land despite a failing status check, the
 following artifacts should be added to the PR:
