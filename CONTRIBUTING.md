@@ -640,7 +640,7 @@ checks, there are potential bugs in the code which may lead to downtime or
 other operational issues.
 
 PRs should only be merged if all status checks pass. Changes should only be landed
-if are urgently needed in production and the test suite of the existing charm is
+if are urgently needed in production and the test suite of the existing project is
 failing for spurious reasons.
 
 Even in the above case it is not clear whether it is reasonable to merge a PR
@@ -654,6 +654,7 @@ Before merging the PR with failing status checks evaluate the following options:
 * Change the code to fix the problem.
 * Re-run the test in case of suspected flakiness.
 * Wait for an upstream fix for the issue.
+* Remove the test if it doesn't add value.
 * Disable the status check (e.g., mark the test as
   [`xfail`](https://docs.pytest.org/en/7.1.x/how-to/skipping.html)). This
   should not be done lightly as the value the status check provides to the team
@@ -670,6 +671,8 @@ following artifacts should be added to the PR:
   due to problems with GitHub).
 
 The PR should be otherwise ready to be merged (e.g., has been approved).
+
+Note that only repository admins will be able to force merge pull requests.
 
 Resolving the underlying reason the status check is failing should be high
 priority so that the team can rely on the automation again.
