@@ -640,10 +640,14 @@ checks, there are potential bugs in the code which may lead to downtime or
 other operational issues.
 
 PRs should only be merged if all status checks pass. Changes should only be landed
-if are urgently needed in production and the test suite of the existing project is
-failing for spurious reasons.
+if are urgently needed in production and the failures can't be fixed in a reasonable
+timeline. Some examples include:
+* If the team has recently taken over a new charm and changes are urgently
+needed and the test suit of the existing charm is failing for spurious reasons.
+* A tool we depend on is not working, no previous working version is available
+and a change is urgently needed to fix a critical issue in production.
 
-Even in the above case it is not clear whether it is reasonable to merge a PR
+Even in the above cases it is not clear whether it is reasonable to merge a PR
 with failing checks due to the high risks this entails.
 Judgement is required in these cases weighing the
 risks of introducing bugs with the urgency and impact of the underlying need to
