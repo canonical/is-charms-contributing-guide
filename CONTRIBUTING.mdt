@@ -1,0 +1,67 @@
+# Standards
+
+- [Definitions](#definitions)
+- [Principles](#principles)
+- [Workflows](#workflows)
+- [Implementation](#implementation)
+- [Tests](#tests)
+- [Continuous integration](#continuous-integration)
+- [Publication](#publication)
+
+The
+[Charm development best practices](https://documentation.ubuntu.com/juju/3.6/reference/charm/index.html)
+are incorporated by reference.
+
+## Definitions
+
+!INCLUDE definitions/*.md
+
+## Principles
+
+!INCLUDE principles/100-programming-languages-and-frameworks.md level=2
+
+!INCLUDE principles/200-versions.md
+
+!INCLUDE principles/300-binaries.md
+
+## Workflows
+
+!INCLUDE github/100-repository-setup.md
+
+!INCLUDE github/200-prs.md
+
+## Implementation
+
+!INCLUDE implementation/100-random-values.md
+
+!INCLUDE implementation/200-encoding.md
+
+!INCLUDE implementation/300-typing.md
+
+!INCLUDE implementation/400-todos.md
+
+!INCLUDE implementation/500-function-and-method-ordering.md
+
+!INCLUDE implementation/600-non-compliant-code.md
+
+## Tests
+
+!INCLUDE tests/100-structure.md
+
+!INCLUDE tests/200-exceptions.md
+
+!INCLUDE tests/300-fixtures.md
+
+!INCLUDE tests/400-coverage.md
+
+!INCLUDE tests/500-static-code-analysis.md level=2
+
+## Continuous integration
+
+!INCLUDE ci/100-CI-CD.md
+
+!INCLUDE ci/200-failing-checks.md
+
+## Publication
+
+!INCLUDE publication/100-publishing.md
